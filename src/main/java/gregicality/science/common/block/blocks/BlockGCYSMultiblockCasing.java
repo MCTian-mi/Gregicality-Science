@@ -26,14 +26,14 @@ public class BlockGCYSMultiblockCasing extends VariantBlock<BlockGCYSMultiblockC
 
         private final String name;
 
+        CasingType(String name) {
+            this.name = name;
+        }
+
         @Nonnull
         @Override
         public String getName() {
             return name;
-        }
-
-        CasingType(String name) {
-            this.name = name;
         }
     }
 }

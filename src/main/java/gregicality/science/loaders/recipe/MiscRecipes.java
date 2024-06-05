@@ -7,7 +7,6 @@ import static gregicality.science.api.unification.materials.GCYSMaterials.*;
 import static gregtech.api.GTValues.IV;
 import static gregtech.api.GTValues.VA;
 import static gregtech.api.recipes.RecipeMaps.*;
-import static gregtech.api.unification.material.Materials.Alumina;
 import static gregtech.api.unification.material.Materials.Water;
 import static gregtech.api.unification.ore.OrePrefix.*;
 

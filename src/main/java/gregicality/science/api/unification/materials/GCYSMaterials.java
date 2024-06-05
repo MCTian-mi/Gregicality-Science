@@ -144,6 +144,11 @@ public class GCYSMaterials {
     public static Material HRAMagnesium;
     public static Material LithiumFluoride;
 
+    // From SuSy
+    public static Material Alumina;
+    public static Material Hematite;
+    public static Material CopperSulfate;
+    public static Material ChloroplatinicAcid;
 
     // Second Degree Materials
     public static Material LaPrNdCeOxidesSolution;

@@ -35,10 +35,6 @@ import java.util.function.Function;
 @Mod.EventBusSubscriber(modid = GregicalityScience.MODID)
 public class CommonProxy {
 
-    public void preLoad() {
-        GameRegistry.registerTileEntity(TileEntityPressurePipe.class, new ResourceLocation(GregicalityScience.MODID, "pressure_pipe"));
-    }
-
     @SubscribeEvent
     public static void syncConfigValues(@Nonnull ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(GregicalityScience.MODID)) {
@@ -67,7 +63,8 @@ public class CommonProxy {
         registry.register(createItemBlock(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE, VariantItemBlock::new));
         registry.register(createItemBlock(GCYSMetaBlocks.TRANSPARENT_CASING, VariantItemBlock::new));
 
-        for (BlockPressurePipe pipe : GCYSMetaBlocks.PRESSURE_PIPES) registry.register(createItemBlock(pipe, ItemBlockPressurePipe::new));
+        for (BlockPressurePipe pipe : GCYSMetaBlocks.PRESSURE_PIPES)
+            registry.register(createItemBlock(pipe, ItemBlockPressurePipe::new));
     }
 
     @Nonnull
@@ -86,7 +83,7 @@ public class CommonProxy {
         GCYSRecipeLoader.init();
     }
 
-     @SubscribeEvent()
+    @SubscribeEvent()
     public static void registerRecipesNormal(RegistryEvent.Register<IRecipe> event) {
         // Main recipe registration
         // This is called AFTER GregTech registers recipes, so
@@ -102,5 +99,9 @@ public class CommonProxy {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void initComponents(GregTechAPI.RegisterEvent<CraftingComponent> event) {
         GCYSCraftingComponent.init();
+    }
+
+    public void preLoad() {
+        GameRegistry.registerTileEntity(TileEntityPressurePipe.class, new ResourceLocation(GregicalityScience.MODID, "pressure_pipe"));
     }
 }

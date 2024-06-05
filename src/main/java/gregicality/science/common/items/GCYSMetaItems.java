@@ -13,39 +13,32 @@ import static gregtech.api.GTValues.M;
 
 public class GCYSMetaItems {
 
-    private static StandardMetaItem metaItem1;
-
     // Circuits
     // Gooware
     public static MetaItem<?>.MetaValueItem GOOWARE_PROCESSOR;
     public static MetaItem<?>.MetaValueItem GOOWARE_ASSEMBLY;
     public static MetaItem<?>.MetaValueItem GOOWARE_COMPUTER;
     public static MetaItem<?>.MetaValueItem GOOWARE_MAINFRAME;
-
     // Optical
     public static MetaItem<?>.MetaValueItem OPTICAL_PROCESSOR;
     public static MetaItem<?>.MetaValueItem OPTICAL_ASSEMBLY;
     public static MetaItem<?>.MetaValueItem OPTICAL_COMPUTER;
     public static MetaItem<?>.MetaValueItem OPTICAL_MAINFRAME;
-
     // Spintronic
     public static MetaItem<?>.MetaValueItem SPINTRONIC_PROCESSOR;
     public static MetaItem<?>.MetaValueItem SPINTRONIC_ASSEMBLY;
     public static MetaItem<?>.MetaValueItem SPINTRONIC_COMPUTER;
     public static MetaItem<?>.MetaValueItem SPINTRONIC_MAINFRAME;
-
     // Cosmic, name TBD
     public static MetaItem<?>.MetaValueItem COSMIC_PROCESSOR;
     public static MetaItem<?>.MetaValueItem COSMIC_ASSEMBLY;
     public static MetaItem<?>.MetaValueItem COSMIC_COMPUTER;
     public static MetaItem<?>.MetaValueItem COSMIC_MAINFRAME;
-
     // Supra-causal
     public static MetaItem<?>.MetaValueItem SUPRACAUSAL_PROCESSOR;
     public static MetaItem<?>.MetaValueItem SUPRACAUSAL_ASSEMBLY;
     public static MetaItem<?>.MetaValueItem SUPRACAUSAL_COMPUTER;
     public static MetaItem<?>.MetaValueItem SUPRACAUSAL_MAINFRAME;
-
     // Supra-chronal
     public static MetaItem<?>.MetaValueItem SUPRACHRONAL_ULV;
     public static MetaItem<?>.MetaValueItem SUPRACHRONAL_LV;
@@ -62,10 +55,8 @@ public class GCYSMetaItems {
     public static MetaItem<?>.MetaValueItem SUPRACHRONAL_UXV;
     public static MetaItem<?>.MetaValueItem SUPRACHRONAL_OpV;
     public static MetaItem<?>.MetaValueItem SUPRACHRONAL_MAX;
-
     // Primitive Circuit Components
     public static MetaItem<?>.MetaValueItem VACUUM_TUBE_COMPONENTS;
-
     // Crystal Circuit Components
     public static MetaItem<?>.MetaValueItem EU_DOPED_CUBIC_ZIRCONIA_BOULE;
     public static MetaItem<?>.MetaValueItem EU_DOPED_CUBIC_ZIRCONIA_WAFER;
@@ -78,11 +69,9 @@ public class GCYSMetaItems {
     public static MetaItem<?>.MetaValueItem CRYSTAL_MODULATOR_DIAMOND;
     public static MetaItem<?>.MetaValueItem CRYSTAL_MODULATOR_SAPPHIRE;
     public static MetaItem<?>.MetaValueItem CRYSTAL_SYSTEM_ON_CHIP_SOCKET;
-
     // Gooware Circuit Components
     public static MetaItem<?>.MetaValueItem BZ_REACTION_CHAMBER;
     public static MetaItem<?>.MetaValueItem NONLINEAR_CHEMICAL_OSCILLATOR;
-
     // Optical Circuit Components
     public static MetaItem<?>.MetaValueItem PHASE_CHANGE_MEMORY;
     public static MetaItem<?>.MetaValueItem OPTICAL_FIBER;
@@ -91,14 +80,12 @@ public class GCYSMetaItems {
     public static MetaItem<?>.MetaValueItem HELIUM_NEON_LASER;
     public static MetaItem<?>.MetaValueItem ND_YAG_LASER;
     public static MetaItem<?>.MetaValueItem OPTICAL_LASER_CONTROL_UNIT;
-
     // Spintronic Circuit Components
     public static MetaItem<?>.MetaValueItem SPIN_TRANSFER_TORQUE_MEMORY;
     public static MetaItem<?>.MetaValueItem TOPOLOGICAL_INSULATOR_TUBE;
     public static MetaItem<?>.MetaValueItem BOSE_EINSTEIN_CONDENSATE_CONTAINMENT_UNIT;
     public static MetaItem<?>.MetaValueItem BOSE_EINSTEIN_CONDENSATE;
     public static MetaItem<?>.MetaValueItem ESR_COMPUTATION_UNIT;
-
     // Voltage Coils
     public static MetaItem<?>.MetaValueItem VOLTAGE_COIL_UHV;
     public static MetaItem<?>.MetaValueItem VOLTAGE_COIL_UEV;
@@ -106,7 +93,6 @@ public class GCYSMetaItems {
     public static MetaItem<?>.MetaValueItem VOLTAGE_COIL_UXV;
     public static MetaItem<?>.MetaValueItem VOLTAGE_COIL_OpV;
     public static MetaItem<?>.MetaValueItem VOLTAGE_COIL_MAX;
-
     // Power Components
     public static MetaItem<?>.MetaValueItem NANO_POWER_IC_WAFER;
     public static MetaItem<?>.MetaValueItem PICO_POWER_IC_WAFER;
@@ -114,7 +100,6 @@ public class GCYSMetaItems {
     public static MetaItem<?>.MetaValueItem NANO_POWER_IC;
     public static MetaItem<?>.MetaValueItem PICO_POWER_IC;
     public static MetaItem<?>.MetaValueItem FEMTO_POWER_IC;
-
     // Circuit Boards
     public static MetaItem<?>.MetaValueItem GOOWARE_BOARD;
     public static MetaItem<?>.MetaValueItem OPTICAL_BOARD;
@@ -122,7 +107,6 @@ public class GCYSMetaItems {
     public static MetaItem<?>.MetaValueItem GOOWARE_CIRCUIT_BOARD;
     public static MetaItem<?>.MetaValueItem OPTICAL_CIRCUIT_BOARD;
     public static MetaItem<?>.MetaValueItem SPINTRONIC_CIRCUIT_BOARD;
-
     // SMDs
     public static MetaItem<?>.MetaValueItem OPTICAL_CAPACITOR;
     public static MetaItem<?>.MetaValueItem OPTICAL_DIODE;
@@ -134,18 +118,15 @@ public class GCYSMetaItems {
     public static MetaItem<?>.MetaValueItem SPINTRONIC_RESISTOR;
     public static MetaItem<?>.MetaValueItem SPINTRONIC_TRANSISTOR;
     public static MetaItem<?>.MetaValueItem SPINTRONIC_INDUCTOR;
-
     // Crafting Components
     public static MetaItem<?>.MetaValueItem COMPONENT_GRINDER_BORON_NITRIDE;
-
     // Process-Specific Components
     public static MetaItem<?>.MetaValueItem MAGNETRON;
-
     // Process Intermediary Items
     // Nanotubes
     public static MetaItem<?>.MetaValueItem CARBON_ALLOTROPE_MIXTURE;
     public static MetaItem<?>.MetaValueItem GRAPHENE_ALIGNED_CNT;
-
+    private static StandardMetaItem metaItem1;
 
     public static void initMetaItems() {
         metaItem1 = new StandardMetaItem();
@@ -156,17 +137,17 @@ public class GCYSMetaItems {
         initMetaItem1();
     }
 
-    private static void initMetaItem1()  {
+    private static void initMetaItem1() {
         // Circuits: ID 0-49
         GOOWARE_PROCESSOR = metaItem1.addItem(0, "circuit.gooware_processor").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.ZPM);
         GOOWARE_ASSEMBLY = metaItem1.addItem(1, "circuit.gooware_assembly").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UV);
         GOOWARE_COMPUTER = metaItem1.addItem(2, "circuit.gooware_computer").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UHV);
         GOOWARE_MAINFRAME = metaItem1.addItem(3, "circuit.gooware_mainframe").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UEV);
 
-        OPTICAL_PROCESSOR = metaItem1.addItem(4,"circuit.optical_processor").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UV);
-        OPTICAL_ASSEMBLY = metaItem1.addItem(5,"circuit.optical_assembly").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UHV);
-        OPTICAL_COMPUTER = metaItem1.addItem(6,"circuit.optical_computer").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UEV);
-        OPTICAL_MAINFRAME = metaItem1.addItem(7,"circuit.optical_mainframe").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UIV);
+        OPTICAL_PROCESSOR = metaItem1.addItem(4, "circuit.optical_processor").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UV);
+        OPTICAL_ASSEMBLY = metaItem1.addItem(5, "circuit.optical_assembly").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UHV);
+        OPTICAL_COMPUTER = metaItem1.addItem(6, "circuit.optical_computer").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UEV);
+        OPTICAL_MAINFRAME = metaItem1.addItem(7, "circuit.optical_mainframe").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UIV);
 
         SPINTRONIC_PROCESSOR = metaItem1.addItem(8, "circuit.spintronic_processor").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UHV);
         SPINTRONIC_ASSEMBLY = metaItem1.addItem(9, "circuit.spintronic_assembly").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.UEV);
@@ -200,7 +181,9 @@ public class GCYSMetaItems {
         SUPRACHRONAL_MAX = metaItem1.addItem(34, "circuit.suprachronal.max").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.MAX);
 
         // Primitive Circuit Components: ID 50-59
-        VACUUM_TUBE_COMPONENTS = metaItem1.addItem(51, "vacuum_tube.components").setInvisible(GCYSConfigHolder.circuitOverrides.harderVacuumTubes);
+        if (GCYSConfigHolder.circuitOverrides.harderVacuumTubes) {
+            VACUUM_TUBE_COMPONENTS = metaItem1.addItem(51, "vacuum_tube.components").setInvisible();
+        }
 
         // Electronic Circuit Components: ID 60-69
 

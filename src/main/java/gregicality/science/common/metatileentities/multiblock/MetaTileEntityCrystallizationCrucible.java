@@ -20,6 +20,7 @@ import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.recipes.recipeproperties.TemperatureProperty;
 import gregtech.api.util.GTUtility;
+import gregtech.api.util.TextFormattingUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
@@ -35,7 +36,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -58,6 +58,21 @@ public class MetaTileEntityCrystallizationCrucible extends RecipeMapMultiblockCo
         this.recipeMapWorkable = new HeatingCoilRecipeLogic(this);
     }
 
+    @Nonnull
+    private static IBlockState getCasingState() {
+        return MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.TITANIUM_STABLE);
+    }
+
+    @Nonnull
+    private static IBlockState getFrameState() {
+        return MetaBlocks.FRAMES.get(Titanium).getBlock(Titanium);
+    }
+
+    @Nonnull
+    private static IBlockState getVentState() {
+        return GCYMMetaBlocks.UNIQUE_CASING.getState(BlockUniqueCasing.UniqueCasingType.HEAT_VENT);
+    }
+
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity holder) {
         return new MetaTileEntityCrystallizationCrucible(metaTileEntityId);
@@ -67,7 +82,7 @@ public class MetaTileEntityCrystallizationCrucible extends RecipeMapMultiblockCo
     protected void addDisplayText(List<ITextComponent> textList) {
         if (isStructureFormed()) {
             textList.add(new TextComponentTranslation("gregtech.multiblock.blast_furnace.max_temperature",
-                    TextFormatting.RED + GTUtility.formatNumbers(temperature) + "K"));
+                    TextFormatting.RED + TextFormattingUtil.formatNumbers(temperature) + "K"));
         }
         super.addDisplayText(textList);
     }
@@ -113,21 +128,6 @@ public class MetaTileEntityCrystallizationCrucible extends RecipeMapMultiblockCo
                 .where('A', air())
                 .where('#', any())
                 .build();
-    }
-
-    @Nonnull
-    private static IBlockState getCasingState() {
-        return MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.TITANIUM_STABLE);
-    }
-
-    @Nonnull
-    private static IBlockState getFrameState() {
-        return MetaBlocks.FRAMES.get(Titanium).getBlock(Titanium);
-    }
-
-    @Nonnull
-    private static IBlockState getVentState() {
-        return GCYMMetaBlocks.UNIQUE_CASING.getState(BlockUniqueCasing.UniqueCasingType.HEAT_VENT);
     }
 
     @Override

@@ -45,14 +45,14 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     }
 
     @Override
-    public double getVolume() {
-        return this.volume;
-    }
-
-    @Override
     public void setParticles(double amount) {
         this.particles = amount;
         this.metaTileEntity.markDirty();
+    }
+
+    @Override
+    public double getVolume() {
+        return this.volume;
     }
 
     @Override
@@ -73,25 +73,20 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     }
 
     @Override
-    public void writeInitialData(PacketBuffer buffer) {
-        super.writeInitialData(buffer);
+    public void writeInitialSyncData(PacketBuffer buffer) {
+        super.writeInitialSyncData(buffer);
         buffer.writeDouble(this.particles);
     }
 
     @Override
-    public void receiveInitialData(PacketBuffer buffer) {
-        super.receiveInitialData(buffer);
+    public void receiveInitialSyncData(PacketBuffer buffer) {
+        super.receiveInitialSyncData(buffer);
         this.particles = buffer.readDouble();
     }
 
     @Override
     public String getName() {
         return "PressureContainer";
-    }
-
-    @Override
-    public int getNetworkID() {
-        return 3;
     }
 
     @Nullable

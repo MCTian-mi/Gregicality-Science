@@ -30,7 +30,7 @@ import static gregtech.api.unification.ore.OrePrefix.dust;
  */
 public class MolybdenumProcessing {
 
-    public static void init(){
+    public static void init() {
         molybdenum();
         rhenium();
 

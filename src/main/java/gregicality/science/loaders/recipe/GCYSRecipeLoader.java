@@ -6,6 +6,10 @@ import gregicality.science.loaders.recipe.component.GCYSComponentRecipes;
 import gregicality.science.loaders.recipe.handlers.BouleRecipeHandler;
 import gregicality.science.loaders.recipe.oreprocessing.*;
 
+import static gregicality.science.api.recipes.GCYSRecipeMaps.*;
+import static gregtech.api.recipes.RecipeMaps.CHEMICAL_BATH_RECIPES;
+import static gregtech.api.recipes.RecipeMaps.ELECTROLYZER_RECIPES;
+
 public class GCYSRecipeLoader {
 
     public static void init() {
@@ -24,6 +28,11 @@ public class GCYSRecipeLoader {
     }
 
     private static void initChains() {
+
+        // Temporary solution
+        CHEMICAL_BATH_RECIPES.setMaxFluidOutputs(2);
+        ELECTROLYZER_RECIPES.setMaxFluidInputs(2);
+
         GrapheneChain.init();
         HydrogenPeroxideChain.init();
         AcetyleneChain.init();
@@ -62,7 +71,7 @@ public class GCYSRecipeLoader {
         SeleniumTelluriumChain.init();
         MolybdenumProcessing.init();
         ThalliumProcessing.init();
-        TaraniumProcessing.init();
+//        TaraniumProcessing.init();
         RubidiumProcessing.init();
     }
 

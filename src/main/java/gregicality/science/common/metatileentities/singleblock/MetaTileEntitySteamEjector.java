@@ -20,6 +20,7 @@ import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.widgets.ImageWidget;
 import gregtech.api.gui.widgets.ProgressWidget;
+import gregtech.api.gui.widgets.SuppliedImageWidget;
 import gregtech.api.gui.widgets.TankWidget;
 import gregtech.api.metatileentity.IDataInfoProvider;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -59,13 +60,11 @@ public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataI
 
     private static final int PRESSURE_DECREASE = -1000;
     private static final int STEAM_CONSUMPTION = 160;
-
+    protected EnumFacing outputFacing;
     private PressureContainer pressureContainer;
     private FluidTank fuelFluidTank;
     @SuppressWarnings("FieldMayBeFinal")
     private boolean isHighPressure;
-
-    protected EnumFacing outputFacing;
 
     public MetaTileEntitySteamEjector(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
@@ -86,8 +85,7 @@ public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataI
     @Override
     protected FluidTankList createImportFluidHandler() {
         FluidTankList superHandler = super.createImportFluidHandler();
-        this.fuelFluidTank = new FilteredFluidHandler(16000)
-                .setFillPredicate(fs -> fs.getFluid() == Materials.Steam.getFluid());
+        this.fuelFluidTank = new FilteredFluidHandler(16000).setFilter(fs -> fs.getFluid() == Materials.Steam.getFluid());
         return new FluidTankList(false, superHandler, fuelFluidTank);
     }
 

@@ -3,6 +3,7 @@ package gregicality.science.loaders.recipe;
 import gregtech.api.recipes.GTRecipeHandler;
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 
+import static gregicality.science.api.unification.materials.GCYSMaterials.Hematite;
 import static gregtech.api.GTValues.LV;
 import static gregtech.api.GTValues.VA;
 import static gregtech.api.recipes.RecipeMaps.*;

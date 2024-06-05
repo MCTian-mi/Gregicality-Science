@@ -36,6 +36,7 @@ import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.blocks.BlockHermeticCasing.HermeticCasingsType.HERMETIC_UHV;
 import static gregtech.common.items.MetaItems.*;
 import static gregtech.common.metatileentities.MetaTileEntities.*;
+import static gregtech.common.metatileentities.MetaTileEntities.TRANSFORMER;
 import static gregtech.loaders.recipe.CraftingComponent.HULL;
 import static gregtech.loaders.recipe.CraftingComponent.*;
 
@@ -77,19 +78,19 @@ public class GCYSMetaTileEntityLoader {
                 "MP", "PH",
                 'M', new UnificationEntry(pipeNormalFluid, Polytetrafluoroethylene),
                 'P', new UnificationEntry(plateDouble, Ultimet),
-                'H', MetaTileEntities.HULL[EV].getStackForm());
+                'H', MetaTileEntities.HULL[3].getStackForm());
 
         ModHandler.addShapedRecipe(true, "pressure_hatch_hatch.uhp", PRESSURE_HATCH[GCYSValues.UHP].getStackForm(),
                 "MP", "PH",
                 'M', new UnificationEntry(pipeNormalFluid, Polytetrafluoroethylene),
                 'P', new UnificationEntry(plateDense, TungstenSteel),
-                'H', MetaTileEntities.HULL[EV].getStackForm());
+                'H', MetaTileEntities.HULL[3].getStackForm());
 
         ModHandler.addShapedRecipe(true, "pressure_hatch_hatch.edp", PRESSURE_HATCH[GCYSValues.EDP].getStackForm(),
                 "MP", "PH",
                 'M', new UnificationEntry(pipeNormalFluid, Duranium),
                 'P', new UnificationEntry(plateDense, NaquadahAlloy),
-                'H', MetaTileEntities.HULL[IV].getStackForm());
+                'H', MetaTileEntities.HULL[4].getStackForm());
 
         ModHandler.removeRecipeByName("gregtech:hermetic_casing_max");
         ModHandler.addShapedRecipe(true, "hermetic_casing_max", MetaBlocks.HERMETIC_CASING.getItemVariant(HERMETIC_UHV),
@@ -119,29 +120,29 @@ public class GCYSMetaTileEntityLoader {
         // Energy Hatches
         // Input
         GTRecipeHandler.removeRecipesByInputs(ASSEMBLY_LINE_RECIPES,
-                new ItemStack[]{MetaTileEntities.HULL[UHV].getStackForm(), OreDictUnifier.get(cableGtSingle, Europium, 4),
+                new ItemStack[]{MetaTileEntities.HULL[8].getStackForm(), OreDictUnifier.get(cableGtSingle, Europium, 4),
                         ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(2), OreDictUnifier.get(circuit, MarkerMaterials.Tier.UHV),
                         OreDictUnifier.get(wireGtDouble, RutheniumTriniumAmericiumNeutronate, 2)},
                 new FluidStack[]{SodiumPotassium.getFluid(12000), SolderingAlloy.getFluid(5760)});
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(MetaTileEntities.HULL[UHV])
+                .input(MetaTileEntities.HULL[8])
                 .input(cableGtSingle, Europium, 4)
                 .input(NANO_POWER_IC, 2)
                 .input(circuit, MarkerMaterials.Tier.UHV)
                 .input(VOLTAGE_COIL_UHV, 2)
                 .fluidInputs(SodiumPotassium.getFluid(12000))
                 .fluidInputs(SolderingAlloy.getFluid(5760))
-                .output(ENERGY_INPUT_HATCH[UHV])
+                .output(ENERGY_INPUT_HATCH[8])
                 .duration(1000).EUt(VA[UHV]).buildAndRegister();
 
         GTRecipeHandler.removeRecipesByInputs(ASSEMBLER_RECIPES,
-                ENERGY_INPUT_HATCH[UHV].getStackForm(2), ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(),
+                ENERGY_INPUT_HATCH[8].getStackForm(2), ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(),
                 OreDictUnifier.get(wireGtDouble, RutheniumTriniumAmericiumNeutronate), OreDictUnifier.get(wireGtQuadruple, Europium, 2));
 
         ASSEMBLER_RECIPES.recipeBuilder()
-                .input(TRANSFORMER[UHV])
-                .input(ENERGY_INPUT_HATCH[UHV])
+                .input(TRANSFORMER[8])
+                .input(ENERGY_INPUT_HATCH[8])
                 .input(NANO_POWER_IC)
                 .input(VOLTAGE_COIL_UHV)
                 .input(wireGtQuadruple, Europium, 2)
@@ -153,7 +154,7 @@ public class GCYSMetaTileEntityLoader {
                 OreDictUnifier.get(wireGtDouble, RutheniumTriniumAmericiumNeutronate), OreDictUnifier.get(wireGtOctal, Europium, 2));
 
         ASSEMBLER_RECIPES.recipeBuilder()
-                .input(ADJUSTABLE_TRANSFORMER[UHV])
+                // .input(ADJUSTABLE_TRANSFORMER[UHV])
                 .input(ENERGY_INPUT_HATCH_4A[5])
                 .input(NANO_POWER_IC, 2)
                 .input(VOLTAGE_COIL_UHV)
@@ -163,29 +164,29 @@ public class GCYSMetaTileEntityLoader {
 
         // Output
         GTRecipeHandler.removeRecipesByInputs(ASSEMBLY_LINE_RECIPES,
-                new ItemStack[]{MetaTileEntities.HULL[UHV].getStackForm(), OreDictUnifier.get(spring, Europium, 4),
+                new ItemStack[]{MetaTileEntities.HULL[8].getStackForm(), OreDictUnifier.get(spring, Europium, 4),
                         ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(2), OreDictUnifier.get(circuit, MarkerMaterials.Tier.UHV),
                         OreDictUnifier.get(wireGtDouble, RutheniumTriniumAmericiumNeutronate, 2)},
                 new FluidStack[]{SodiumPotassium.getFluid(12000), SolderingAlloy.getFluid(5760)});
 
         ASSEMBLY_LINE_RECIPES.recipeBuilder()
-                .input(MetaTileEntities.HULL[UHV])
+                .input(MetaTileEntities.HULL[8])
                 .input(spring, Europium, 4)
                 .input(NANO_POWER_IC, 2)
                 .input(circuit, MarkerMaterials.Tier.UHV)
                 .input(VOLTAGE_COIL_UHV, 2)
                 .fluidInputs(SodiumPotassium.getFluid(12000))
                 .fluidInputs(SolderingAlloy.getFluid(5760))
-                .output(ENERGY_OUTPUT_HATCH[UHV])
+                .output(ENERGY_OUTPUT_HATCH[8])
                 .duration(1000).EUt(VA[UHV]).buildAndRegister();
 
         GTRecipeHandler.removeRecipesByInputs(ASSEMBLER_RECIPES,
-                ENERGY_OUTPUT_HATCH[UHV].getStackForm(2), ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(),
+                ENERGY_OUTPUT_HATCH[8].getStackForm(2), ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT.getStackForm(),
                 OreDictUnifier.get(wireGtDouble, RutheniumTriniumAmericiumNeutronate), OreDictUnifier.get(wireGtQuadruple, Europium, 2));
 
         ASSEMBLER_RECIPES.recipeBuilder()
-                .input(TRANSFORMER[UHV])
-                .input(ENERGY_OUTPUT_HATCH[UHV])
+                .input(TRANSFORMER[8])
+                .input(ENERGY_OUTPUT_HATCH[8])
                 .input(NANO_POWER_IC)
                 .input(VOLTAGE_COIL_UHV)
                 .input(wireGtQuadruple, Europium, 2)
@@ -197,7 +198,7 @@ public class GCYSMetaTileEntityLoader {
                 OreDictUnifier.get(wireGtDouble, RutheniumTriniumAmericiumNeutronate), OreDictUnifier.get(wireGtOctal, Europium, 2));
 
         ASSEMBLER_RECIPES.recipeBuilder()
-                .input(ADJUSTABLE_TRANSFORMER[UHV])
+                //  .input(ADJUSTABLE_TRANSFORMER[UHV])
                 .input(ENERGY_OUTPUT_HATCH_4A[5])
                 .input(NANO_POWER_IC, 2)
                 .input(VOLTAGE_COIL_UHV)
@@ -207,19 +208,19 @@ public class GCYSMetaTileEntityLoader {
 
         // Transformers
         // Regular
-        MetaTileEntityLoader.registerMachineRecipe(ArrayUtils.subarray(MetaTileEntities.TRANSFORMER, GTValues.UHV, GTValues.MAX), "WCC", "TH ", "WCC", 'W', POWER_COMPONENT, 'C', CABLE, 'T', CABLE_TIER_UP, 'H', HULL);
+        MetaTileEntityLoader.registerMachineRecipe(ArrayUtils.subarray(TRANSFORMER, GTValues.UHV, GTValues.MAX), "WCC", "TH ", "WCC", 'W', POWER_COMPONENT, 'C', CABLE, 'T', CABLE_TIER_UP, 'H', HULL);
 
-        // Adjustable
-        ASSEMBLER_RECIPES.recipeBuilder()
-                .input(TRANSFORMER[UHV])
-                .input(ELECTRIC_PUMP_LuV)
-                .input(wireGtQuadruple, PedotTMA)
-                .input(wireGtOctal, Europium)
-                .input(springSmall, Europium)
-                .input(spring, PedotTMA)
-                .fluidInputs(Lubricant.getFluid(4000))
-                .output(ADJUSTABLE_TRANSFORMER[UHV])
-                .duration(200).EUt(VA[UHV]).buildAndRegister();
+        // Adjustable //TODO сделать регулируемый трансформатор
+        //  ASSEMBLER_RECIPES.recipeBuilder()
+        //         .input(TRANSFORMER[8])
+        //        .input(ELECTRIC_PUMP_LuV)
+        //        .input(wireGtQuadruple, PedotTMA)
+        //        .input(wireGtOctal, Europium)
+        //       .input(springSmall, Europium)
+        //      .input(spring, PedotTMA)
+        //      .fluidInputs(Lubricant.getFluid(4000))
+        //      .output(ADJUSTABLE_TRANSFORMER[UHV])
+        //     .duration(200).EUt(VA[UHV]).buildAndRegister();
     }
 
     private static void multiblocks() {
@@ -228,7 +229,7 @@ public class GCYSMetaTileEntityLoader {
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.IV),
                 'M', new UnificationEntry(plateDouble, MolybdenumDisilicide),
                 'L', new UnificationEntry(pipeNormalFluid, Titanium),
-                'H', MetaTileEntities.HULL[EV].getStackForm(),
+                'H', MetaTileEntities.HULL[3].getStackForm(),
                 'P', new UnificationEntry(plate, Titanium)
         );
 
@@ -237,7 +238,7 @@ public class GCYSMetaTileEntityLoader {
                 'K', new UnificationEntry(cableGtQuadruple, Platinum),
                 'S', new UnificationEntry(spring, Tungsten),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.EV),
-                'H', MetaTileEntities.HULL[EV].getStackForm(),
+                'H', MetaTileEntities.HULL[3].getStackForm(),
                 'P', new UnificationEntry(plate, TitaniumCarbide)
         );
 
@@ -246,7 +247,7 @@ public class GCYSMetaTileEntityLoader {
                 'K', new UnificationEntry(cableGtSingle, Europium),
                 'S', SENSOR_UHV.getStackForm(),
                 'E', EMITTER_UHV.getStackForm(),
-                'H', MetaTileEntities.HULL[UHV].getStackForm(),
+                'H', MetaTileEntities.HULL[8].getStackForm(),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.UEV),
                 'F', FIELD_GENERATOR_UHV.getStackForm()
         );
@@ -256,7 +257,7 @@ public class GCYSMetaTileEntityLoader {
                 'P', new UnificationEntry(plate, BlueSteel),
                 'K', new UnificationEntry(cableGtSingle, Aluminium),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.EV),
-                'H', MetaTileEntities.HULL[EV].getStackForm(),
+                'H', MetaTileEntities.HULL[3].getStackForm(),
                 'S', SENSOR_EV.getStackForm(),
                 'E', EMITTER_EV.getStackForm()
         );
@@ -266,7 +267,7 @@ public class GCYSMetaTileEntityLoader {
                 'K', new UnificationEntry(cableGtSingle, Platinum),
                 'R', new UnificationEntry(rotor, TungstenSteel),
                 'I', new UnificationEntry(pipeSmallFluid, Tungsten),
-                'H', MetaTileEntities.HULL[IV].getStackForm(),
+                'H', MetaTileEntities.HULL[4].getStackForm(),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.IV),
                 'M', ELECTRIC_MOTOR_IV.getStackForm()
         );
@@ -276,7 +277,7 @@ public class GCYSMetaTileEntityLoader {
                 'K', new UnificationEntry(cableGtSingle, Platinum),
                 'R', new UnificationEntry(rotor, Titanium),
                 'I', new UnificationEntry(pipeSmallFluid, StainlessSteel),
-                'H', MetaTileEntities.HULL[IV].getStackForm(),
+                'H', MetaTileEntities.HULL[4].getStackForm(),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.IV),
                 'W', ELECTRIC_PUMP_IV.getStackForm()
         );
@@ -286,7 +287,7 @@ public class GCYSMetaTileEntityLoader {
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.UV),
                 'L', new UnificationEntry(pipeLargeFluid, Naquadah),
                 'G', new UnificationEntry(gear, NaquadahAlloy),
-                'H', MetaTileEntities.HULL[ZPM].getStackForm(),
+                'H', MetaTileEntities.HULL[6].getStackForm(),
                 'P', ELECTRIC_PUMP_ZPM.getStackForm()
         );
 
@@ -295,7 +296,7 @@ public class GCYSMetaTileEntityLoader {
                 'L', new UnificationEntry(pipeLargeFluid, Naquadah),
                 'F', FIELD_GENERATOR_UV.getStackForm(),
                 'P', ELECTRIC_PUMP_UV.getStackForm(),
-                'H', MetaTileEntities.HULL[UV].getStackForm(),
+                'H', MetaTileEntities.HULL[7].getStackForm(),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.UV)
         );
 
@@ -304,7 +305,7 @@ public class GCYSMetaTileEntityLoader {
                 'M', new UnificationEntry(pipeNormalFluid, StainlessSteel),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.IV),
                 'P', ELECTRIC_PUMP_EV.getStackForm(),
-                'H', MetaTileEntities.HULL[EV].getStackForm(),
+                'H', MetaTileEntities.HULL[3].getStackForm(),
                 'K', new UnificationEntry(cableGtDouble, Aluminium)
         );
 
@@ -313,7 +314,7 @@ public class GCYSMetaTileEntityLoader {
                 'P', ELECTRIC_PISTON_UV.getStackForm(),
                 'K', new UnificationEntry(cableGtQuadruple, YttriumBariumCuprate),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.UHV),
-                'H', MetaTileEntities.HULL[UV].getStackForm(),
+                'H', MetaTileEntities.HULL[7].getStackForm(),
                 'M', ELECTRIC_MOTOR_UV.getStackForm()
         );
 
@@ -321,7 +322,7 @@ public class GCYSMetaTileEntityLoader {
                 "PMP", "MHM", "KCK",
                 'P', new UnificationEntry(pipeNormalFluid, StainlessSteel),
                 'M', ELECTRIC_MOTOR_EV.getStackForm(),
-                'H', MetaTileEntities.HULL[EV].getStackForm(),
+                'H', MetaTileEntities.HULL[3].getStackForm(),
                 'K', new UnificationEntry(cableGtSingle, BlackSteel),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.LuV)
         );
@@ -330,7 +331,7 @@ public class GCYSMetaTileEntityLoader {
                 "PMP", "MHM", "KCK",
                 'P', new UnificationEntry(pipeNormalFluid, NiobiumTitanium),
                 'M', ELECTRIC_MOTOR_IV.getStackForm(),
-                'H', MetaTileEntities.HULL[IV].getStackForm(),
+                'H', MetaTileEntities.HULL[4].getStackForm(),
                 'K', new UnificationEntry(cableGtSingle, Osmium),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.ZPM)
         );
@@ -339,7 +340,7 @@ public class GCYSMetaTileEntityLoader {
                 "PMP", "MHM", "KCK",
                 'P', new UnificationEntry(pipeNormalFluid, Polytetrafluoroethylene),
                 'M', ELECTRIC_MOTOR_EV.getStackForm(),
-                'H', MetaTileEntities.HULL[EV].getStackForm(),
+                'H', MetaTileEntities.HULL[3].getStackForm(),
                 'K', new UnificationEntry(cableGtSingle, BlackSteel),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.LuV)
         );
@@ -348,7 +349,7 @@ public class GCYSMetaTileEntityLoader {
                 "PMP", "MHM", "KCK",
                 'P', new UnificationEntry(pipeNormalFluid, Polybenzimidazole),
                 'M', ELECTRIC_MOTOR_IV.getStackForm(),
-                'H', MetaTileEntities.HULL[IV].getStackForm(),
+                'H', MetaTileEntities.HULL[4].getStackForm(),
                 'K', new UnificationEntry(cableGtSingle, Osmium),
                 'C', new UnificationEntry(circuit, MarkerMaterials.Tier.ZPM)
         );

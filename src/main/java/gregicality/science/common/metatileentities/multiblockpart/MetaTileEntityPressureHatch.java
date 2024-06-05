@@ -94,7 +94,7 @@ public class MetaTileEntityPressureHatch extends MetaTileEntityMultiblockPart im
                                 NumberFormattingUtil.formatDoubleToCompactString(pressureContainer.getMinPressure()) + "Pa"))
                 .widget(new ProgressWidget(() -> pressureContainer.getPressurePercent(true), 96, 26, 10, 54)
                         .setProgressBar(GuiTextures.PROGRESS_BAR_BOILER_EMPTY.get(true),
-                        GuiTextures.PROGRESS_BAR_BOILER_HEAT, ProgressWidget.MoveType.VERTICAL))
+                                GuiTextures.PROGRESS_BAR_BOILER_HEAT, ProgressWidget.MoveType.VERTICAL))
 
 
                 .bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 0)
@@ -129,7 +129,7 @@ public class MetaTileEntityPressureHatch extends MetaTileEntityMultiblockPart im
     @Override
     public void doExplosion(float explosionPower) {
         if (getController() != null)
-            getController().explodeMultiblock();
+            getController().explodeMultiblock(explosionPower);
         else {
             super.doExplosion(explosionPower);
         }

@@ -73,13 +73,13 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
     }
 
     @Override
-    public double getVolume() {
-        return volume;
+    public void setParticles(double amount) {
+        this.netParticles = amount;
     }
 
     @Override
-    public void setParticles(double amount) {
-        this.netParticles = amount;
+    public double getVolume() {
+        return volume;
     }
 
     @Override

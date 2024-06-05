@@ -1,6 +1,6 @@
 package gregicality.science.api.utils;
 
-import gregtech.api.util.GTUtility;
+import gregtech.api.util.TextFormattingUtil;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
@@ -46,7 +46,7 @@ public class NumberFormattingUtil {
 
         double truncated = value / (divideBy / 10); //the number part of the output times 10
         boolean hasDecimal = truncated < 100 && (truncated / 10D) != (truncated / 10);
-        return hasDecimal ? GTUtility.formatNumbers(truncated / 10D) + suffix : GTUtility.formatNumbers(truncated / 10) + suffix;
+        return hasDecimal ? TextFormattingUtil.formatNumbers(truncated / 10D) + suffix : TextFormattingUtil.formatNumbers(truncated / 10) + suffix;
     }
 
     @Nonnull

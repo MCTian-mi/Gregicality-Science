@@ -3,6 +3,7 @@ package gregicality.science.common.metatileentities.multiblock;
 import gregicality.science.api.recipes.GCYSRecipeMaps;
 import gregicality.science.api.recipes.recipeproperties.NoCoilTemperatureProperty;
 import gregicality.science.client.render.GCYSTextures;
+import gregtech.api.block.VariantActiveBlock;
 import gregtech.api.capability.IHeatingCoil;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -13,7 +14,7 @@ import gregtech.api.pattern.*;
 import gregtech.api.recipes.Recipe;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.util.BlockInfo;
-import gregtech.api.util.GTUtility;
+import gregtech.api.util.TextFormattingUtil;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.blocks.BlockBoilerCasing;
@@ -44,6 +45,26 @@ public class MetaTileEntityRoaster extends RecipeMapMultiblockController impleme
 
     public MetaTileEntityRoaster(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId, GCYSRecipeMaps.ROASTER_RECIPES);
+    }
+
+    private static TraceabilityPredicate fireboxPredicate() {
+        return new TraceabilityPredicate(blockWorldState -> {
+            IBlockState blockState = blockWorldState.getBlockState();
+            if ((blockState.getBlock() instanceof BlockFireboxCasing)) {
+                BlockFireboxCasing BlockFireboxCasing = (BlockFireboxCasing) blockState.getBlock();
+                BlockFireboxCasing.FireboxCasingType casingType = BlockFireboxCasing.getState(blockState);
+                Object currentCasingType = blockWorldState.getMatchContext().getOrPut("CasingType", casingType);
+                if (!currentCasingType.toString().equals(casingType.toString())) {
+                    blockWorldState.setError(new PatternStringError("gregtech.multiblock.pattern.error.coils"));
+                    return false;
+                }
+                blockWorldState.getMatchContext().getOrPut("VABlock", new LinkedList<>()).add(blockWorldState.getPos());
+                return true;
+            }
+            return false;
+        }, () -> ArrayUtils.addAll(Arrays.stream(BlockFireboxCasing.FireboxCasingType.values())
+                .map(type -> new BlockInfo(MetaBlocks.BOILER_FIREBOX_CASING.getState(type), null)).toArray(BlockInfo[]::new)))
+                .addTooltips("gregtech.multiblock.pattern.error.coils");
     }
 
     @Override
@@ -82,8 +103,7 @@ public class MetaTileEntityRoaster extends RecipeMapMultiblockController impleme
                 BlockPos blockPos = centerPos.add(x, 0, z);
                 IBlockState blockState = getWorld().getBlockState(blockPos);
                 if (blockState.getBlock() instanceof BlockFireboxCasing) {
-                    blockState = blockState.withProperty(BlockFireboxCasing.ACTIVE, isActive);
-                    getWorld().setBlockState(blockPos, blockState);
+                    VariantActiveBlock.setBlockActive(this.getWorld().provider.getDimension(), blockPos, isActive); // TODO
                 }
             }
         }
@@ -113,26 +133,6 @@ public class MetaTileEntityRoaster extends RecipeMapMultiblockController impleme
                 .build();
     }
 
-    private static TraceabilityPredicate fireboxPredicate() {
-        return new TraceabilityPredicate(blockWorldState -> {
-            IBlockState blockState = blockWorldState.getBlockState();
-            if ((blockState.getBlock() instanceof BlockFireboxCasing)) {
-                BlockFireboxCasing BlockFireboxCasing = (BlockFireboxCasing) blockState.getBlock();
-                BlockFireboxCasing.FireboxCasingType casingType = BlockFireboxCasing.getState(blockState);
-                Object currentCasingType = blockWorldState.getMatchContext().getOrPut("CasingType", casingType);
-                if (!currentCasingType.toString().equals(casingType.toString())) {
-                    blockWorldState.setError(new PatternStringError("gregtech.multiblock.pattern.error.coils"));
-                    return false;
-                }
-                blockWorldState.getMatchContext().getOrPut("VABlock", new LinkedList<>()).add(blockWorldState.getPos());
-                return true;
-            }
-            return false;
-        }, () -> ArrayUtils.addAll(Arrays.stream(BlockFireboxCasing.FireboxCasingType.values())
-                .map(type -> new BlockInfo(MetaBlocks.BOILER_FIREBOX_CASING.getState(type), null)).toArray(BlockInfo[]::new)))
-                .addTooltips("gregtech.multiblock.pattern.error.coils");
-    }
-
     @Override
     public ICubeRenderer getBaseTexture(IMultiblockPart iMultiblockPart) {
         return Textures.HEAT_PROOF_CASING;
@@ -142,7 +142,7 @@ public class MetaTileEntityRoaster extends RecipeMapMultiblockController impleme
     protected void addDisplayText(List<ITextComponent> textList) {
         if (isStructureFormed()) {
             textList.add(new TextComponentTranslation("gregtech.multiblock.blast_furnace.max_temperature",
-                    TextFormatting.RED + GTUtility.formatNumbers(temperature) + "K"));
+                    TextFormatting.RED + TextFormattingUtil.formatNumbers(temperature) + "K"));
         }
         super.addDisplayText(textList);
     }
@@ -186,7 +186,7 @@ public class MetaTileEntityRoaster extends RecipeMapMultiblockController impleme
     public List<ITextComponent> getDataInfo() {
         List<ITextComponent> list = super.getDataInfo();
         list.add(new TextComponentTranslation("gregtech.multiblock.blast_furnace.max_temperature",
-                TextFormatting.RED + GTUtility.formatNumbers(temperature) + "K"));
+                TextFormatting.RED + TextFormattingUtil.formatNumbers(temperature) + "K"));
         return list;
     }
 

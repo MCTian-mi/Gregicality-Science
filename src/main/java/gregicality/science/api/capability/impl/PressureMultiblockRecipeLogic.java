@@ -29,7 +29,7 @@ public class PressureMultiblockRecipeLogic extends MultiblockRecipeLogic {
             }
 
             if (this.hasNotEnoughEnergy) {
-                if (this.getEnergyInputPerSecond() > 19L * (long)this.recipeEUt) {
+                if (this.getEnergyInputPerSecond() > 19L * (long) this.recipeEUt) {
                     this.hasNotEnoughEnergy = false;
                 }
             }

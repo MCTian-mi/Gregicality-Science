@@ -36,7 +36,6 @@ import gregtech.api.util.RelativeDirection;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.ConfigHolder;
-import gregtech.common.blocks.BlockFireboxCasing;
 import gregtech.common.blocks.BlockGlassCasing;
 import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
@@ -66,9 +65,8 @@ import java.util.function.Function;
 public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase implements IWorkable {
 
     public static final int MAX_PROGRESS = 20;
-    protected static final FluidStack LUBRICANT = Materials.Lubricant.getFluid(1);
     public static final int FLUID_USE_AMOUNT = 100;
-
+    protected static final FluidStack LUBRICANT = Materials.Lubricant.getFluid(1);
     protected final int tier;
 
     protected final double minPressure;
@@ -78,21 +76,27 @@ public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase 
 
     protected IMultipleTankHandler inputFluidInventory;
     protected IEnergyContainer energyContainer;
-
+    protected boolean lastActive;
+    protected List<BlockPos> variantActiveBlocks;
     private int progressTime = 0;
     private boolean isActive;
     private boolean isWorkingEnabled = true;
     private boolean wasActiveAndNeedsUpdate;
     private boolean hasNotEnoughEnergy;
 
-    protected boolean lastActive;
-    protected List<BlockPos> variantActiveBlocks;
-
     public MetaTileEntityTurbomolecularPump(ResourceLocation metaTileEntityId, int tier, double minPressure, double pressureRate) {
         super(metaTileEntityId);
         this.tier = tier;
         this.minPressure = minPressure;
         this.pressureRate = pressureRate;
+    }
+
+    @Nonnull
+    public static Function<String, String> getTextFieldValidator() {
+        return val -> {
+            if (val.isEmpty()) return "" + GCYSValues.EARTH_PRESSURE;
+            return val;
+        };
     }
 
     @Override
@@ -121,7 +125,7 @@ public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase 
             for (BlockPos blockPos : this.variantActiveBlocks) {
                 IBlockState blockState = this.getWorld().getBlockState(blockPos);
                 if (blockState.getBlock() instanceof VariantActiveBlock) {
-                    this.getWorld().setBlockState(blockPos, blockState.withProperty(BlockFireboxCasing.ACTIVE, isActive));
+                    VariantActiveBlock.setBlockActive(this.getWorld().provider.getDimension(), blockPos, isActive); // TODO
                 }
             }
         }
@@ -194,8 +198,10 @@ public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase 
 
     @Nonnull
     protected TraceabilityPredicate airfoilPredicate() {
-        if (tier == GTValues.LuV) return states(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE.getState(BlockGCYSMultiblockCasingActive.CasingType.ADVANCED_AIRFOIL));
-        else return states(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE.getState(BlockGCYSMultiblockCasingActive.CasingType.AIRFOIL));
+        if (tier == GTValues.LuV)
+            return states(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE.getState(BlockGCYSMultiblockCasingActive.CasingType.ADVANCED_AIRFOIL));
+        else
+            return states(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE.getState(BlockGCYSMultiblockCasingActive.CasingType.AIRFOIL));
     }
 
     @Override
@@ -208,7 +214,7 @@ public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase 
             }
         }
 
-        boolean state = this.isActive() && this.isWorkingEnabled() && ConfigHolder.client.casingsActiveEmissiveTextures;
+        boolean state = this.isActive() && this.isWorkingEnabled() && ConfigHolder.client.machinesEmissiveTextures;
         if (this.lastActive != state) {
             this.lastActive = state;
             this.replaceVariantBlocksActive(this.lastActive);
@@ -237,7 +243,8 @@ public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase 
 
         // actually increase pressure
         IPressureContainer container = getAbilities(GCYSMultiblockAbility.PRESSURE_CONTAINER).get(0);
-        if (container.getPressure() == targetPressure || targetPressure < GCYSValues.EARTH_PRESSURE) return; // do nothing when at max
+        if (container.getPressure() == targetPressure || targetPressure < GCYSValues.EARTH_PRESSURE)
+            return; // do nothing when at max
 
         double decrease = -pressureRate * container.getVolume() + (getNumMaintenanceProblems() * 1000);
         double potentialPressure = container.getPressureForParticles(container.getParticles() + decrease);
@@ -311,7 +318,8 @@ public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase 
             builder.widget(new ImageWidget(10, 100, 156, 20, GuiTextures.DISPLAY)
                     .setTooltip("gcys.universal.tooltip.pressure.target"));
             builder.widget(new TextFieldWidget2(12, 108, 112, 16, () -> String.valueOf(targetPressure), value -> {
-                if (!value.isEmpty()) targetPressure = Math.min(GCYSValues.EARTH_PRESSURE, Math.max(Double.parseDouble(value), minPressure));
+                if (!value.isEmpty())
+                    targetPressure = Math.min(GCYSValues.EARTH_PRESSURE, Math.max(Double.parseDouble(value), minPressure));
             }).setAllowedChars(TextFieldWidget2.DECIMALS).setMaxLength(19).setValidator(getTextFieldValidator()));
         }
 
@@ -489,13 +497,5 @@ public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase 
     @Override
     protected boolean shouldShowVoidingModeButton() {
         return false;
-    }
-
-    @Nonnull
-    public static Function<String, String> getTextFieldValidator() {
-        return val -> {
-            if (val.isEmpty()) return "" + GCYSValues.EARTH_PRESSURE;
-            return val;
-        };
     }
 }

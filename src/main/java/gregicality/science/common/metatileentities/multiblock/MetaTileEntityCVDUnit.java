@@ -28,6 +28,18 @@ public class MetaTileEntityCVDUnit extends PressureMultiblockController {
         super(metaTileEntityId, GCYSRecipeMaps.CVD_RECIPES);
     }
 
+    private static IBlockState getCasingState() {
+        return GCYMMetaBlocks.LARGE_MULTIBLOCK_CASING.getState(BlockLargeMultiblockCasing.CasingType.NONCONDUCTING_CASING);
+    }
+
+    private static IBlockState getSubstrateState() {
+        return GCYSMetaBlocks.MULTIBLOCK_CASING.getState(BlockGCYSMultiblockCasing.CasingType.SUBSTRATE);
+    }
+
+    private static IBlockState getGlassState() {
+        return MetaBlocks.TRANSPARENT_CASING.getState(BlockGlassCasing.CasingType.TEMPERED_GLASS);
+    }
+
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity metaTileEntityHolder) {
         return new MetaTileEntityCVDUnit(metaTileEntityId);
@@ -44,18 +56,6 @@ public class MetaTileEntityCVDUnit extends PressureMultiblockController {
                 .where('G', states(getGlassState()))
                 .where('C', states(getSubstrateState()))
                 .build();
-    }
-
-    private static IBlockState getCasingState() {
-        return GCYMMetaBlocks.LARGE_MULTIBLOCK_CASING.getState(BlockLargeMultiblockCasing.CasingType.NONCONDUCTING_CASING);
-    }
-
-    private static IBlockState getSubstrateState() {
-        return GCYSMetaBlocks.MULTIBLOCK_CASING.getState(BlockGCYSMultiblockCasing.CasingType.SUBSTRATE);
-    }
-
-    private static IBlockState getGlassState() {
-        return MetaBlocks.TRANSPARENT_CASING.getState(BlockGlassCasing.CasingType.TEMPERED_GLASS);
     }
 
     @Nonnull

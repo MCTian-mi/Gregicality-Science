@@ -15,8 +15,8 @@ import static gregtech.api.unification.ore.OrePrefix.dust;
 /**
  * <p>Credit to the <a href="https://github.com/GT-IMPACT">GT-IMPACT Modpack</a>.
  * This processing chain was adapted from their Hyper Fuel production process</p>
- *
- *
+ * <p>
+ * <p>
  * The Taranium Production Process
  *
  * <p>
@@ -25,7 +25,6 @@ import static gregtech.api.unification.ore.OrePrefix.dust;
  *
  * <p>Main Products: Taranium Dust, Taranium Fuels, Bedrock Dust</p>
  * <p>Side Products: Platinum, Iridium, Osmium</p>
- *
  */
 public class TaraniumProcessing {
 
@@ -246,7 +245,9 @@ public class TaraniumProcessing {
                 .fluidInputs(Radon.getFluid(2000))
                 .fluidInputs(LightEnrichedTaraniumGas.getFluid(1000))
                 .fluidOutputs(CrackedLightEnrichedTaranium.getFluid(1200))
-                .duration(200).EUt(49152).buildAndRegister();
+                .duration(200)
+                .EUt(49152)
+                .buildAndRegister();
     }
 
     private static void enrichedFractionSeparation() {
@@ -258,7 +259,9 @@ public class TaraniumProcessing {
                 .fluidOutputs(MediumEnrichedTaraniumFuel.getFluid(200))
                 .fluidOutputs(LightEnrichedTaraniumFuel.getFluid(100))
                 .fluidOutputs(BedrockGas.getFluid(50))
-                .duration(160).EUt(98304).buildAndRegister();
+                .duration(160)
+                .EUt(98304)
+                .buildAndRegister();
 
         DISTILLATION_RECIPES.recipeBuilder()
                 .fluidInputs(CrackedMediumEnrichedTaranium.getFluid(1000))
@@ -268,7 +271,9 @@ public class TaraniumProcessing {
                 .fluidOutputs(MediumEnrichedTaraniumFuel.getFluid(400))
                 .fluidOutputs(LightEnrichedTaraniumFuel.getFluid(200))
                 .fluidOutputs(BedrockGas.getFluid(150))
-                .duration(140).EUt(98304).buildAndRegister();
+                .duration(140)
+                .EUt(98304)
+                .buildAndRegister();
 
         DISTILLATION_RECIPES.recipeBuilder()
                 .fluidInputs(CrackedLightEnrichedTaranium.getFluid(1000))
@@ -278,7 +283,9 @@ public class TaraniumProcessing {
                 .fluidOutputs(MediumEnrichedTaraniumFuel.getFluid(150))
                 .fluidOutputs(LightEnrichedTaraniumFuel.getFluid(400))
                 .fluidOutputs(BedrockGas.getFluid(350))
-                .duration(120).EUt(98304).buildAndRegister();
+                .duration(120)
+                .EUt(98304)
+                .buildAndRegister();
     }
 
     private static void fuels() {
@@ -291,7 +298,9 @@ public class TaraniumProcessing {
                 .output(dust, Plutonium241)
                 .output(dust, NaquadahEnriched)
                 .fluidOutputs(EnergeticNaquadria.getFluid(1000))
-                .duration(300).EUt(65536).buildAndRegister();
+                .duration(300)
+                .EUt(65536)
+                .buildAndRegister();
 
         SUPERHEAVY_RECIPES.recipeBuilder()
                 .input(dust, Europium)
@@ -301,7 +310,9 @@ public class TaraniumProcessing {
                 .fluidInputs(Uranium238.getFluid(L))
                 .output(dust, Naquadah)
                 .fluidOutputs(LightHyperFuel.getFluid(2000))
-                .duration(460).EUt(196608).buildAndRegister();
+                .duration(460)
+                .EUt(196608)
+                .buildAndRegister();
 
         SUPERHEAVY_RECIPES.recipeBuilder()
                 .input(dust, Americium)
@@ -311,7 +322,9 @@ public class TaraniumProcessing {
                 .fluidInputs(Uranium235.getFluid(L))
                 .output(dust, NaquadahEnriched)
                 .fluidOutputs(MediumHyperFuel.getFluid(2000))
-                .duration(520).EUt(VA[UV]).buildAndRegister();
+                .duration(520)
+                .EUt(VA[UV])
+                .buildAndRegister();
 
         SUPERHEAVY_RECIPES.recipeBuilder()
                 .input(dust, Orichalcum)
@@ -321,44 +334,64 @@ public class TaraniumProcessing {
                 .fluidInputs(Plutonium239.getFluid(L))
                 .output(dust, NaquadahEnriched)
                 .fluidOutputs(HeavyHyperFuel.getFluid(2000))
-                .duration(580).EUt(VA[UV] * 3).buildAndRegister();
+                .duration(580)
+                .EUt(VA[UV] * 3)
+                .buildAndRegister();
     }
 
     private static void generators() {
         TARANIUM_REACTOR_MK1_RECIPES.recipeBuilder()
                 .fluidInputs(LightTaraniumFuel.getFluid(1))
-                .duration(4).EUt((int) V[LuV]).buildAndRegister();
+                .duration(4)
+                .EUt((int) V[LuV])
+                .buildAndRegister();
 
         TARANIUM_REACTOR_MK1_RECIPES.recipeBuilder()
                 .fluidInputs(MediumTaraniumFuel.getFluid(1))
-                .duration(2).EUt((int) V[LuV]).buildAndRegister();
+                .duration(2)
+                .EUt((int) V[LuV])
+                .buildAndRegister();
 
         TARANIUM_REACTOR_MK1_RECIPES.recipeBuilder()
                 .fluidInputs(HeavyTaraniumFuel.getFluid(1))
-                .duration(1).EUt((int) V[LuV]).buildAndRegister();
+                .duration(1)
+                .EUt((int) V[LuV])
+                .buildAndRegister();
 
         TARANIUM_REACTOR_MK2_RECIPES.recipeBuilder()
                 .fluidInputs(LightEnrichedTaraniumFuel.getFluid(1))
-                .duration(1).EUt((int) V[ZPM]).buildAndRegister();
+                .duration(1)
+                .EUt((int) V[ZPM])
+                .buildAndRegister();
 
         TARANIUM_REACTOR_MK2_RECIPES.recipeBuilder()
                 .fluidInputs(MediumEnrichedTaraniumFuel.getFluid(1))
-                .duration(2).EUt((int) V[ZPM]).buildAndRegister();
+                .duration(2)
+                .EUt((int) V[ZPM])
+                .buildAndRegister();
 
         TARANIUM_REACTOR_MK2_RECIPES.recipeBuilder()
                 .fluidInputs(HeavyEnrichedTaraniumFuel.getFluid(1))
-                .duration(4).EUt((int) V[ZPM]).buildAndRegister();
+                .duration(4)
+                .EUt((int) V[ZPM])
+                .buildAndRegister();
 
         TARANIUM_REACTOR_MK3_RECIPES.recipeBuilder()
                 .fluidInputs(LightHyperFuel.getFluid(1))
-                .duration(1).EUt((int) V[UV]).buildAndRegister();
+                .duration(1)
+                .EUt((int) V[UV]).
+                buildAndRegister();
 
         TARANIUM_REACTOR_MK3_RECIPES.recipeBuilder()
                 .fluidInputs(MediumHyperFuel.getFluid(1))
-                .duration(2).EUt((int) V[UV]).buildAndRegister();
+                .duration(2)
+                .EUt((int) V[UV])
+                .buildAndRegister();
 
         TARANIUM_REACTOR_MK3_RECIPES.recipeBuilder()
                 .fluidInputs(HeavyHyperFuel.getFluid(1))
-                .duration(4).EUt((int) V[UV]).buildAndRegister();
+                .duration(4)
+                .EUt((int) V[UV])
+                .buildAndRegister();
     }
 }

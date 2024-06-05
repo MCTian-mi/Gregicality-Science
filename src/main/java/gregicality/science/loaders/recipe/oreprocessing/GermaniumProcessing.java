@@ -16,7 +16,6 @@ import static gregtech.api.unification.ore.OrePrefix.dust;
  * <p>Side Products: Zinc, Gallium, Manganese</p>
  *
  * <p>2 Sphalerite -> 1 Germanium</p>
- *
  */
 public class GermaniumProcessing {
 
@@ -29,14 +28,18 @@ public class GermaniumProcessing {
                 .output(dust, ZincOxide, 2)
                 .fluidOutputs(SulfurDioxide.getFluid(1000))
                 .temperature(1773)
-                .duration(200).EUt(VA[HV]).buildAndRegister();
+                .duration(200)
+                .EUt(VA[HV])
+                .buildAndRegister();
 
         // GeO2 + 2Zn -> Zn2(GeO2)
         MIXER_RECIPES.recipeBuilder()
                 .input(dust, RoastedSphalerite, 3)
                 .input(dust, Zinc, 2)
                 .output(dust, ZincRichSphalerite, 5)
-                .duration(320).EUt(VA[LV]).buildAndRegister();
+                .duration(320)
+                .EUt(VA[LV])
+                .buildAndRegister();
 
         // Zn2(GeO2) + H2SO4 -> ZnGeO2 + ZnSO4 + 2H (lost)
         CHEMICAL_BATH_RECIPES.recipeBuilder()
@@ -44,7 +47,9 @@ public class GermaniumProcessing {
                 .fluidInputs(SulfuricAcid.getFluid(1000))
                 .output(dust, WaelzOxide)
                 .output(dust, WaelzSlag, 5)
-                .duration(400).EUt(VA[LV]).buildAndRegister();
+                .duration(400)
+                .EUt(VA[LV])
+                .buildAndRegister();
 
         // ZnSO4 + H2O -> ZnO + H2SO4
         CHEMICAL_BATH_RECIPES.recipeBuilder()
@@ -53,7 +58,9 @@ public class GermaniumProcessing {
                 .output(dust, ZincOxide, 2)
                 .chancedOutput(dust, Gallium, 2000, 1000)
                 .fluidOutputs(SulfuricAcid.getFluid(1000))
-                .duration(160).EUt(VA[HV]).buildAndRegister();
+                .duration(160)
+                .EUt(VA[HV])
+                .buildAndRegister();
 
         // ZnGeO2 + H2SO4 -> GeO2 + ZnSO4 + 2H (lost)
         CHEMICAL_BATH_RECIPES.recipeBuilder()
@@ -62,7 +69,9 @@ public class GermaniumProcessing {
                 .output(dust, ImpureGermaniumDioxide, 3)
                 .output(dust, WaelzSlag, 5)
                 .chancedOutput(dust, Manganese, 1000, 1000)
-                .duration(200).EUt(VA[HV]).buildAndRegister();
+                .duration(200)
+                .EUt(VA[HV])
+                .buildAndRegister();
 
         // GeO2 + 4HCl -> GeCl4 + 2H2O
         CHEMICAL_BATH_RECIPES.recipeBuilder()
@@ -71,7 +80,9 @@ public class GermaniumProcessing {
                 .chancedOutput(dust, Cadmium, 500, 1000)
                 .fluidOutputs(GermaniumTetrachloride.getFluid(1000))
                 .fluidOutputs(Water.getFluid(2000))
-                .duration(300).EUt(VA[HV]).buildAndRegister();
+                .duration(300)
+                .EUt(VA[HV])
+                .buildAndRegister();
 
         // GeCl4 + 2H2O -> GeO2 + 4HCl
         CHEMICAL_RECIPES.recipeBuilder()
@@ -79,7 +90,9 @@ public class GermaniumProcessing {
                 .fluidInputs(Water.getFluid(2000))
                 .output(dust, GermaniumDioxide, 3)
                 .fluidOutputs(HydrochloricAcid.getFluid(4000))
-                .duration(100).EUt(VA[LV]).buildAndRegister();
+                .duration(100)
+                .EUt(VA[LV])
+                .buildAndRegister();
 
         // GeO2 + 4HCl -> GeCl4 + 2H2O
         CHEMICAL_RECIPES.recipeBuilder()
@@ -87,7 +100,9 @@ public class GermaniumProcessing {
                 .fluidInputs(HydrochloricAcid.getFluid(4000))
                 .fluidOutputs(GermaniumTetrachloride.getFluid(1000))
                 .fluidOutputs(Water.getFluid(2000))
-                .duration(100).EUt(VA[LV]).buildAndRegister();
+                .duration(100)
+                .EUt(VA[LV])
+                .buildAndRegister();
 
         // GeO2 + 4H -> Ge + 2H2O
         CHEMICAL_RECIPES.recipeBuilder()
@@ -95,6 +110,8 @@ public class GermaniumProcessing {
                 .fluidInputs(Hydrogen.getFluid(4000))
                 .output(dust, Germanium)
                 .fluidOutputs(Water.getFluid(2000))
-                .duration(240).EUt(VA[EV]).buildAndRegister();
+                .duration(240)
+                .EUt(VA[EV])
+                .buildAndRegister();
     }
 }

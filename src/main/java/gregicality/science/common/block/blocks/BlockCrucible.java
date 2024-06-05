@@ -1,15 +1,13 @@
 package gregicality.science.common.block.blocks;
 
 import gregtech.api.block.VariantBlock;
-import gregtech.api.util.GTUtility;
+import gregtech.api.util.TextFormattingUtil;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
@@ -33,7 +31,7 @@ public class BlockCrucible extends VariantBlock<BlockCrucible.CrucibleType> {
     public void addInformation(@Nonnull ItemStack stack, @Nullable World world, List<String> tooltip, @Nonnull ITooltipFlag advanced) {
         super.addInformation(stack, world, tooltip, advanced);
         tooltip.add(I18n.format("gregtech.multiblock.blast_furnace.max_temperature",
-                TextFormatting.RED + GTUtility.formatNumbers(getState(stack).getTemperature()) + "K"));
+                TextFormatting.RED + TextFormattingUtil.formatNumbers(getState(stack).getTemperature()) + "K"));
     }
 
     public enum CrucibleType implements IStringSerializable {
@@ -45,6 +43,11 @@ public class BlockCrucible extends VariantBlock<BlockCrucible.CrucibleType> {
         private final String name;
         private final int temperature;
 
+        CrucibleType(String name, int temperature) {
+            this.name = name;
+            this.temperature = temperature;
+        }
+
         @Nonnull
         @Override
         public String getName() {
@@ -53,11 +56,6 @@ public class BlockCrucible extends VariantBlock<BlockCrucible.CrucibleType> {
 
         public int getTemperature() {
             return this.temperature;
-        }
-
-        CrucibleType(String name, int temperature) {
-            this.name = name;
-            this.temperature = temperature;
         }
     }
 }

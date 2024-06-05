@@ -45,6 +45,14 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity {
         super(metaTileEntityId);
     }
 
+    @Nonnull
+    public static Function<String, String> getTextFieldValidator() {
+        return val -> {
+            if (val.isEmpty()) return "0";
+            return val;
+        };
+    }
+
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity iGregTechTileEntity) {
         return new MetaTileEntityCreativePressurePump(metaTileEntityId);
@@ -105,7 +113,7 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity {
                 if (container == null) continue;
                 if (container.getPressure() != GCYSValues.EARTH_PRESSURE &&
                         (container.getPressure() == container.getMinPressure() ||
-                        container.getPressure() == container.getMaxPressure())) continue;
+                                container.getPressure() == container.getMaxPressure())) continue;
                 IPressureContainer.mergeContainers(this.pressureContainer, container);
             }
         }
@@ -126,13 +134,5 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity {
         particles = data.getDouble("Particles");
         active = data.getBoolean("Active");
         source = data.getBoolean("Source");
-    }
-
-    @Nonnull
-    public static Function<String, String> getTextFieldValidator() {
-        return val -> {
-            if (val.isEmpty()) return "0";
-            return val;
-        };
     }
 }

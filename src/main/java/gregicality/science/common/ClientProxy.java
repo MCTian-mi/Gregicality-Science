@@ -12,16 +12,15 @@ import net.minecraftforge.fml.relauncher.Side;
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event) {
+        GCYSMetaBlocks.registerItemModels();
+    }
+
     @Override
     public void preLoad() {
         super.preLoad();
         TextureUtils.addIconRegister(GCYSTextures::register);
         PressurePipeRenderer.INSTANCE.preInit();
-    }
-
-
-    @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event) {
-        GCYSMetaBlocks.registerItemModels();
     }
 }

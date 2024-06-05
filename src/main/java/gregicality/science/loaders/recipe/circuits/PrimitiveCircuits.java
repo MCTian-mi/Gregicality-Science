@@ -98,10 +98,10 @@ public class PrimitiveCircuits {
 
             GTRecipeHandler.removeRecipesByInputs(ASSEMBLER_RECIPES,
                     new ItemStack[]{
-                        GLASS_TUBE.getStackForm(),
-                        OreDictUnifier.get(OrePrefix.bolt, Steel, 2),
-                        OreDictUnifier.get(OrePrefix.wireGtSingle, copper, 2),
-                        IntCircuitIngredient.getIntegratedCircuit(1)
+                            GLASS_TUBE.getStackForm(),
+                            OreDictUnifier.get(OrePrefix.bolt, Steel, 2),
+                            OreDictUnifier.get(OrePrefix.wireGtSingle, copper, 2),
+                            IntCircuitIngredient.getIntegratedCircuit(1)
                     }, new FluidStack[]{RedAlloy.getFluid(L / 8)});
         }
     }

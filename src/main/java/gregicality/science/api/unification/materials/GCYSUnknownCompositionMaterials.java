@@ -1,6 +1,6 @@
 package gregicality.science.api.unification.materials;
 
-import gregtech.api.fluids.fluidType.FluidTypes;
+import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.unification.material.Material;
 
 import static gregicality.science.api.unification.materials.GCYSMaterials.*;
@@ -8,6 +8,7 @@ import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
 import static gregtech.api.unification.material.info.MaterialIconSet.FINE;
 import static gregtech.api.unification.material.info.MaterialIconSet.ROUGH;
+import static gregtech.api.util.GTUtility.gregtechId;
 
 public class GCYSUnknownCompositionMaterials {
 
@@ -16,117 +17,251 @@ public class GCYSUnknownCompositionMaterials {
      */
     public static void init() {
 
-        RareEarthHydroxidesSolution = new Material.Builder(18000, "rare_earth_hydroxides_solution")
+        RareEarthHydroxidesSolution = new Material.Builder(18000, gregtechId("rare_earth_hydroxides_solution"))
                 .fluid()
                 .color(0x434327)
                 .flags(DISABLE_DECOMPOSITION)
                 .components(RareEarth, 1, Oxygen, 1, Hydrogen, 1, Water, 1)
                 .build();
 
-        RareEarthChloridesSolution = new Material.Builder(18001, "rare_earth_chlorides_solution")
+        RareEarthChloridesSolution = new Material.Builder(18001, gregtechId("rare_earth_chlorides_solution"))
                 .fluid()
                 .color(0x838367)
                 .flags(DISABLE_DECOMPOSITION)
                 .components(RareEarth, 1, Chlorine, 1, Water, 1)
                 .build();
 
-        LeachedTurpentine = new Material.Builder(18002, "leached_turpentine")
+        LeachedTurpentine = new Material.Builder(18002, gregtechId("leached_turpentine"))
                 .fluid()
                 .color(0x330D16)
                 .flags(DISABLE_DECOMPOSITION)
                 .components(Turpentine, 1, RareEarth, 1)
                 .build();
 
-        SteamCrackedTurpentine = new Material.Builder(18003, "steamcracked_turpentine").fluid().color(0x634D56).build();
+        SteamCrackedTurpentine = new Material.Builder(18003, gregtechId("steamcracked_turpentine"))
+                .fluid()
+                .color(0x634D56)
+                .build();
 
-        BZMedium = new Material.Builder(18004, "bz_medium").fluid().color(0xA2FD35).build(); //TODO "The Belousov-Zhabotinsky Reaction" tooltip
+        BZMedium = new Material.Builder(18004, gregtechId("bz_medium"))
+                .fluid()
+                .color(0xA2FD35)
+                .build(); //TODO "The Belousov-Zhabotinsky Reaction" tooltip
 
-        RichNitrogenMixture = new Material.Builder(18013, "rich_nitrogen_mixture").fluid(FluidTypes.GAS).color(0x6891D8).build();
+        RichNitrogenMixture = new Material.Builder(18013, gregtechId("rich_nitrogen_mixture"))
+                .gas()
+                .color(0x6891D8)
+                .build();
 
-        RichAmmoniaMixture = new Material.Builder(18014, "rich_ammonia_mixture").fluid().color(0x708ACD).build();
+        RichAmmoniaMixture = new Material.Builder(18014, gregtechId("rich_ammonia_mixture")).fluid().color(0x708ACD).build();
 
-        Brine = new Material.Builder(18015, "brine").fluid().color(0xFCFC8A).build();
+        Brine = new Material.Builder(18015, gregtechId("brine"))
+                .fluid()
+                .color(0xFCFC8A)
+                .build();
 
-        ChlorinatedBrine = new Material.Builder(18016, "chlorinated_brine").fluid().color(0xFAFC8A).build();
+        ChlorinatedBrine = new Material.Builder(18016, gregtechId("chlorinated_brine"))
+                .fluid()
+                .color(0xFAFC8A)
+                .build();
 
-        ChalcogenAnodeMud = new Material.Builder(18017, "chalcogen_anode_mud").dust().color(0x8A3324).iconSet(FINE).build();
+        ChalcogenAnodeMud = new Material.Builder(18017, gregtechId("chalcogen_anode_mud"))
+                .dust()
+                .color(0x8A3324)
+                .iconSet(FINE)
+                .build();
 
-        MethylamineMixture = new Material.Builder(18018, "methylamine_mixture").fluid().color(0xAA4400).build();
+        MethylamineMixture = new Material.Builder(18018, gregtechId("methylamine_mixture"))
+                .fluid()
+                .color(0xAA4400)
+                .build();
 
-        EDP = new Material.Builder(18019, "edp").fluid().color(0xFBFF17).build();
+        EDP = new Material.Builder(18019, gregtechId("edp"))
+                .fluid()
+                .color(0xFBFF17)
+                .build();
 
-        PhosphoreneSolution = new Material.Builder(18020, "phosphorene_solution").fluid().color(0x465966).build();
+        PhosphoreneSolution = new Material.Builder(18020, gregtechId("phosphorene_solution"))
+                .fluid()
+                .color(0x465966)
+                .build();
 
-        SodioIndene = new Material.Builder(18021, "sodio_indene").fluid().color(0x1D1C24).build();
+        SodioIndene = new Material.Builder(18021, gregtechId("sodio_indene"))
+                .fluid()
+                .color(0x1D1C24)
+                .build();
 
-        SteamCrackedSodioIndene = new Material.Builder(18022, "steam_cracked_sodio_indene").fluid().fluidTemp(1105).color(0x1C1A29).build();
+        SteamCrackedSodioIndene = new Material.Builder(18022, gregtechId("steam_cracked_sodio_indene"))
+                .liquid(new FluidBuilder().temperature(1105))
+                .color(0x1C1A29)
+                .build();
 
-        MolybdenumFlue = new Material.Builder(18023, "molybdenum_flue").fluid(FluidTypes.GAS).color(0x39194A).build();
+        MolybdenumFlue = new Material.Builder(18023, gregtechId("molybdenum_flue"))
+                .gas()
+                .color(0x39194A)
+                .build();
 
-        TraceRheniumFlue = new Material.Builder(18024, "trace_rhenium_flue").fluid(FluidTypes.GAS).color(0x96D6D5).build();
+        TraceRheniumFlue = new Material.Builder(18024, gregtechId("trace_rhenium_flue"))
+                .gas()
+                .color(0x96D6D5)
+                .build();
 
-        FracturingFluid = new Material.Builder(18025, "fracturing_fluid").fluid().color(0x96D6D5).build();
+        FracturingFluid = new Material.Builder(18025, gregtechId("fracturing_fluid"))
+                .fluid()
+                .color(0x96D6D5)
+                .build();
 
-        BedrockSmoke = new Material.Builder(18026, "bedrock_smoke").fluid(FluidTypes.GAS).color(0x525252).build();
+        BedrockSmoke = new Material.Builder(18026, gregtechId("bedrock_smoke"))
+                .gas()
+                .color(0x525252)
+                .build();
 
         // FREE ID 18027
 
-        Bedrock = new Material.Builder(18028, "bedrock").dust().color(0x404040).iconSet(ROUGH).build();
+        Bedrock = new Material.Builder(18028, gregtechId("bedrock"))
+                .dust()
+                .color(0x404040)
+                .iconSet(ROUGH)
+                .build();
 
-        BedrockSootSolution = new Material.Builder(18029, "bedrock_soot_solution").fluid().color(0x1E2430).build();
+        BedrockSootSolution = new Material.Builder(18029, gregtechId("bedrock_soot_solution"))
+                .fluid()
+                .color(0x1E2430)
+                .build();
 
-        CleanBedrockSolution = new Material.Builder(18030, "clean_bedrock_solution").fluid().color(0xA89F9E).build();
+        CleanBedrockSolution = new Material.Builder(18030, gregtechId("clean_bedrock_solution"))
+                .fluid()
+                .color(0xA89F9E)
+                .build();
 
-        HeavyBedrockSmoke = new Material.Builder(18031, "heavy_bedrock_smoke").fluid(FluidTypes.GAS).color(0x242222).build();
+        HeavyBedrockSmoke = new Material.Builder(18031, gregtechId("heavy_bedrock_smoke"))
+                .gas()
+                .color(0x242222)
+                .build();
 
-        MediumBedrockSmoke = new Material.Builder(18032, "medium_bedrock_smoke").fluid(FluidTypes.GAS).color(0x2E2C2C).build();
+        MediumBedrockSmoke = new Material.Builder(18032, gregtechId("medium_bedrock_smoke"))
+                .gas()
+                .color(0x2E2C2C)
+                .build();
 
-        LightBedrockSmoke = new Material.Builder(18033, "light_bedrock_smoke").fluid(FluidTypes.GAS).color(0x363333).build();
+        LightBedrockSmoke = new Material.Builder(18033, gregtechId("light_bedrock_smoke"))
+                .gas()
+                .color(0x363333)
+                .build();
 
-        UltralightBedrockSmoke = new Material.Builder(18034, "ultralight_bedrock_smoke").fluid(FluidTypes.GAS).color(0x403D3D).build();
+        UltralightBedrockSmoke = new Material.Builder(18034, gregtechId("ultralight_bedrock_smoke"))
+                .gas()
+                .color(0x403D3D)
+                .build();
 
-        HeavyTaraniumGas = new Material.Builder(18035, "heavy_taranium_gas").fluid(FluidTypes.GAS).color(0x262626).build();
+        HeavyTaraniumGas = new Material.Builder(18035, gregtechId("heavy_taranium_gas"))
+                .gas()
+                .color(0x262626)
+                .build();
 
-        MediumTaraniumGas = new Material.Builder(18036, "medium_taranium_gas").fluid(FluidTypes.GAS).color(0x313131).build();
+        MediumTaraniumGas = new Material.Builder(18036, gregtechId("medium_taranium_gas"))
+                .gas()
+                .color(0x313131)
+                .build();
 
-        LightTaraniumGas = new Material.Builder(18037, "light_taranium_gas").fluid(FluidTypes.GAS).color(0x404040).build();
+        LightTaraniumGas = new Material.Builder(18037, gregtechId("light_taranium_gas"))
+                .gas()
+                .color(0x404040)
+                .build();
 
-        BedrockGas = new Material.Builder(18038, "bedrock_gas").fluid(FluidTypes.GAS).color(0x575757).build();
+        BedrockGas = new Material.Builder(18038, gregtechId("bedrock_gas"))
+                .gas()
+                .color(0x575757)
+                .build();
 
-        CrackedHeavyTaranium = new Material.Builder(18039, "cracked_heavy_taranium").fluid().color(0x1F2B2E).build();
+        CrackedHeavyTaranium = new Material.Builder(18039, gregtechId("cracked_heavy_taranium"))
+                .fluid()
+                .color(0x1F2B2E)
+                .build();
 
-        CrackedMediumTaranium = new Material.Builder(18040, "cracked_medium_taranium").fluid().color(0x29393D).build();
+        CrackedMediumTaranium = new Material.Builder(18040, gregtechId("cracked_medium_taranium"))
+                .fluid()
+                .color(0x29393D)
+                .build();
 
-        CrackedLightTaranium = new Material.Builder(18041, "cracked_light_taranium").fluid().color(0x374C52).build();
+        CrackedLightTaranium = new Material.Builder(18041, gregtechId("cracked_light_taranium"))
+                .fluid()
+                .color(0x374C52)
+                .build();
 
-        EnrichedBedrockSootSolution = new Material.Builder(18042, "enriched_bedrock_soot_solution").fluid().color(0x280C26).build();
+        EnrichedBedrockSootSolution = new Material.Builder(18042, gregtechId("enriched_bedrock_soot_solution"))
+                .fluid()
+                .color(0x280C26)
+                .build();
 
-        CleanEnrichedBedrockSolution = new Material.Builder(18043, "clean_enriched_bedrock_solution").fluid().color(0x828C8C).build();
+        CleanEnrichedBedrockSolution = new Material.Builder(18043, gregtechId("clean_enriched_bedrock_solution"))
+                .fluid()
+                .color(0x828C8C)
+                .build();
 
-        HeavyEnrichedBedrockSmoke = new Material.Builder(18044, "heavy_enriched_bedrock_smoke").fluid(FluidTypes.GAS).color(0x1A2222).build();
+        HeavyEnrichedBedrockSmoke = new Material.Builder(18044, gregtechId("heavy_enriched_bedrock_smoke"))
+                .gas()
+                .color(0x1A2222)
+                .build();
 
-        MediumEnrichedBedrockSmoke = new Material.Builder(18045, "medium_enriched_bedrock_smoke").fluid(FluidTypes.GAS).color(0x1E2C2C).build();
+        MediumEnrichedBedrockSmoke = new Material.Builder(18045, gregtechId("medium_enriched_bedrock_smoke"))
+                .gas()
+                .color(0x1E2C2C)
+                .build();
 
-        LightEnrichedBedrockSmoke = new Material.Builder(18046, "light_enriched_bedrock_smoke").fluid(FluidTypes.GAS).color(0x163333).build();
+        LightEnrichedBedrockSmoke = new Material.Builder(18046, gregtechId("light_enriched_bedrock_smoke"))
+                .gas()
+                .color(0x163333)
+                .build();
 
-        HeavyEnrichedTaraniumGas = new Material.Builder(18047, "heavy_enriched_taranium_gas").fluid(FluidTypes.GAS).color(0x1F2626).build();
+        HeavyEnrichedTaraniumGas = new Material.Builder(18047, gregtechId("heavy_enriched_taranium_gas"))
+                .gas()
+                .color(0x1F2626)
+                .build();
 
-        MediumEnrichedTaraniumGas = new Material.Builder(18048, "medium_enriched_taranium_gas").fluid(FluidTypes.GAS).color(0x1F3131).build();
+        MediumEnrichedTaraniumGas = new Material.Builder(18048, gregtechId("medium_enriched_taranium_gas"))
+                .gas()
+                .color(0x1F3131)
+                .build();
 
-        LightEnrichedTaraniumGas = new Material.Builder(18049, "light_enriched_taranium_gas").fluid(FluidTypes.GAS).color(0x1F4040).build();
+        LightEnrichedTaraniumGas = new Material.Builder(18049, gregtechId("light_enriched_taranium_gas"))
+                .gas()
+                .color(0x1F4040)
+                .build();
 
-        CrackedHeavyEnrichedTaranium = new Material.Builder(18050, "cracked_heavy_enriched_taranium").fluid().color(0x2E1F2E).build();
+        CrackedHeavyEnrichedTaranium = new Material.Builder(18050, gregtechId("cracked_heavy_enriched_taranium"))
+                .fluid()
+                .color(0x2E1F2E)
+                .build();
 
-        CrackedMediumEnrichedTaranium = new Material.Builder(18051, "cracked_medium_enriched_taranium").fluid().color(0x29393D).build();
+        CrackedMediumEnrichedTaranium = new Material.Builder(18051, gregtechId("cracked_medium_enriched_taranium"))
+                .fluid()
+                .color(0x29393D)
+                .build();
 
-        CrackedLightEnrichedTaranium = new Material.Builder(18052, "cracked_light_enriched_taranium").fluid().color(0x374C52).build();
+        CrackedLightEnrichedTaranium = new Material.Builder(18052, gregtechId("cracked_light_enriched_taranium"))
+                .fluid()
+                .color(0x374C52)
+                .build();
 
-        EnergeticNaquadria = new Material.Builder(18053, "energetic_naquadria").fluid().color(0x202020).build();
+        EnergeticNaquadria = new Material.Builder(18053, gregtechId("energetic_naquadria"))
+                .fluid()
+                .color(0x202020)
+                .build();
 
-        LightHyperFuel = new Material.Builder(18054, "light_hyper_fuel").fluid().color(0x8C148C).build();
+        LightHyperFuel = new Material.Builder(18054, gregtechId("light_hyper_fuel"))
+                .fluid()
+                .color(0x8C148C)
+                .build();
 
-        MediumHyperFuel = new Material.Builder(18055, "medium_hyper_fuel").fluid().color(0xDC0A0A).build();
+        MediumHyperFuel = new Material.Builder(18055, gregtechId("medium_hyper_fuel"))
+                .fluid()
+                .color(0xDC0A0A)
+                .build();
 
-        HeavyHyperFuel = new Material.Builder(18056, "heavy_hyper_fuel").fluid().color(0x1E5064).build();
+        HeavyHyperFuel = new Material.Builder(18056, gregtechId("heavy_hyper_fuel"))
+                .fluid()
+                .color(0x1E5064)
+                .build();
     }
 }

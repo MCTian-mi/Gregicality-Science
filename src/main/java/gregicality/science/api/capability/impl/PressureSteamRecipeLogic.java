@@ -31,7 +31,7 @@ public class PressureSteamRecipeLogic extends RecipeLogicSteam {
             }
 
             if (this.hasNotEnoughEnergy) {
-                if (this.getEnergyInputPerSecond() > 19L * (long)this.recipeEUt) {
+                if (this.getEnergyInputPerSecond() > 19L * (long) this.recipeEUt) {
                     this.hasNotEnoughEnergy = false;
                 }
             }

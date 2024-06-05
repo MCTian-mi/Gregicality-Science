@@ -35,7 +35,6 @@ import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.ConfigHolder;
-import gregtech.common.blocks.BlockFireboxCasing;
 import gregtech.common.blocks.BlockGlassCasing;
 import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
@@ -65,9 +64,8 @@ import java.util.function.Function;
 public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase implements IWorkable {
 
     public static final int MAX_PROGRESS = 20;
-    protected static final FluidStack LUBRICANT = Materials.Lubricant.getFluid(1);
     public static final int FLUID_USE_AMOUNT = 100;
-
+    protected static final FluidStack LUBRICANT = Materials.Lubricant.getFluid(1);
     protected final int tier;
 
     protected final double maxPressure;
@@ -77,21 +75,27 @@ public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase imp
 
     protected IMultipleTankHandler inputFluidInventory;
     protected IEnergyContainer energyContainer;
-
+    protected boolean lastActive;
+    protected List<BlockPos> variantActiveBlocks;
     private int progressTime = 0;
     private boolean isActive;
     private boolean isWorkingEnabled = true;
     private boolean wasActiveAndNeedsUpdate;
     private boolean hasNotEnoughEnergy;
 
-    protected boolean lastActive;
-    protected List<BlockPos> variantActiveBlocks;
-
     public MetaTileEntityAxialCompressor(ResourceLocation metaTileEntityId, int tier, double maxPressure, double pressureRate) {
         super(metaTileEntityId);
         this.tier = tier;
         this.maxPressure = maxPressure;
         this.pressureRate = pressureRate;
+    }
+
+    @Nonnull
+    public static Function<String, String> getTextFieldValidator() {
+        return val -> {
+            if (val.isEmpty()) return "" + GCYSValues.EARTH_PRESSURE;
+            return val;
+        };
     }
 
     @Override
@@ -119,8 +123,8 @@ public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase imp
         if (this.variantActiveBlocks != null) {
             for (BlockPos blockPos : this.variantActiveBlocks) {
                 IBlockState blockState = this.getWorld().getBlockState(blockPos);
-                if (blockState.getBlock() instanceof VariantActiveBlock) {
-                    this.getWorld().setBlockState(blockPos, blockState.withProperty(BlockFireboxCasing.ACTIVE, isActive));
+                if (blockState.getBlock() instanceof VariantActiveBlock<?> variantActiveBlock) {
+                    VariantActiveBlock.setBlockActive(this.getWorld().provider.getDimension(), blockPos, isActive); // TODO
                 }
             }
         }
@@ -192,8 +196,10 @@ public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase imp
 
     @Nonnull
     protected TraceabilityPredicate airfoilPredicate() {
-        if (tier == GTValues.LuV) return states(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE.getState(BlockGCYSMultiblockCasingActive.CasingType.ADVANCED_AIRFOIL));
-        else return states(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE.getState(BlockGCYSMultiblockCasingActive.CasingType.AIRFOIL));
+        if (tier == GTValues.LuV)
+            return states(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE.getState(BlockGCYSMultiblockCasingActive.CasingType.ADVANCED_AIRFOIL));
+        else
+            return states(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE.getState(BlockGCYSMultiblockCasingActive.CasingType.AIRFOIL));
     }
 
     @Override
@@ -206,7 +212,7 @@ public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase imp
             }
         }
 
-        boolean state = this.isActive() && this.isWorkingEnabled() && ConfigHolder.client.casingsActiveEmissiveTextures;
+        boolean state = this.isActive() && this.isWorkingEnabled() && ConfigHolder.client.machinesEmissiveTextures;
         if (this.lastActive != state) {
             this.lastActive = state;
             this.replaceVariantBlocksActive(this.lastActive);
@@ -235,7 +241,8 @@ public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase imp
 
         // actually increase pressure
         IPressureContainer container = getAbilities(GCYSMultiblockAbility.PRESSURE_CONTAINER).get(0);
-        if (container.getPressure() == targetPressure || targetPressure < GCYSValues.EARTH_PRESSURE) return; // do nothing when at max
+        if (container.getPressure() == targetPressure || targetPressure < GCYSValues.EARTH_PRESSURE)
+            return; // do nothing when at max
 
         double increase = pressureRate * container.getVolume() - (getNumMaintenanceProblems() * 1000);
         double potentialPressure = container.getPressureForParticles(container.getParticles() + increase);
@@ -309,7 +316,8 @@ public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase imp
             builder.widget(new ImageWidget(10, 100, 156, 20, GuiTextures.DISPLAY)
                     .setTooltip("gcys.universal.tooltip.pressure.target"));
             builder.widget(new TextFieldWidget2(12, 108, 112, 16, () -> String.valueOf(targetPressure), value -> {
-                if (!value.isEmpty()) targetPressure = Math.max(GCYSValues.EARTH_PRESSURE, Math.min(Double.parseDouble(value), maxPressure));
+                if (!value.isEmpty())
+                    targetPressure = Math.max(GCYSValues.EARTH_PRESSURE, Math.min(Double.parseDouble(value), maxPressure));
             }).setAllowedChars(TextFieldWidget2.DECIMALS).setMaxLength(19).setValidator(getTextFieldValidator()));
         }
 
@@ -487,13 +495,5 @@ public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase imp
     @Override
     protected boolean shouldShowVoidingModeButton() {
         return false;
-    }
-
-    @Nonnull
-    public static Function<String, String> getTextFieldValidator() {
-        return val -> {
-            if (val.isEmpty()) return "" + GCYSValues.EARTH_PRESSURE;
-            return val;
-        };
     }
 }
