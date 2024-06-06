@@ -245,17 +245,17 @@ public class MetaTileEntityAxialCompressor extends MultiblockWithDisplayBase imp
             return; // do nothing when at max
 
         double increase = pressureRate * container.getVolume() - (getNumMaintenanceProblems() * 1000);
-        double potentialPressure = container.getPressureForParticles(container.getParticles() + increase);
+        double potentialPressure = container.getPressureForParticles(container.getTotalParticles() + increase);
         if (potentialPressure <= targetPressure) {
-            if (container.changeParticles(increase, true)) {
+            if (container.changeTotalParticles(increase, true)) {
                 if (drainTanks(true)) {
-                    container.changeParticles(increase, false);
+                    container.changeTotalParticles(increase, false);
                     drainTanks(false);
                 }
             }
         } else if (container.getMaxPressure() > GCYSValues.EARTH_PRESSURE) {
             if (drainTanks(true)) {
-                container.setParticles(targetPressure * container.getVolume());
+                container.changeTotalParticles(targetPressure * container.getVolume(), false);
                 drainTanks(false);
             }
         }

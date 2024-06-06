@@ -42,7 +42,7 @@ public class MetaTileEntityPressureHatch extends MetaTileEntityMultiblockPart im
 
     public MetaTileEntityPressureHatch(@Nonnull ResourceLocation metaTileEntityId, int tier, double minPressure, double maxPressure) {
         super(metaTileEntityId, tier);
-        this.pressureContainer = new PressureContainer(this, minPressure, maxPressure, 1.0D);
+        this.pressureContainer = new PressureContainer(this, minPressure, maxPressure, 1);
     }
 
     @Override

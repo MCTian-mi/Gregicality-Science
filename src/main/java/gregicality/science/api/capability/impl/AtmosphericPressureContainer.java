@@ -10,10 +10,7 @@ public class AtmosphericPressureContainer extends PressureContainer {
      *
      * @param volume the volume of the container, must be nonzero
      */
-    public AtmosphericPressureContainer(MetaTileEntity metaTileEntity, double volume) {
+    public AtmosphericPressureContainer(MetaTileEntity metaTileEntity, int volume) {
         super(metaTileEntity, GCYSValues.EARTH_PRESSURE * 0.9, GCYSValues.EARTH_PRESSURE * 1.1, volume);
     }
-
-    @Override
-    public void setParticles(double amount) {/**/}
 }

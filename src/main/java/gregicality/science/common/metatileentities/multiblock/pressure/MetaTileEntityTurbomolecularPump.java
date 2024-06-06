@@ -247,17 +247,17 @@ public class MetaTileEntityTurbomolecularPump extends MultiblockWithDisplayBase 
             return; // do nothing when at max
 
         double decrease = -pressureRate * container.getVolume() + (getNumMaintenanceProblems() * 1000);
-        double potentialPressure = container.getPressureForParticles(container.getParticles() + decrease);
+        double potentialPressure = container.getPressureForParticles(container.getTotalParticles() + decrease);
         if (potentialPressure >= targetPressure) {
-            if (container.changeParticles(decrease, true)) {
+            if (container.changeTotalParticles(decrease, true)) {
                 if (drainTanks(true)) {
-                    container.changeParticles(decrease, false);
+                    container.changeTotalParticles(decrease, false);
                     drainTanks(false);
                 }
             }
         } else if (container.getMaxPressure() < GCYSValues.EARTH_PRESSURE) {
             if (drainTanks(true)) {
-                container.setParticles(targetPressure * container.getVolume());
+                container.changeTotalParticles(targetPressure * container.getVolume(), false);
                 drainTanks(false);
             }
         }

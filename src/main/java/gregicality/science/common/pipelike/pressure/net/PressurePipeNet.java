@@ -5,19 +5,30 @@ import gregicality.science.api.capability.IPressureContainer;
 import gregicality.science.common.pipelike.pressure.PressurePipeData;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
+import it.unimi.dsi.fastutil.objects.Object2DoubleLinkedOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
+
+import static gregtech.api.unification.material.Materials.Air;
 
 public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPressureContainer {
 
-    private double netParticles = GCYSValues.EARTH_PRESSURE;
-    private double volume = 1.0D;
+    private Object2DoubleMap<Fluid> netParticles;
+    private int volume = 1;
     private double minNetPressure = Double.MAX_VALUE;
     private double maxNetPressure = Double.MIN_VALUE;
 
     public PressurePipeNet(WorldPipeNet<PressurePipeData, ? extends PipeNet> world) {
         super(world);
+        this.netParticles = new Object2DoubleLinkedOpenHashMap<>();
+        this.netParticles.put(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
     }
 
     @Override
@@ -29,7 +40,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
 
     @Override
     protected PressurePipeData readNodeData(@Nonnull NBTTagCompound nbt) {
-        return new PressurePipeData(nbt.getDouble("MinP"), nbt.getDouble("MaxP"), nbt.getDouble("Volume"));
+        return new PressurePipeData(nbt.getDouble("MinP"), nbt.getDouble("MaxP"), nbt.getInteger("Volume"));
     }
 
     @Override
@@ -38,7 +49,15 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         compound.setDouble("minNetP", minNetPressure);
         compound.setDouble("maxNetP", maxNetPressure);
         compound.setDouble("Volume", volume);
-        compound.setDouble("Particles", netParticles);
+        NBTTagList nbtTagList = new NBTTagList();
+        cleanUp(); // TODO: better not use it here
+        for (Object2DoubleMap.Entry<Fluid> entry : this.netParticles.object2DoubleEntrySet()) {
+            NBTTagCompound fluidCompound = new NBTTagCompound();
+            fluidCompound.setString("fluid", FluidRegistry.getFluidName(entry.getKey()));
+            fluidCompound.setDouble("amount", entry.getDoubleValue());
+            nbtTagList.appendTag(fluidCompound);
+        }
+        compound.setTag("particles", nbtTagList);
         return compound;
     }
 
@@ -48,8 +67,15 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         super.deserializeNBT(nbt);
         this.minNetPressure = nbt.getDouble("minNetP");
         this.maxNetPressure = nbt.getDouble("maxNetP");
-        this.volume = nbt.getDouble("Volume");
-        this.netParticles = nbt.getDouble("Particles");
+        this.volume = nbt.getInteger("Volume");
+        NBTTagList nbtTagList = nbt.getTagList("particles", Constants.NBT.TAG_COMPOUND);
+        Object2DoubleMap<Fluid> newParticles = new Object2DoubleLinkedOpenHashMap<>();
+        for (int i = 0; i < nbtTagList.tagCount(); i++) {
+            newParticles.put(
+                    FluidRegistry.getFluid(nbtTagList.getCompoundTagAt(i).getString("fluid")),
+                    nbtTagList.getCompoundTagAt(i).getDouble("amount"));
+        }
+        this.netParticles = newParticles;
     }
 
     @Override
@@ -58,8 +84,8 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         this.minNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMinPressure()).max().orElse(Double.MAX_VALUE);
         this.maxNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMaxPressure()).min().orElse(Double.MIN_VALUE);
         final double oldVolume = getVolume();
-        this.volume = Math.max(1, getAllNodes().values().stream().mapToDouble(node -> node.data.getVolume()).sum());
-        this.netParticles *= getVolume() / oldVolume;
+        this.volume = Math.max(1, getAllNodes().values().stream().mapToInt(node -> node.data.getVolume()).sum());
+//        this.netParticles *= getVolume() / oldVolume;
     }
 
     @Override
@@ -68,31 +94,28 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
     }
 
     @Override
-    public double getParticles() {
-        return netParticles;
+    public Map<Fluid, Double> getParticleMap() {
+        return new Object2DoubleLinkedOpenHashMap<>();
     }
 
     @Override
-    public void setParticles(double amount) {
-        this.netParticles = amount;
-    }
-
-    @Override
-    public double getVolume() {
+    public int getVolume() {
         return volume;
     }
 
     @Override
-    public boolean changeParticles(double amount, boolean simulate) {
-        if (simulate) return isPressureSafe(getPressureForParticles(getParticles() + amount));
-        setParticles(getParticles() + amount);
+    public boolean changeTotalParticles(double amount, boolean simulate) {
+        if (simulate) return isPressureSafe(getPressureForParticles(getTotalParticles() + amount));
+        for (Fluid fluid : getParticleMap().keySet()) {
+            setParticles(fluid, getParticles(fluid) + amount * getRatio(fluid));
+        }
         PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
         return isPressureSafe();
     }
 
     public void onLeak() {
-        if (getPressure() < GCYSValues.EARTH_PRESSURE) changeParticles(getLeakRate(), false);
-        else if (getPressure() > GCYSValues.EARTH_PRESSURE) changeParticles(-getLeakRate(), false);
+        if (getPressure() < GCYSValues.EARTH_PRESSURE) this.changeTotalParticles(getLeakRate(), false);
+        else if (getPressure() > GCYSValues.EARTH_PRESSURE) this.changeTotalParticles(-getLeakRate(), false);
     }
 
     public double getLeakRate() {

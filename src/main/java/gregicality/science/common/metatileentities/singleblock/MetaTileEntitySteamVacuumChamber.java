@@ -51,7 +51,7 @@ public class MetaTileEntitySteamVacuumChamber extends SteamMetaTileEntity implem
     @Override
     protected void initializeInventory() {
         super.initializeInventory();
-        this.pressureContainer = new PressureContainer(this, 13E-5, GCYSValues.EARTH_PRESSURE, 1.0);
+        this.pressureContainer = new PressureContainer(this, 13E-5, GCYSValues.EARTH_PRESSURE, 1);
     }
 
     @Override

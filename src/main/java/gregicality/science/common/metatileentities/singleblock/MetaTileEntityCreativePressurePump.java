@@ -61,7 +61,7 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity {
     @Override
     protected void initializeInventory() {
         super.initializeInventory();
-        this.pressureContainer = new PressureContainer(this, Double.MIN_VALUE, Double.MAX_VALUE, 1.0D);
+        this.pressureContainer = new PressureContainer(this, Double.MIN_VALUE, Double.MAX_VALUE, 1);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity {
     public void update() {
         super.update();
         if (getWorld().isRemote || !active || particles <= 0) return;
-        this.pressureContainer.setParticles(particles);
+        this.pressureContainer.changeTotalParticles(particles, false);
         for (EnumFacing facing : EnumFacing.values()) {
             TileEntity tile = getWorld().getTileEntity(getPos().offset(facing));
             if (tile != null) {

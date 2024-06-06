@@ -20,7 +20,6 @@ import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.widgets.ImageWidget;
 import gregtech.api.gui.widgets.ProgressWidget;
-import gregtech.api.gui.widgets.SuppliedImageWidget;
 import gregtech.api.gui.widgets.TankWidget;
 import gregtech.api.metatileentity.IDataInfoProvider;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -79,7 +78,7 @@ public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataI
     @Override
     protected void initializeInventory() {
         super.initializeInventory();
-        this.pressureContainer = new PressureContainer(this, 13E-5, GCYSValues.EARTH_PRESSURE, 1.0);
+        this.pressureContainer = new PressureContainer(this, 13E-5, GCYSValues.EARTH_PRESSURE, 1);
     }
 
     @Override
@@ -143,14 +142,14 @@ public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataI
                 if (drained != null && drained.amount == STEAM_CONSUMPTION && ventSteam(true)) {
                     fuelFluidTank.drain(STEAM_CONSUMPTION, true);
 
-                    if (pressureContainer.changeParticles(PRESSURE_DECREASE, true)) {
-                        pressureContainer.changeParticles(PRESSURE_DECREASE, false);
-                    } else if (pressureContainer.changeParticles(-pressureContainer.getParticles() / 2, true)) {
+                    if (pressureContainer.changeTotalParticles(PRESSURE_DECREASE, true)) {
+                        pressureContainer.changeTotalParticles(PRESSURE_DECREASE, false);
+                    } else if (pressureContainer.changeTotalParticles(-pressureContainer.getTotalParticles() / 2, true)) {
                         // divide pressure by 2 if the regular decrease is too much
-                        pressureContainer.changeParticles(-pressureContainer.getParticles() / 2, false);
+                        pressureContainer.changeTotalParticles(-pressureContainer.getTotalParticles() / 2, false);
                     } else {
                         // do not allow less than min pressure to prevent explosions and not require redstone control
-                        pressureContainer.setParticles(pressureContainer.getMinPressure() * pressureContainer.getVolume());
+                        pressureContainer.changeTotalParticles(pressureContainer.getMinPressure() * pressureContainer.getVolume(), false);
                     }
 
                     ventSteam(false);

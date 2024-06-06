@@ -65,7 +65,7 @@ public class PressureSteamRecipeLogic extends RecipeLogicSteam {
         }
 
         // P * V = n
-        return container.changeParticles(pressureToChange * container.getVolume(), simulate);
+        return container.changeTotalParticles(pressureToChange * container.getVolume(), simulate);
     }
 
     protected IPressureContainer getPressureContainer() {
