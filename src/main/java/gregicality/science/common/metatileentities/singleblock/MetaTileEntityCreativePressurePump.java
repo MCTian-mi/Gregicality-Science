@@ -52,10 +52,8 @@ import static gregtech.api.unification.material.Materials.Air;
 
 public class MetaTileEntityCreativePressurePump extends MetaTileEntity implements IPressureMachine, IActiveOutputSide {
 
-    private PressureContainer pressureContainer;
-
     private static final int VOLUME = 640000;
-
+    private PressureContainer pressureContainer;
     private boolean active = false;
     private FluidTank fluidTank;
     @Nullable
@@ -213,6 +211,14 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
         return this.outputFacing == null ? EnumFacing.SOUTH : this.outputFacing;
     }
 
+    public void setOutputFacing(@Nonnull EnumFacing outputFacing) {
+        this.outputFacing = outputFacing;
+        if (!this.getWorld().isRemote) {
+            this.markDirty();
+            writeCustomData(GCYSDataCodes.UPDATE_PUMPING_SIDE, buf -> buf.writeByte(this.getOutputFacing().getIndex()));
+        }
+    }
+
     @Override
     public void writeInitialSyncData(@Nonnull PacketBuffer buf) {
         super.writeInitialSyncData(buf);
@@ -231,7 +237,8 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
         try {
             NBTTagCompound compound = buf.readCompoundTag();
             if (compound != null) this.pressureContainer.deserializeNBT(compound);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         this.active = buf.readBoolean();
 
@@ -259,14 +266,6 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
 //            }
         } else if (dataId == UPDATE_ACTIVE) {
             this.active = buf.readBoolean();
-        }
-    }
-
-    public void setOutputFacing(@Nonnull EnumFacing outputFacing) {
-        this.outputFacing = outputFacing;
-        if (!this.getWorld().isRemote) {
-            this.markDirty();
-            writeCustomData(GCYSDataCodes.UPDATE_PUMPING_SIDE, buf -> buf.writeByte(this.getOutputFacing().getIndex()));
         }
     }
 

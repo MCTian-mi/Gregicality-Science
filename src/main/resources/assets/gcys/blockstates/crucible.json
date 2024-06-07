@@ -1,35 +1,35 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "gcys:crucible",
-    "textures": {
-      "all": "gregtech:blocks/rendering_error"
+  "forge_marker" : 1,
+  "defaults" : {
+    "model" : "gcys:crucible",
+    "textures" : {
+      "all" : "gregtech:blocks/rendering_error"
     }
   },
-  "variants": {
-    "variant": {
-      "quartz": {
-        "model": "gcys:crucible",
-        "textures": {
-          "all": "gregtech:blocks/crucible/quartz_crucible"
+  "variants" : {
+    "variant" : {
+      "quartz" : {
+        "model" : "gcys:crucible",
+        "textures" : {
+          "all" : "gregtech:blocks/crucible/quartz_crucible"
         }
       },
-      "tungsten": {
-        "model": "gcys:crucible",
-        "textures": {
-          "all": "gregtech:blocks/crucible/tungsten_crucible"
+      "tungsten" : {
+        "model" : "gcys:crucible",
+        "textures" : {
+          "all" : "gregtech:blocks/crucible/tungsten_crucible"
         }
       },
-      "graphite": {
-        "model": "gcys:crucible",
-        "textures": {
-          "all": "gregtech:blocks/crucible/graphite_crucible"
+      "graphite" : {
+        "model" : "gcys:crucible",
+        "textures" : {
+          "all" : "gregtech:blocks/crucible/graphite_crucible"
         }
       },
-      "boron_nitride": {
-        "model": "gcys:crucible",
-        "textures": {
-          "all": "gregtech:blocks/crucible/boron_nitride_crucible"
+      "boron_nitride" : {
+        "model" : "gcys:crucible",
+        "textures" : {
+          "all" : "gregtech:blocks/crucible/boron_nitride_crucible"
         }
       }
     }

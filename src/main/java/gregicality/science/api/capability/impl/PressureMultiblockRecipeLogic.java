@@ -53,7 +53,7 @@ public class PressureMultiblockRecipeLogic extends MultiblockRecipeLogic {
         double pressureToChange;
 
         // pressure changes by 1 percent per tick
-        if (pressure == GCYSValues.EARTH_PRESSURE)  return true;
+        if (pressure == GCYSValues.EARTH_PRESSURE) return true;
 
         pressureToChange = containerPressure * 0.01;
 

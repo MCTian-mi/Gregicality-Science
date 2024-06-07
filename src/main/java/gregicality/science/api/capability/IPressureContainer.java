@@ -3,7 +3,7 @@ package gregicality.science.api.capability;
 import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.impl.GasMap;
 import gregtech.common.ConfigHolder;
-import it.unimi.dsi.fastutil.objects.*;
+import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -42,9 +42,6 @@ public interface IPressureContainer {
             return GCYSValues.EARTH_PRESSURE * 2;
         }
     };
-
-
-    GasMap getGasMap();
 
     static void mergeContainers(@Nonnull IPressureContainer... containers) {
         mergeContainers(true, containers);
@@ -87,21 +84,29 @@ public interface IPressureContainer {
         }
     }
 
+    GasMap getGasMap();
+
     default void clear() {
         getGasMap().clear();
     }
 
     default double getGasAmount() {
         return getGasMap().getTotalGasAmount();
-    };
+    }
+
+    ;
 
     default double getGasAmount(Fluid fluid) {
         return getGasMap().getGasAmount(fluid);
-    };
+    }
+
+    ;
 
     default void setGasAmount(Fluid fluid, double amount) {
         getGasMap().setGasAmount(fluid, amount);
-    };
+    }
+
+    ;
 
     int getVolume();
 

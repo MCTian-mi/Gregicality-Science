@@ -28,15 +28,16 @@ import static gregicality.science.api.unification.materials.GCYSMaterials.*;
 import static gregicality.science.common.items.GCYSMetaItems.NANO_POWER_IC;
 import static gregicality.science.common.items.GCYSMetaItems.VOLTAGE_COIL_UHV;
 import static gregicality.science.common.metatileentities.GCYSMetaTileEntities.*;
-import static gregtech.api.GTValues.*;
+import static gregtech.api.GTValues.UHV;
+import static gregtech.api.GTValues.VA;
 import static gregtech.api.recipes.RecipeMaps.ASSEMBLER_RECIPES;
 import static gregtech.api.recipes.RecipeMaps.ASSEMBLY_LINE_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.blocks.BlockHermeticCasing.HermeticCasingsType.HERMETIC_UHV;
 import static gregtech.common.items.MetaItems.*;
-import static gregtech.common.metatileentities.MetaTileEntities.*;
 import static gregtech.common.metatileentities.MetaTileEntities.TRANSFORMER;
+import static gregtech.common.metatileentities.MetaTileEntities.*;
 import static gregtech.loaders.recipe.CraftingComponent.HULL;
 import static gregtech.loaders.recipe.CraftingComponent.*;
 

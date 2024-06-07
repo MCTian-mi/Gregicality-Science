@@ -6,16 +6,10 @@ import gregicality.science.api.capability.impl.GasMap;
 import gregicality.science.common.pipelike.pressure.PressurePipeData;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
-import it.unimi.dsi.fastutil.objects.Object2DoubleLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
 
 import static gregtech.api.unification.material.Materials.Air;
 
@@ -75,7 +69,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         if (deltaVolume > 0) {
             pushGas(Air.getFluid(), deltaVolume * GCYSValues.EARTH_PRESSURE, false);
         } else if (deltaVolume < 0) {
-            popGas(- deltaVolume * GCYSValues.EARTH_PRESSURE, false);
+            popGas(-deltaVolume * GCYSValues.EARTH_PRESSURE, false);
         }
 
 //        this.netParticles *= getVolume() / oldVolume;

@@ -1,27 +1,17 @@
 package gregicality.science.api.capability.impl;
 
-import codechicken.lib.fluid.FluidUtils;
 import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.GCYSTileCapabilities;
 import gregicality.science.api.capability.IPressureContainer;
 import gregtech.api.metatileentity.MTETrait;
 import gregtech.api.metatileentity.MetaTileEntity;
-import gregtech.api.recipes.FluidKey;
-import it.unimi.dsi.fastutil.objects.Object2DoubleLinkedOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.IOException;
-import java.util.Map;
 
 import static gregtech.api.unification.material.Materials.Air;
 
@@ -31,7 +21,7 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     private final double maxPressure;
     private final int volume;
 
-    private GasMap gasMap;
+    private final GasMap gasMap;
 
     /**
      * Default pressure container
@@ -69,8 +59,8 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     }
 
     @Override
-    public NBTTagCompound serializeNBT() {
-         return this.gasMap.serializeNBT();
+    public @NotNull NBTTagCompound serializeNBT() {
+        return this.gasMap.serializeNBT();
     }
 
     @Override
@@ -79,22 +69,23 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     }
 
     @Override
-    public void writeInitialSyncData(PacketBuffer buffer) {
+    public void writeInitialSyncData(@NotNull PacketBuffer buffer) {
         super.writeInitialSyncData(buffer);
         buffer.writeCompoundTag(gasMap.serializeNBT());
     }
 
     @Override
-    public void receiveInitialSyncData(PacketBuffer buffer) {
+    public void receiveInitialSyncData(@NotNull PacketBuffer buffer) {
         super.receiveInitialSyncData(buffer);
         try {
             NBTTagCompound compound = buffer.readCompoundTag();
             this.gasMap.deserializeNBT(compound);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "PressureContainer";
     }
 

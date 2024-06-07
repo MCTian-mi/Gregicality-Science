@@ -5,8 +5,6 @@ import gregicality.science.api.GCYSValues;
 import gregicality.science.api.recipes.GCYSRecipeMaps;
 import gregicality.science.client.render.GCYSTextures;
 import gregicality.science.common.metatileentities.multiblock.*;
-//import gregicality.science.common.metatileentities.multiblock.pressure.MetaTileEntityAxialCompressor;
-//import gregicality.science.common.metatileentities.multiblock.pressure.MetaTileEntityTurbomolecularPump;
 import gregicality.science.common.metatileentities.multiblockpart.MetaTileEntityPressureHatch;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntityCreativePressurePump;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntitySteamEjector;
