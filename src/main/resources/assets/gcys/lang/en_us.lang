@@ -733,6 +733,7 @@ recipemap.taranium_reactor_mk3_recipes.name=Taranium Hyper Reactor Mk.3
 gcys.recipe.temperature=Temperature: %,dK
 gcys.recipe.pressure=Pressure: %sPa
 gcys.recipe.vacuum=Vacuum: %sPa
+gcys.recipe.pressure_requirement=Requires a %s pressure between %sPa and %sPa
 
 # TOP
 gcys.top.pressure=Pressure: %sPa

@@ -47,4 +47,9 @@ dependencies {
     api("CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.684")
 
     compileOnly rfg.deobf("curse.maven:endercore-231868:4671384")
+
+    compileOnly "org.projectlombok:lombok:1.18.24"
+    annotationProcessor "org.projectlombok:lombok:1.18.24"
+    testCompileOnly "org.projectlombok:lombok:1.18.24"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.24"
 }

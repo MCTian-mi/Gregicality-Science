@@ -25,6 +25,8 @@ import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -58,6 +60,8 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
     private FluidTank fluidTank;
     @Nullable
     private EnumFacing outputFacing;
+    @Setter
+    @Getter
     private double targetPressure = GCYSValues.EARTH_PRESSURE;
 
     public MetaTileEntityCreativePressurePump(ResourceLocation metaTileEntityId) {
@@ -141,18 +145,10 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
         return fluidTank.getFluid() == null ? Air.getFluid() : fluidTank.getFluid().getFluid();
     }
 
-    public double getTargetPressure() {
-        return targetPressure;
-    }
-
-    public void setTargetPressure(double pressure) {
-        this.targetPressure = pressure;
-    }
-
     @Override
     public void update() {
         super.update();
-        if (getWorld().isRemote || !active) return;
+        if (getWorld().isRemote || !active) return; // TODO: make this tick less frequently
 
         double deltaPressure = targetPressure - pressureContainer.getPressure(getMarkedFluid());
         if (deltaPressure > 0) {

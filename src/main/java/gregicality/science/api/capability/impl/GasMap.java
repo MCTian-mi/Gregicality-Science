@@ -13,7 +13,7 @@ public class GasMap extends Object2DoubleArrayMap<Fluid> implements INBTSerializ
 
     public static final GasMap EMPTY = new GasMap();
 
-    private static final double MIN_RATIO = 0.001;
+    private static final double MIN_RATIO = 0.0001;
     private double totalGas;
 
     public GasMap() {
