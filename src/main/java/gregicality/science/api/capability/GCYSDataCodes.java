@@ -1,6 +1,9 @@
 package gregicality.science.api.capability;
 
-public class GCYSDataCodes {
+import gregtech.api.capability.GregtechDataCodes;
 
-    public static int UPDATE_PARTICLE = 371;
+public class GCYSDataCodes extends GregtechDataCodes {
+
+    public static int UPDATE_PARTICLE = assignId();
+    public static int UPDATE_PUMPING_SIDE = assignId();
 }

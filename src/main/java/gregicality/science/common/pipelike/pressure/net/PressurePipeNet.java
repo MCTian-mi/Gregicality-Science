@@ -2,6 +2,7 @@ package gregicality.science.common.pipelike.pressure.net;
 
 import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.IPressureContainer;
+import gregicality.science.api.capability.impl.GasMap;
 import gregicality.science.common.pipelike.pressure.PressurePipeData;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
@@ -20,15 +21,15 @@ import static gregtech.api.unification.material.Materials.Air;
 
 public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPressureContainer {
 
-    private Object2DoubleMap<Fluid> netParticles;
+    private GasMap gasMap;
     private int volume = 1;
     private double minNetPressure = Double.MAX_VALUE;
     private double maxNetPressure = Double.MIN_VALUE;
 
     public PressurePipeNet(WorldPipeNet<PressurePipeData, ? extends PipeNet> world) {
         super(world);
-        this.netParticles = new Object2DoubleLinkedOpenHashMap<>();
-        this.netParticles.put(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
+        this.gasMap = new GasMap();
+        this.gasMap.pushGas(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
     }
 
     @Override
@@ -49,15 +50,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         compound.setDouble("minNetP", minNetPressure);
         compound.setDouble("maxNetP", maxNetPressure);
         compound.setDouble("Volume", volume);
-        NBTTagList nbtTagList = new NBTTagList();
-        cleanUp(); // TODO: better not use it here
-        for (Object2DoubleMap.Entry<Fluid> entry : this.netParticles.object2DoubleEntrySet()) {
-            NBTTagCompound fluidCompound = new NBTTagCompound();
-            fluidCompound.setString("fluid", FluidRegistry.getFluidName(entry.getKey()));
-            fluidCompound.setDouble("amount", entry.getDoubleValue());
-            nbtTagList.appendTag(fluidCompound);
-        }
-        compound.setTag("particles", nbtTagList);
+        compound.setTag("GasMap", gasMap.serializeNBT());
         return compound;
     }
 
@@ -68,14 +61,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         this.minNetPressure = nbt.getDouble("minNetP");
         this.maxNetPressure = nbt.getDouble("maxNetP");
         this.volume = nbt.getInteger("Volume");
-        NBTTagList nbtTagList = nbt.getTagList("particles", Constants.NBT.TAG_COMPOUND);
-        Object2DoubleMap<Fluid> newParticles = new Object2DoubleLinkedOpenHashMap<>();
-        for (int i = 0; i < nbtTagList.tagCount(); i++) {
-            newParticles.put(
-                    FluidRegistry.getFluid(nbtTagList.getCompoundTagAt(i).getString("fluid")),
-                    nbtTagList.getCompoundTagAt(i).getDouble("amount"));
-        }
-        this.netParticles = newParticles;
+        this.gasMap.deserializeNBT(nbt.getCompoundTag("GasMap"));
     }
 
     @Override
@@ -83,8 +69,15 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         super.onNodeConnectionsUpdate();
         this.minNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMinPressure()).max().orElse(Double.MAX_VALUE);
         this.maxNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMaxPressure()).min().orElse(Double.MIN_VALUE);
-        final double oldVolume = getVolume();
+        final int oldVolume = getVolume();
         this.volume = Math.max(1, getAllNodes().values().stream().mapToInt(node -> node.data.getVolume()).sum());
+        int deltaVolume = getVolume() - oldVolume;
+        if (deltaVolume > 0) {
+            pushGas(Air.getFluid(), deltaVolume * GCYSValues.EARTH_PRESSURE, false);
+        } else if (deltaVolume < 0) {
+            popGas(- deltaVolume * GCYSValues.EARTH_PRESSURE, false);
+        }
+
 //        this.netParticles *= getVolume() / oldVolume;
     }
 
@@ -94,8 +87,8 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
     }
 
     @Override
-    public Map<Fluid, Double> getParticleMap() {
-        return new Object2DoubleLinkedOpenHashMap<>();
+    public GasMap getGasMap() {
+        return this.gasMap;
     }
 
     @Override
@@ -103,23 +96,50 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         return volume;
     }
 
+//    @Override
+//    public boolean changeTotalParticles(double amount, boolean simulate) {
+//        if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() + amount));
+//        for (Fluid fluid : getParticleMap().keySet()) {
+//            setGasAmount(fluid, getGasAmount(fluid) + amount * getRatio(fluid));
+//        }
+//        PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+//        return isPressureSafe();
+//    }
+
+
     @Override
-    public boolean changeTotalParticles(double amount, boolean simulate) {
-        if (simulate) return isPressureSafe(getPressureForParticles(getTotalParticles() + amount));
-        for (Fluid fluid : getParticleMap().keySet()) {
-            setParticles(fluid, getParticles(fluid) + amount * getRatio(fluid));
-        }
+    public boolean popGas(double amount, boolean simulate) {
+        if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
+        if (getGasAmount() < amount) return false;
+        getGasMap().popGas(amount);
+        PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+        return isPressureSafe();
+    }
+
+    @Override
+    public boolean popGas(Fluid fluid, double amount, boolean simulate) {
+        if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
+        if (getGasAmount(fluid) < amount) return false;
+        getGasMap().popGas(fluid, amount);
+        PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+        return isPressureSafe();
+    }
+
+    @Override
+    public boolean pushGas(Fluid fluid, double amount, boolean simulate) {
+        if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() + amount));
+        getGasMap().pushGas(fluid, amount);
         PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
         return isPressureSafe();
     }
 
     public void onLeak() {
-        if (getPressure() < GCYSValues.EARTH_PRESSURE) this.changeTotalParticles(getLeakRate(), false);
-        else if (getPressure() > GCYSValues.EARTH_PRESSURE) this.changeTotalParticles(-getLeakRate(), false);
+        if (getPressure() < GCYSValues.EARTH_PRESSURE) this.popGas(getLeakRate(), false);
+        else if (getPressure() > GCYSValues.EARTH_PRESSURE) this.pushGas(Air.getFluid(), getLeakRate(), false);
     }
 
     public double getLeakRate() {
-        return 1000.0D;
+        return 0D; // TODO make this depend on exposed faces
     }
 
     @Override

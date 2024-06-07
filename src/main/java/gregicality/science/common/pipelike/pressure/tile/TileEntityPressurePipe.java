@@ -100,7 +100,7 @@ public class TileEntityPressurePipe extends TileEntityPipeBase<PressurePipeType,
         PressurePipeNet net = getPipeNet();
         if (net != null) {
             net.onLeak();
-            if (!net.isNormalPressure()) causePressureExplosion();
+            if (!net.isPressureSafe()) causePressureExplosion();
             return !net.isNormalPressure();
         }
         return true;

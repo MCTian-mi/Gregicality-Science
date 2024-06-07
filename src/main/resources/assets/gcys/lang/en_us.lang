@@ -355,6 +355,10 @@ gcys.machine.pressure_hatch.edp.name=Electron Degeneracy Pressure Hatch
 gcys.machine.pressure_hatch.wdp.name=White Dwarf Pressure Hatch
 gcys.machine.pressure_hatch.nsp.name=Neutron Star Pressure Hatch
 
+# Creative Pressure Pump
+gcys.creative.pressure.pump.gas=Gas
+gcys.creative.pressure.pump.pressure=Pressure
+
 # Multi Block Machines
 
 # Crystallizer
@@ -730,3 +734,6 @@ gcys.recipe.temperature=Temperature: %,dK
 gcys.recipe.pressure=Pressure: %sPa
 gcys.recipe.vacuum=Vacuum: %sPa
 
+# TOP
+gcys.top.pressure=Pressure: %sPa
+gcys.top.partial_pressure=%s: %sPa

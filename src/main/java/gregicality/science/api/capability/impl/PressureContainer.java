@@ -31,7 +31,7 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     private final double maxPressure;
     private final int volume;
 
-    private Object2DoubleMap<Fluid> particles;
+    private GasMap gasMap;
 
     /**
      * Default pressure container
@@ -44,8 +44,8 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
         this.minPressure = minPressure;
         this.maxPressure = maxPressure;
         this.volume = volume;
-        this.particles = new Object2DoubleLinkedOpenHashMap<>();
-        this.particles.put(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
+        this.gasMap = new GasMap();
+        this.gasMap.pushGas(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     }
 
     @Override
-    public Map<Fluid, Double> getParticleMap() {
-        return particles;
+    public GasMap getGasMap() {
+        return gasMap;
     }
 
     @Override
@@ -70,64 +70,26 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
 
     @Override
     public NBTTagCompound serializeNBT() {
-        NBTTagCompound compound = new NBTTagCompound();
-        NBTTagList nbtTagList = new NBTTagList();
-        cleanUp(); // TODO: better not use it here
-        for (Object2DoubleMap.Entry<Fluid> entry : this.particles.object2DoubleEntrySet()) {
-            NBTTagCompound fluidCompound = new NBTTagCompound();
-            fluidCompound.setString("fluid", FluidRegistry.getFluidName(entry.getKey()));
-            fluidCompound.setDouble("amount", entry.getDoubleValue());
-            nbtTagList.appendTag(fluidCompound);
-        }
-        compound.setTag("particles", nbtTagList);
-        return compound;
+         return this.gasMap.serializeNBT();
     }
 
     @Override
     public void deserializeNBT(@Nonnull NBTTagCompound compound) {
-        NBTTagList nbtTagList = compound.getTagList("particles", Constants.NBT.TAG_COMPOUND);
-        Object2DoubleMap<Fluid> newParticles = new Object2DoubleLinkedOpenHashMap<>();
-        for (int i = 0; i < nbtTagList.tagCount(); i++) {
-            newParticles.put(
-                    FluidRegistry.getFluid(nbtTagList.getCompoundTagAt(i).getString("fluid")),
-                    nbtTagList.getCompoundTagAt(i).getDouble("amount"));
-        }
-        this.particles = newParticles;
+        this.gasMap.deserializeNBT(compound);
     }
 
     @Override
     public void writeInitialSyncData(PacketBuffer buffer) {
         super.writeInitialSyncData(buffer);
-
-        cleanUp();
-        NBTTagCompound compound = new NBTTagCompound(); // TODO: move this to a new class
-        NBTTagList nbtTagList = new NBTTagList();
-        cleanUp(); // TODO: better not use it here
-        for (Object2DoubleMap.Entry<Fluid> entry : this.particles.object2DoubleEntrySet()) {
-            NBTTagCompound fluidCompound = new NBTTagCompound();
-            fluidCompound.setString("fluid", FluidRegistry.getFluidName(entry.getKey()));
-            fluidCompound.setDouble("amount", entry.getDoubleValue());
-            nbtTagList.appendTag(fluidCompound);
-        }
-        compound.setTag("particles", nbtTagList);
-
-        buffer.writeCompoundTag(compound);
+        buffer.writeCompoundTag(gasMap.serializeNBT());
     }
 
     @Override
     public void receiveInitialSyncData(PacketBuffer buffer) {
         super.receiveInitialSyncData(buffer);
-
         try {
             NBTTagCompound compound = buffer.readCompoundTag();
-            NBTTagList nbtTagList = compound.getTagList("particles", Constants.NBT.TAG_COMPOUND);
-            Object2DoubleMap<Fluid> newParticles = new Object2DoubleLinkedOpenHashMap<>();
-            for (int i = 0; i < nbtTagList.tagCount(); i++) {
-                newParticles.put(
-                        FluidRegistry.getFluid(nbtTagList.getCompoundTagAt(i).getString("fluid")),
-                        nbtTagList.getCompoundTagAt(i).getDouble("amount"));
-            }
-            this.particles = newParticles;
+            this.gasMap.deserializeNBT(compound);
         } catch (Exception ignored) {}
     }
 
