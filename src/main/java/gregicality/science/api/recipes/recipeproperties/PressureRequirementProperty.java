@@ -1,24 +1,30 @@
 package gregicality.science.api.recipes.recipeproperties;
 
 import gregicality.science.api.utils.NumberFormattingUtil;
+import gregicality.science.client.render.GCYSGuiTextures;
 import gregtech.api.recipes.recipeproperties.RecipeProperty;
-import lombok.Getter;
+import gregtech.api.util.Position;
+import gregtech.api.util.Size;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PressureRequirementProperty extends RecipeProperty<PressureRequirementProperty.PressureRequirement> {
+public class PressureRequirementProperty extends RecipeProperty<PressureRequirementPropertyList> {
 
     public static final String KEY = "pressure_requirement";
-
+    private static final Position PRESSURE_INDICATOR_POSITION = new Position(79, 42);
+    private static final Size PRESSURE_INDICATOR_SIZE = new Size(18, 18);
     private static PressureRequirementProperty INSTANCE;
 
     private PressureRequirementProperty() {
-        super(KEY, PressureRequirement.class);
+        super(KEY, PressureRequirementPropertyList.class);
     }
 
     public static PressureRequirementProperty getInstance() {
@@ -29,55 +35,37 @@ public class PressureRequirementProperty extends RecipeProperty<PressureRequirem
     }
 
     @Override
-    public void drawInfo(@Nonnull Minecraft minecraft, int x, int y, int color, Object value) {
-        minecraft.fontRenderer.drawString(((PressureRequirement) value).getRequirementText(), x, y, color);
+    @SideOnly(Side.CLIENT)
+    public void getTooltipStrings(List<String> tooltip, int mouseX, int mouseY, Object value) {
+        super.getTooltipStrings(tooltip, mouseX, mouseY, value);
+
+        if (mouseX < PRESSURE_INDICATOR_POSITION.getX() || mouseX > PRESSURE_INDICATOR_POSITION.getX() + PRESSURE_INDICATOR_SIZE.getWidth() ||
+                mouseY < PRESSURE_INDICATOR_POSITION.getY() || mouseY > PRESSURE_INDICATOR_POSITION.getY() + PRESSURE_INDICATOR_SIZE.getHeight())
+            return;
+
+        PressureRequirementPropertyList requirementList = (PressureRequirementPropertyList) value;
+        List<String> pressureTooltips = new ArrayList<>(); // TODO: better formatting
+        if (requirementList.isHasTotalPressureRequirement()) {
+            pressureTooltips.add(PressureRequirementType.WITHIN_RANGE.format(
+                    NumberFormattingUtil.formatDoubleToCompactString(requirementList.getMinTotalPressure()),
+                    NumberFormattingUtil.formatDoubleToCompactString(requirementList.getMaxTotalPressure())));
+        }
+        for (Fluid gas : requirementList.getRequirementGases()) {
+            pressureTooltips.add(PressureRequirementType.WITHIN_RANGE.format(
+                    gas,
+                    NumberFormattingUtil.formatDoubleToCompactString(requirementList.getMinPressureMap().getDouble(gas)),
+                    NumberFormattingUtil.formatDoubleToCompactString(requirementList.getMaxPressureMap().getDouble(gas))));
+        }
+        tooltip.addAll(pressureTooltips);
     }
 
-    public class PressureRequirement {
-
-        @Getter
-        private final PressureRequirementType type;
-        @Getter
-        private final double maxP;
-        @Getter
-        private final double minP;
-        @Nullable
-        @Getter
-        private final Fluid gas;
-        @Getter
-        private final String requirementText;
-
-        public PressureRequirement(PressureRequirementType type, @Nullable Fluid gas, int... args) {
-            this.gas = gas;
-            this.type = type;
-            String gasName = gas == null ? "" : gas.getLocalizedName(new FluidStack(gas, 1));
-            switch (type) {
-                case HIGHER_THAN:
-                    this.minP = args[0];
-                    this.maxP = Double.MAX_VALUE;
-                    break;
-                case LOWER_THAN:
-                    this.minP = Double.MIN_VALUE;
-                    this.maxP = args[0];
-                    break;
-                case WITHIN_RANGE:
-                    this.minP = args[0];
-                    this.maxP = args[1];
-                    break;
-                case APPROXIMATE:
-                    this.minP = args[0] - args[1];
-                    this.maxP = args[0] + args[1];
-                    break;
-                default:
-                    this.minP = Double.MIN_VALUE;
-                    this.maxP = Double.MAX_VALUE;
-                    break;
-            }
-            this.requirementText = I18n.format(
-                    "gcys.recipe.pressure_requirement",
-                    gasName,
-                    NumberFormattingUtil.formatDoubleToCompactString(this.minP),
-                    NumberFormattingUtil.formatDoubleToCompactString(this.maxP));
-        }
+    @Override
+    public void drawInfo(@Nonnull Minecraft minecraft, int x, int y, int color, Object value) {
+        minecraft.fontRenderer.drawString(I18n.format("gcys.recipe.has_pressure_requirement"), x, y, color);
+        GlStateManager.enableLighting();
+        GlStateManager.enableLight(1);
+        GCYSGuiTextures.PRESSURE_INDICATOR.draw(PRESSURE_INDICATOR_POSITION.getX(), PRESSURE_INDICATOR_POSITION.getY(), PRESSURE_INDICATOR_SIZE.getWidth(), PRESSURE_INDICATOR_SIZE.getHeight());
+        GlStateManager.disableLight(1);
+        GlStateManager.disableLighting();
     }
 }

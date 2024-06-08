@@ -4,16 +4,27 @@ import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.impl.GasMap;
 import gregtech.common.ConfigHolder;
 import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.Fluid;
 
 import javax.annotation.Nonnull;
 
-public interface IPressureContainer {
+public interface IPressureContainer extends INBTSerializable<NBTTagCompound> {
 
     int PRESSURE_TOLERANCE = 5000;
     IPressureContainer EMPTY = new IPressureContainer() {
+        @Override
+        public NBTTagCompound serializeNBT() {
+            return null;
+        }
+
+        @Override
+        public void deserializeNBT(NBTTagCompound nbt) {
+        }
+
         @Override
         public GasMap getGasMap() {
             return GasMap.EMPTY;
@@ -76,6 +87,7 @@ public interface IPressureContainer {
         // P = vN * [(n1 + n2 + ...) / (v1 + v2 + ...)] / vN
 
         for (IPressureContainer container : containers) {
+            container.cleanUp();
             if (!checkSafety || container.isPressureSafe(newPressure)) {
                 for (Object2DoubleMap.Entry<Fluid> entry : totalMap.object2DoubleEntrySet()) {
                     container.setGasAmount(entry.getKey(), entry.getDoubleValue() * container.getVolume() / totalVolume);

@@ -71,8 +71,6 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         } else if (deltaVolume < 0) {
             popGas(-deltaVolume * GCYSValues.EARTH_PRESSURE, false);
         }
-
-//        this.netParticles *= getVolume() / oldVolume;
     }
 
     @Override
@@ -90,23 +88,14 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         return volume;
     }
 
-//    @Override
-//    public boolean changeTotalParticles(double amount, boolean simulate) {
-//        if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() + amount));
-//        for (Fluid fluid : getParticleMap().keySet()) {
-//            setGasAmount(fluid, getGasAmount(fluid) + amount * getRatio(fluid));
-//        }
-//        PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
-//        return isPressureSafe();
-//    }
-
-
     @Override
     public boolean popGas(double amount, boolean simulate) {
         if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
         if (getGasAmount() < amount) return false;
         getGasMap().popGas(amount);
-        PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+        if (!getAllNodes().isEmpty()) {
+            PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+        }
         return isPressureSafe();
     }
 
@@ -115,7 +104,9 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
         if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
         if (getGasAmount(fluid) < amount) return false;
         getGasMap().popGas(fluid, amount);
-        PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+        if (!getAllNodes().isEmpty()) {
+            PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+        }
         return isPressureSafe();
     }
 
@@ -123,7 +114,9 @@ public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPress
     public boolean pushGas(Fluid fluid, double amount, boolean simulate) {
         if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() + amount));
         getGasMap().pushGas(fluid, amount);
-        PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+        if (!getAllNodes().isEmpty()) {
+            PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
+        }
         return isPressureSafe();
     }
 

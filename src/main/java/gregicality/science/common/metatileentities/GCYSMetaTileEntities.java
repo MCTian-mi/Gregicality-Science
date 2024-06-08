@@ -7,23 +7,25 @@ import gregicality.science.client.render.GCYSTextures;
 import gregicality.science.common.metatileentities.multiblock.*;
 import gregicality.science.common.metatileentities.multiblockpart.MetaTileEntityPressureHatch;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntityCreativePressurePump;
+import gregicality.science.common.metatileentities.singleblock.MetaTileEntityGCYSAutoclave;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntitySteamEjector;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntitySteamVacuumChamber;
 import gregtech.api.GTValues;
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
+import gregtech.client.renderer.texture.Textures;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
-import static gregtech.common.metatileentities.MetaTileEntities.registerMetaTileEntity;
-import static gregtech.common.metatileentities.MetaTileEntities.registerSimpleMetaTileEntity;
+import static gregtech.common.metatileentities.MetaTileEntities.*;
 
 public class GCYSMetaTileEntities {
 
     public static MetaTileEntitySteamEjector STEAM_EJECTOR;
     public static MetaTileEntitySteamVacuumChamber SMALL_VACUUM_CHAMBER;
     public static MetaTileEntityCreativePressurePump CREATIVE_PRESSURE;
+    public static MetaTileEntityGCYSAutoclave[] GCYS_AUTOCLAVE = new MetaTileEntityGCYSAutoclave[GTValues.V.length - 1];
 
     public static SimpleMachineMetaTileEntity[] DRYER = new SimpleMachineMetaTileEntity[GTValues.V.length - 1];
 
@@ -50,7 +52,13 @@ public class GCYSMetaTileEntities {
         // Random Machines: ID 2100-2299
         STEAM_EJECTOR = registerMetaTileEntity(2100, new MetaTileEntitySteamEjector(gcysId("steam_ejector")));
         SMALL_VACUUM_CHAMBER = registerMetaTileEntity(2101, new MetaTileEntitySteamVacuumChamber(gcysId("steam_vacuum_chamber")));
-        CREATIVE_PRESSURE = registerMetaTileEntity(2102, new MetaTileEntityCreativePressurePump(gcysId("infinite_pressure_pump")));
+        CREATIVE_PRESSURE = registerMetaTileEntity(2102, new MetaTileEntityCreativePressurePump());
+        registerMetaTileEntities(GCYS_AUTOCLAVE, 2103, "gcys_autoclave",
+                (tier, voltageName) -> new MetaTileEntityGCYSAutoclave(
+                        gcysId(String.format("%s.%s", "gcys_autoclave", voltageName)),
+                        GCYSRecipeMaps.GCYS_AUTOCLAVE_RECIPES,
+                        Textures.AUTOCLAVE_OVERLAY,
+                        tier));
 
         // Simple Machines: ID 2300-3000+
         registerSimpleMetaTileEntity(DRYER, 2200, "dryer", GCYSRecipeMaps.DRYER_RECIPES, GCYSTextures.DRYER_OVERLAY, true, GCYSMetaTileEntities::gcysId, GTUtility.hvCappedTankSizeFunction);
@@ -87,7 +95,7 @@ public class GCYSMetaTileEntities {
     }
 
     @Nonnull
-    private static ResourceLocation gcysId(String name) {
+    public static ResourceLocation gcysId(String name) {
         return new ResourceLocation(GregicalityScience.MODID, name);
     }
 }

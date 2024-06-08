@@ -3,7 +3,7 @@ package gregicality.science.api.capability.impl;
 import gregicality.science.api.GCYSValues;
 import gregtech.api.metatileentity.MetaTileEntity;
 
-public class AtmosphericPressureContainer extends PressureContainer {
+public class AtmosphericPressureContainer extends PressureContainer { // why this exists?
 
     /**
      * Atmopsheric pressure container which always remains at atmospheric

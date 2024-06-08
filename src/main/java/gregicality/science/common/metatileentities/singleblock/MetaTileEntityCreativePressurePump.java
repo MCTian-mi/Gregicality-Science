@@ -25,16 +25,19 @@ import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
 import gregtech.api.util.GTLog;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.texture.Textures;
+import gregtech.client.utils.TooltipHelper;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -45,25 +48,27 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
+import java.util.List;
 import java.util.function.Function;
 
+import static gregicality.science.common.metatileentities.GCYSMetaTileEntities.gcysId;
 import static gregtech.api.capability.GregtechDataCodes.UPDATE_ACTIVE;
 import static gregtech.api.unification.material.Materials.Air;
 
 public class MetaTileEntityCreativePressurePump extends MetaTileEntity implements IPressureMachine, IActiveOutputSide {
 
-    private static final int VOLUME = 640000;
+    private static final int VOLUME = 1000000;
+    private final FluidTank fluidTank;
     private PressureContainer pressureContainer;
     private boolean active = false;
-    private FluidTank fluidTank;
     @Nullable
     private EnumFacing outputFacing;
     @Setter
     @Getter
     private double targetPressure = GCYSValues.EARTH_PRESSURE;
 
-    public MetaTileEntityCreativePressurePump(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId);
+    public MetaTileEntityCreativePressurePump() {
+        super(gcysId("creative_pressure_pump"));
         this.pressureContainer = new PressureContainer(this, Double.MIN_VALUE, Double.MAX_VALUE, VOLUME);
         this.fluidTank = new FluidTank(1);
 //        this.fluidTank.fill(Air.getFluid(Integer.MAX_VALUE), true);
@@ -79,7 +84,7 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity iGregTechTileEntity) {
-        return new MetaTileEntityCreativePressurePump(metaTileEntityId);
+        return new MetaTileEntityCreativePressurePump();
     }
 
     @Override
@@ -107,11 +112,7 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing side) {
         if (capability == GCYSTileCapabilities.CAPABILITY_PRESSURE_CONTAINER) {
-            if (side == null || side == getOutputFacing().getOpposite()) {
-//            if (side == getOutputFacing().getOpposite()) {
-                return GCYSTileCapabilities.CAPABILITY_PRESSURE_CONTAINER.cast(this.pressureContainer);
-            }
-            return null;
+            return GCYSTileCapabilities.CAPABILITY_PRESSURE_CONTAINER.cast(this.pressureContainer);
         }
         return super.getCapability(capability, side);
     }
@@ -123,9 +124,7 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
 
         builder.label(7, 9, "gcys.creative.pressure.pump.gas"); // TODO make this accept gas only
         builder.widget(new PhantomFluidWidget(36, 6, 18, 18,
-                () -> this.fluidTank.getFluid(), data -> {
-            this.fluidTank.setFluid(data);
-        }).showTip(false));
+                this.fluidTank::getFluid, this.fluidTank::setFluid).showTip(false));
 
         builder.label(7, 32, "gcys.creative.pressure.pump.pressure");
         builder.widget(new ImageWidget(7, 45, 154, 14, GuiTextures.DISPLAY));
@@ -164,6 +163,12 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
                             container.getPressure() == container.getMaxPressure())) return;
             IPressureContainer.mergeContainers(this.pressureContainer, container);
         }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        tooltip.add(I18n.format("gregtech.creative_tooltip.1") + TooltipHelper.RAINBOW +
+                I18n.format("gregtech.creative_tooltip.2") + I18n.format("gregtech.creative_tooltip.3"));
     }
 
     @Override

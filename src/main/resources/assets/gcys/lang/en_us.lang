@@ -336,8 +336,9 @@ gcys.steam_ejector.tooltip.3=Consumes %sL of Steam per second.
 gcys.machine.steam_vacuum_chamber.name=Small Steam Vacuum Chamber
 
 # Infinite Pressure Pump
-gcys.machine.infinite_pressure_pump.name=Infinite Pressure Pump
-gcys.machine.infinite_pressure_pump.tooltip=§8You just need §o§5C§dr§4e§ca§et§ai§bv§3e §7m§1o§5d§de§r§8 to use this
+gcys.machine.creative_pressure_pump.name=Infinite Pressure Pump
+gcys.creative.pressure.pump.gas=Gas
+gcys.creative.pressure.pump.pressure=Pressure
 
 # Multi Block Hatches
 gcys.machine.pressure_hatch.ivv.name=Intergalactic Void Vacuum Hatch
@@ -354,10 +355,6 @@ gcys.machine.pressure_hatch.uhp.name=Ultra High Pressure Hatch
 gcys.machine.pressure_hatch.edp.name=Electron Degeneracy Pressure Hatch
 gcys.machine.pressure_hatch.wdp.name=White Dwarf Pressure Hatch
 gcys.machine.pressure_hatch.nsp.name=Neutron Star Pressure Hatch
-
-# Creative Pressure Pump
-gcys.creative.pressure.pump.gas=Gas
-gcys.creative.pressure.pump.pressure=Pressure
 
 # Multi Block Machines
 
@@ -733,7 +730,13 @@ recipemap.taranium_reactor_mk3_recipes.name=Taranium Hyper Reactor Mk.3
 gcys.recipe.temperature=Temperature: %,dK
 gcys.recipe.pressure=Pressure: %sPa
 gcys.recipe.vacuum=Vacuum: %sPa
+gcys.recipe.pressure_requirement.higher_than=P(%s) > %sPa
+gcys.recipe.pressure_requirement.lower_than=P(%s) < %sPa
+gcys.recipe.pressure_requirement.within_range=%2$sPa < P(%1$s) < %3$sPa
+gcys.recipe.pressure_requirement.approximate=P(%s) ≈ %sPa
+gcys.recipe.pressure_requirement.total=Total
 gcys.recipe.pressure_requirement=Requires a %s pressure between %sPa and %sPa
+gcys.recipe.has_pressure_requirement=Has pressure requirement(s)
 
 # TOP
 gcys.top.pressure=Pressure: %sPa
