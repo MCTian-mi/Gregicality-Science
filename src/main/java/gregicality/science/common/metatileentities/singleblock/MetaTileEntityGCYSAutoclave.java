@@ -1,6 +1,5 @@
 package gregicality.science.common.metatileentities.singleblock;
 
-import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.GCYSTileCapabilities;
 import gregicality.science.api.capability.IPressureContainer;
 import gregicality.science.api.capability.IPressureMachine;

@@ -9,9 +9,9 @@ import gregicality.science.common.items.GCYSMetaItems;
 import gregicality.science.common.metatileentities.GCYSMetaTileEntities;
 import gregicality.science.intergration.theoneprobe.TheOneProbeModule;
 import gregtech.GTInternalTags;
-import gregtech.api.event.HighTierEvent;
 import gregtech.api.util.Mods;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -34,12 +34,8 @@ public class GregicalityScience {
             serverSide = "gregicality.science.common.CommonProxy")
     public static CommonProxy proxy;
 
-    @Mod.EventHandler
-    public void onHighTierEvent(HighTierEvent event) {
-        event.enableHighTier();
-    }
 
-    @Mod.EventHandler
+    @EventHandler
     public void onPreInit(@Nonnull FMLPreInitializationEvent event) {
         GCYSLog.init(event.getModLog());
 
@@ -52,7 +48,7 @@ public class GregicalityScience {
         proxy.preLoad();
     }
 
-    @Mod.EventHandler
+    @EventHandler
     public void onInit(@NotNull FMLInitializationEvent event) {
         if (Mods.TheOneProbe.isModLoaded()) {
             TheOneProbeModule.init();

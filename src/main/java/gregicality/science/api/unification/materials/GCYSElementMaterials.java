@@ -6,10 +6,10 @@ import gregtech.api.unification.material.properties.BlastProperty;
 import gregtech.api.unification.material.properties.ToolProperty;
 
 import static gregicality.science.api.unification.materials.GCYSMaterials.*;
+import static gregicality.science.common.metatileentities.GCYSMetaTileEntities.gcysId;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static gregtech.api.unification.material.info.MaterialIconSet.METALLIC;
 import static gregtech.api.unification.material.info.MaterialIconSet.SHINY;
-import static gregtech.api.util.GTUtility.gregtechId;
 
 public class GCYSElementMaterials {
 
@@ -17,26 +17,26 @@ public class GCYSElementMaterials {
      * 3100-3499
      */
     public static void init() {
-        Lithium6 = new Material.Builder(3100, gregtechId("lithium_6"))
+        Lithium6 = new Material.Builder(3100, gcysId("lithium_6"))
                 .ingot()
                 .color(0xE6E1FF)
                 .flags(GENERATE_PLATE, GENERATE_FOIL)
                 .element(GCYSElements.Li6)
                 .build();
 
-        Lithium7 = new Material.Builder(3101, gregtechId("lithium_7"))
+        Lithium7 = new Material.Builder(3101, gcysId("lithium_7"))
                 .ingot()
                 .color(0xE1DCFF).iconSet(METALLIC)
                 .element(GCYSElements.Li7)
                 .build();
 
-        Beryllium7 = new Material.Builder(3102, gregtechId("beryllium_7"))
+        Beryllium7 = new Material.Builder(3102, gcysId("beryllium_7"))
                 .ingot().fluid()
                 .color(0x6EBE6E)
                 .element(GCYSElements.Be7)
                 .build();
 
-        Orichalcum = new Material.Builder(3103, gregtechId("orichalcum"))
+        Orichalcum = new Material.Builder(3103, gcysId("orichalcum"))
                 .ingot().fluid()
                 .color(0x72A0C1).iconSet(METALLIC)
                 .flags(GENERATE_PLATE, GENERATE_ROTOR, GENERATE_ROD, GENERATE_GEAR, GENERATE_SMALL_GEAR)
@@ -46,7 +46,7 @@ public class GCYSElementMaterials {
                 .blast(b -> b.temp(9000, BlastProperty.GasTier.HIGH))
                 .build();
 
-        Vibranium = new Material.Builder(3104, gregtechId("vibranium"))
+        Vibranium = new Material.Builder(3104, gcysId("vibranium"))
                 .ingot().fluid().plasma()
                 .color(0xC880FF).iconSet(SHINY)
                 .flags(GENERATE_PLATE, GENERATE_FOIL)
@@ -54,7 +54,7 @@ public class GCYSElementMaterials {
                 .blast(b -> b.temp(4852, BlastProperty.GasTier.HIGH))
                 .build();
 
-        Adamantium = new Material.Builder(3105, gregtechId("adamantium"))
+        Adamantium = new Material.Builder(3105, gcysId("adamantium"))
                 .ingot().fluid().plasma()
                 .color(0xFF0040).iconSet(METALLIC)
                 .flags(GENERATE_PLATE, GENERATE_ROTOR, GENERATE_ROD, GENERATE_LONG_ROD, GENERATE_FRAME,
@@ -63,7 +63,7 @@ public class GCYSElementMaterials {
                 .blast(b -> b.temp(5225, BlastProperty.GasTier.HIGH))
                 .build();
 
-        Taranium = new Material.Builder(3106, gregtechId("taranium"))
+        Taranium = new Material.Builder(3106, gcysId("taranium"))
                 .dust()
                 .color(0x4F404F).iconSet(METALLIC)
                 .element(GCYSElements.Tn)

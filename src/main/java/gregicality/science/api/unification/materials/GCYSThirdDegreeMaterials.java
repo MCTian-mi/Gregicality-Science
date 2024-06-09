@@ -5,14 +5,14 @@ import gregtech.api.unification.material.info.MaterialIconSet;
 
 import static gregicality.science.api.unification.materials.GCYSMaterials.RoastedSphalerite;
 import static gregicality.science.api.unification.materials.GCYSMaterials.ZincRichSphalerite;
+import static gregicality.science.common.metatileentities.GCYSMetaTileEntities.gcysId;
 import static gregtech.api.unification.material.Materials.Zinc;
 import static gregtech.api.unification.material.info.MaterialFlags.DISABLE_DECOMPOSITION;
-import static gregtech.api.util.GTUtility.gregtechId;
 
 public class GCYSThirdDegreeMaterials {
 
     public static void init() {
-        ZincRichSphalerite = new Material.Builder(9001, gregtechId("zinc_rich_sphalerite"))
+        ZincRichSphalerite = new Material.Builder(9001, gcysId("zinc_rich_sphalerite"))
                 .dust()
                 .color(0xC3AC8F)
                 .iconSet(MaterialIconSet.METALLIC)
