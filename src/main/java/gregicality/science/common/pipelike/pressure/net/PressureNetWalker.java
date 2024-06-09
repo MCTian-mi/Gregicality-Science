@@ -32,8 +32,7 @@ public class PressureNetWalker extends PipeNetWalker<TileEntityPressurePipe> {
 
     @Override
     protected void checkPipe(TileEntityPressurePipe pipeTile, BlockPos blockPos) {
-        TileEntityPressurePipe pipe = (TileEntityPressurePipe) pipeTile;
-        pipe.checkPressure(pressure);
+        ((TileEntityPressurePipe) pipeTile).checkPressure(pressure);
     }
 
     @Override

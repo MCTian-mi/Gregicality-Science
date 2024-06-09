@@ -1,26 +1,45 @@
 package gregicality.science.api.capability;
 
 import gregicality.science.api.GCYSValues;
+import gregicality.science.api.capability.impl.GasMap;
 import gregtech.common.ConfigHolder;
+import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.fluids.Fluid;
 
 import javax.annotation.Nonnull;
 
-public interface IPressureContainer {
+public interface IPressureContainer extends INBTSerializable<NBTTagCompound> {
 
     int PRESSURE_TOLERANCE = 5000;
     IPressureContainer EMPTY = new IPressureContainer() {
         @Override
-        public double getParticles() {
+        public NBTTagCompound serializeNBT() {
+            return null;
+        }
+
+        @Override
+        public void deserializeNBT(NBTTagCompound nbt) {
+        }
+
+        @Override
+        public GasMap getGasMap() {
+            return GasMap.EMPTY;
+        }
+
+        @Override
+        public double getGasAmount() {
             return 0;
         }
 
         @Override
-        public void setParticles(double amount) {/**/}
+        public void setGasAmount(Fluid fluidkey, double amount) {/**/}
 
         @Override
-        public double getVolume() {
+        public int getVolume() {
             return 1;
         }
 
@@ -35,99 +54,115 @@ public interface IPressureContainer {
         }
     };
 
-    /**
-     * Equalizes the pressure between containers. This does not modify volume.
-     *
-     * @param containers the containers to merge
-     */
     static void mergeContainers(@Nonnull IPressureContainer... containers) {
         mergeContainers(true, containers);
     }
 
-    /**
-     * Equalizes the pressure between containers. This does not modify volume.
-     *
-     * @param checkSafety whether to check if changing pressure is safe before modifying container values
-     * @param containers  the containers to merge
-     */
     static void mergeContainers(boolean checkSafety, @Nonnull IPressureContainer... containers) {
         // P = (n1 + n2) / (v1 + v2)
-        double particles = 0;
-        double volume = 0;
-        for (IPressureContainer container : containers) {
-            particles += container.getParticles();
-            volume += container.getVolume();
-        }
-        if (volume == 0) return;
+        double totalParticles = 0;
+        int totalVolume = 0;
+        GasMap totalMap = new GasMap();
 
-        // P = vN * [(n1 + n2 + ...) / (v1 + v2 + ...)] / vN
-        final double newParticles = particles / volume;
         for (IPressureContainer container : containers) {
-            double amount = container.getVolume() * newParticles - container.getParticles();
-            if (!checkSafety || container.changeParticles(amount, true)) {
-                container.changeParticles(amount, false);
+            totalParticles += container.getGasAmount();
+            totalVolume += container.getVolume();
+            container.getGasMap().forEach(totalMap::pushGas);
+        }
+        if (totalVolume == 0 || totalParticles == 0) return;
+
+        final double newPressure = totalParticles / totalVolume;
+
+        if (checkSafety) {
+            for (IPressureContainer container : containers) {
+                if (!container.isPressureSafe(newPressure)) {
+                    totalParticles -= container.getGasAmount();
+                    totalVolume -= container.getVolume();
+                    container.getGasMap().forEach(totalMap::popGas);
+                }
+            }
+        }
+
+        totalMap.cleanUp(); // TODO: move this elsewhere...?
+        // P = vN * [(n1 + n2 + ...) / (v1 + v2 + ...)] / vN
+
+        for (IPressureContainer container : containers) {
+            container.cleanUp();
+            if (!checkSafety || container.isPressureSafe(newPressure)) {
+                for (Object2DoubleMap.Entry<Fluid> entry : totalMap.object2DoubleEntrySet()) {
+                    container.setGasAmount(entry.getKey(), entry.getDoubleValue() * container.getVolume() / totalVolume);
+                }
             }
         }
     }
 
-    /**
-     * @return the amount of particles in the container
-     */
-    double getParticles();
+    GasMap getGasMap();
 
-    /**
-     * Set the amount of particles in the container
-     *
-     * @param amount the amount to set
-     */
-    void setParticles(double amount);
-
-    /**
-     * This method should <b>never</b> return 0.
-     *
-     * @return the volume of the container in B
-     */
-    double getVolume();
-
-    /**
-     * <p>
-     * Pressure = number of particles / volume
-     * </p>
-     * <p>
-     * While not scientifically accurate, it provides enough detail for proper equalization
-     *
-     * @return the amount of pressure in the container
-     */
-    default double getPressure() {
-        return getParticles() / getVolume();
+    default void clear() {
+        getGasMap().clear();
     }
 
-    /**
-     * @param amount the amount of particles
-     * @return the pressure if the container had a certain number of particles
-     */
-    default double getPressureForParticles(double amount) {
+    default double getGasAmount() {
+        return getGasMap().getTotalGasAmount();
+    }
+
+    ;
+
+    default double getGasAmount(Fluid fluid) {
+        return getGasMap().getGasAmount(fluid);
+    }
+
+    ;
+
+    default void setGasAmount(Fluid fluid, double amount) {
+        getGasMap().setGasAmount(fluid, amount);
+    }
+
+    ;
+
+    int getVolume();
+
+    default double getPressure() {
+        return getGasAmount() / getVolume();
+    }
+
+    default double getPressure(Fluid fluid) {
+        return getGasAmount(fluid) / getVolume();
+    }
+
+    default double getRatio(Fluid fluid) {
+        return getGasMap().getRatio(fluid);
+    }
+
+    default void cleanUp() {
+        getGasMap().cleanUp();
+    }
+
+    default double getPressureForGasAmount(double amount) {
         return amount / getVolume();
     }
 
-    /**
-     * @param volume the volume, nonzero
-     * @return the pressure if the container had a certain volume
-     */
     default double getPressureForVolume(double volume) {
-        return getParticles() / volume;
+        return getGasAmount() / volume;
     }
 
-    /**
-     * Change the amount of particles in the container by a given amount
-     *
-     * @param amount   the amount to change by
-     * @param simulate whether to actually change the value or not
-     * @return true if the change is safe, else false
-     */
-    default boolean changeParticles(double amount, boolean simulate) {
-        if (simulate) return isPressureSafe(getPressureForParticles(getParticles() + amount));
-        setParticles(getParticles() + amount);
+    default boolean pushGas(Fluid fluid, double amount, boolean simulate) {
+        if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() + amount));
+        getGasMap().pushGas(fluid, amount);
+        return isPressureSafe();
+    }
+
+    default boolean popGas(Fluid fluid, double amount, boolean simulate) {
+        if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
+        if (getGasAmount(fluid) < amount) return false;
+        getGasMap().popGas(fluid, amount);
+        return isPressureSafe();
+    }
+
+    default boolean popGas(double amount, boolean simulate) {
+        if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
+        if (getGasAmount() < amount) return false;
+        getGasMap().popGas(amount);
         return isPressureSafe();
     }
 
@@ -145,6 +180,7 @@ public interface IPressureContainer {
      * @return true if the pressure is safe for the container, else false
      */
     default boolean isPressureSafe() {
+//        cleanUp(); // TODO: move this elsewhere
         return isPressureSafe(getPressure());
     }
 

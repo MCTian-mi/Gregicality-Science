@@ -25,7 +25,7 @@ public abstract class PressureMultiblockController extends RecipeMapMultiblockCo
         super.initializeAbilities();
         List<IPressureContainer> list = getAbilities(GCYSMultiblockAbility.PRESSURE_CONTAINER);
         if (list.isEmpty()) {
-            this.container = new AtmosphericPressureContainer(this, 1.0);
+            this.container = new AtmosphericPressureContainer(this, 1);
         } else {
             this.container = list.get(0);
         }

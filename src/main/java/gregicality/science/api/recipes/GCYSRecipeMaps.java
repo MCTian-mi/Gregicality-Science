@@ -2,6 +2,7 @@ package gregicality.science.api.recipes;
 
 import gregicality.science.api.recipes.builders.NoCoilTemperatureRecipeBuilder;
 import gregicality.science.api.recipes.builders.PressureRecipeBuilder;
+import gregicality.science.api.recipes.builders.PressureRequirementRecipeBuilder;
 import gregicality.science.api.recipes.builders.TemperaturePressureRecipeBuilder;
 import gregicality.science.client.render.GCYSGuiTextures;
 import gregtech.api.GTValues;
@@ -92,6 +93,13 @@ public class GCYSRecipeMaps {
             .setSlotOverlay(false, false, true, GuiTextures.CRUSHED_ORE_OVERLAY)
             .setSlotOverlay(true, false, true, GuiTextures.DUST_OVERLAY)
             .setSound(GTSoundEvents.MACERATOR);
+
+    public static final RecipeMap<PressureRequirementRecipeBuilder> GCYS_AUTOCLAVE_RECIPES = new RecipeMap<>("gcys_autoclave_recipes", 3, 2, 3, 2, new PressureRequirementRecipeBuilder(), false)
+            .setSlotOverlay(false, false, GuiTextures.DUST_OVERLAY)
+            .setSlotOverlay(true, false, GuiTextures.CRYSTAL_OVERLAY)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW_MULTIPLE, ProgressWidget.MoveType.HORIZONTAL)
+            .setSound(GTSoundEvents.FURNACE);
+
 
     // Generators
 

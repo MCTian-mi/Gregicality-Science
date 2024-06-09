@@ -7,6 +7,7 @@ import codechicken.lib.vec.Matrix4;
 import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.GCYSTileCapabilities;
 import gregicality.science.api.capability.IPressureContainer;
+import gregicality.science.api.capability.IPressureMachine;
 import gregicality.science.api.capability.impl.PressureContainer;
 import gregicality.science.api.utils.GCYSUtility;
 import gregicality.science.api.utils.NumberFormattingUtil;
@@ -20,7 +21,6 @@ import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.widgets.ImageWidget;
 import gregtech.api.gui.widgets.ProgressWidget;
-import gregtech.api.gui.widgets.SuppliedImageWidget;
 import gregtech.api.gui.widgets.TankWidget;
 import gregtech.api.metatileentity.IDataInfoProvider;
 import gregtech.api.metatileentity.MetaTileEntity;
@@ -56,7 +56,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataInfoProvider, IActiveOutputSide {
+public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataInfoProvider, IActiveOutputSide, IPressureMachine {
 
     private static final int PRESSURE_DECREASE = -1000;
     private static final int STEAM_CONSUMPTION = 160;
@@ -79,7 +79,7 @@ public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataI
     @Override
     protected void initializeInventory() {
         super.initializeInventory();
-        this.pressureContainer = new PressureContainer(this, 13E-5, GCYSValues.EARTH_PRESSURE, 1.0);
+        this.pressureContainer = new PressureContainer(this, 13E-5, GCYSValues.EARTH_PRESSURE, 1);
     }
 
     @Override
@@ -143,14 +143,14 @@ public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataI
                 if (drained != null && drained.amount == STEAM_CONSUMPTION && ventSteam(true)) {
                     fuelFluidTank.drain(STEAM_CONSUMPTION, true);
 
-                    if (pressureContainer.changeParticles(PRESSURE_DECREASE, true)) {
-                        pressureContainer.changeParticles(PRESSURE_DECREASE, false);
-                    } else if (pressureContainer.changeParticles(-pressureContainer.getParticles() / 2, true)) {
+                    if (pressureContainer.popGas(PRESSURE_DECREASE, true)) {
+                        pressureContainer.popGas(PRESSURE_DECREASE, false);
+                    } else if (pressureContainer.popGas(pressureContainer.getGasAmount() / 2, true)) {
                         // divide pressure by 2 if the regular decrease is too much
-                        pressureContainer.changeParticles(-pressureContainer.getParticles() / 2, false);
+                        pressureContainer.popGas(pressureContainer.getGasAmount() / 2, false);
                     } else {
                         // do not allow less than min pressure to prevent explosions and not require redstone control
-                        pressureContainer.setParticles(pressureContainer.getMinPressure() * pressureContainer.getVolume());
+                        pressureContainer.popGas(pressureContainer.getMinPressure() * pressureContainer.getVolume(), false);
                     }
 
                     ventSteam(false);
@@ -324,5 +324,10 @@ public class MetaTileEntitySteamEjector extends MetaTileEntity implements IDataI
     @Override
     public boolean isAllowInputFromOutputSideFluids() {
         return false;
+    }
+
+    @Override
+    public IPressureContainer getPressureContainer() {
+        return pressureContainer;
     }
 }

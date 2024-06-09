@@ -5,8 +5,8 @@ import gregicality.science.loaders.recipe.circuits.*;
 import gregicality.science.loaders.recipe.component.GCYSComponentRecipes;
 import gregicality.science.loaders.recipe.handlers.BouleRecipeHandler;
 import gregicality.science.loaders.recipe.oreprocessing.*;
+import gregicality.science.loaders.recipe.test.GCYSAutoclaveRecipes;
 
-import static gregicality.science.api.recipes.GCYSRecipeMaps.*;
 import static gregtech.api.recipes.RecipeMaps.CHEMICAL_BATH_RECIPES;
 import static gregtech.api.recipes.RecipeMaps.ELECTROLYZER_RECIPES;
 
@@ -21,6 +21,7 @@ public class GCYSRecipeLoader {
         GCYSComponentRecipes.init();
         GCYSMetaTileEntityLoader.init();
         GCYSBlockRecipeLoader.init();
+        GCYSAutoclaveRecipes.init();
     }
 
     public static void initHandlers() {

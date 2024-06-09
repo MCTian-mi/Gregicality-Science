@@ -28,15 +28,16 @@ import static gregicality.science.api.unification.materials.GCYSMaterials.*;
 import static gregicality.science.common.items.GCYSMetaItems.NANO_POWER_IC;
 import static gregicality.science.common.items.GCYSMetaItems.VOLTAGE_COIL_UHV;
 import static gregicality.science.common.metatileentities.GCYSMetaTileEntities.*;
-import static gregtech.api.GTValues.*;
+import static gregtech.api.GTValues.UHV;
+import static gregtech.api.GTValues.VA;
 import static gregtech.api.recipes.RecipeMaps.ASSEMBLER_RECIPES;
 import static gregtech.api.recipes.RecipeMaps.ASSEMBLY_LINE_RECIPES;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.ore.OrePrefix.*;
 import static gregtech.common.blocks.BlockHermeticCasing.HermeticCasingsType.HERMETIC_UHV;
 import static gregtech.common.items.MetaItems.*;
-import static gregtech.common.metatileentities.MetaTileEntities.*;
 import static gregtech.common.metatileentities.MetaTileEntities.TRANSFORMER;
+import static gregtech.common.metatileentities.MetaTileEntities.*;
 import static gregtech.loaders.recipe.CraftingComponent.HULL;
 import static gregtech.loaders.recipe.CraftingComponent.*;
 
@@ -318,41 +319,41 @@ public class GCYSMetaTileEntityLoader {
                 'M', ELECTRIC_MOTOR_UV.getStackForm()
         );
 
-        ModHandler.addShapedRecipe(true, "subsonic_axial_compressor", SUBSONIC_AXIAL_COMPRESSOR.getStackForm(),
-                "PMP", "MHM", "KCK",
-                'P', new UnificationEntry(pipeNormalFluid, StainlessSteel),
-                'M', ELECTRIC_MOTOR_EV.getStackForm(),
-                'H', MetaTileEntities.HULL[3].getStackForm(),
-                'K', new UnificationEntry(cableGtSingle, BlackSteel),
-                'C', new UnificationEntry(circuit, MarkerMaterials.Tier.LuV)
-        );
-
-        ModHandler.addShapedRecipe(true, "supersonic_axial_compressor", SUPERSONIC_AXIAL_COMPRESSOR.getStackForm(),
-                "PMP", "MHM", "KCK",
-                'P', new UnificationEntry(pipeNormalFluid, NiobiumTitanium),
-                'M', ELECTRIC_MOTOR_IV.getStackForm(),
-                'H', MetaTileEntities.HULL[4].getStackForm(),
-                'K', new UnificationEntry(cableGtSingle, Osmium),
-                'C', new UnificationEntry(circuit, MarkerMaterials.Tier.ZPM)
-        );
-
-        ModHandler.addShapedRecipe(true, "low_power_turbomolecular_pump", LOW_POWER_TURBOMOLECULAR_PUMP.getStackForm(),
-                "PMP", "MHM", "KCK",
-                'P', new UnificationEntry(pipeNormalFluid, Polytetrafluoroethylene),
-                'M', ELECTRIC_MOTOR_EV.getStackForm(),
-                'H', MetaTileEntities.HULL[3].getStackForm(),
-                'K', new UnificationEntry(cableGtSingle, BlackSteel),
-                'C', new UnificationEntry(circuit, MarkerMaterials.Tier.LuV)
-        );
-
-        ModHandler.addShapedRecipe(true, "high_power_turbomolecular_pump", HIGH_POWER_TURBOMOLECULAR_PUMP.getStackForm(),
-                "PMP", "MHM", "KCK",
-                'P', new UnificationEntry(pipeNormalFluid, Polybenzimidazole),
-                'M', ELECTRIC_MOTOR_IV.getStackForm(),
-                'H', MetaTileEntities.HULL[4].getStackForm(),
-                'K', new UnificationEntry(cableGtSingle, Osmium),
-                'C', new UnificationEntry(circuit, MarkerMaterials.Tier.ZPM)
-        );
+//        ModHandler.addShapedRecipe(true, "subsonic_axial_compressor", SUBSONIC_AXIAL_COMPRESSOR.getStackForm(),
+//                "PMP", "MHM", "KCK",
+//                'P', new UnificationEntry(pipeNormalFluid, StainlessSteel),
+//                'M', ELECTRIC_MOTOR_EV.getStackForm(),
+//                'H', MetaTileEntities.HULL[3].getStackForm(),
+//                'K', new UnificationEntry(cableGtSingle, BlackSteel),
+//                'C', new UnificationEntry(circuit, MarkerMaterials.Tier.LuV)
+//        );
+//
+//        ModHandler.addShapedRecipe(true, "supersonic_axial_compressor", SUPERSONIC_AXIAL_COMPRESSOR.getStackForm(),
+//                "PMP", "MHM", "KCK",
+//                'P', new UnificationEntry(pipeNormalFluid, NiobiumTitanium),
+//                'M', ELECTRIC_MOTOR_IV.getStackForm(),
+//                'H', MetaTileEntities.HULL[4].getStackForm(),
+//                'K', new UnificationEntry(cableGtSingle, Osmium),
+//                'C', new UnificationEntry(circuit, MarkerMaterials.Tier.ZPM)
+//        );
+//
+//        ModHandler.addShapedRecipe(true, "low_power_turbomolecular_pump", LOW_POWER_TURBOMOLECULAR_PUMP.getStackForm(),
+//                "PMP", "MHM", "KCK",
+//                'P', new UnificationEntry(pipeNormalFluid, Polytetrafluoroethylene),
+//                'M', ELECTRIC_MOTOR_EV.getStackForm(),
+//                'H', MetaTileEntities.HULL[3].getStackForm(),
+//                'K', new UnificationEntry(cableGtSingle, BlackSteel),
+//                'C', new UnificationEntry(circuit, MarkerMaterials.Tier.LuV)
+//        );
+//
+//        ModHandler.addShapedRecipe(true, "high_power_turbomolecular_pump", HIGH_POWER_TURBOMOLECULAR_PUMP.getStackForm(),
+//                "PMP", "MHM", "KCK",
+//                'P', new UnificationEntry(pipeNormalFluid, Polybenzimidazole),
+//                'M', ELECTRIC_MOTOR_IV.getStackForm(),
+//                'H', MetaTileEntities.HULL[4].getStackForm(),
+//                'K', new UnificationEntry(cableGtSingle, Osmium),
+//                'C', new UnificationEntry(circuit, MarkerMaterials.Tier.ZPM)
+//        );
 
         ModHandler.addShapedRecipe(true, "rotary_hearth_furnace", GCYMMetaTileEntities.MEGA_BLAST_FURNACE.getStackForm(),
                 "SCS", "FEF", "PKP",

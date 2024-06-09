@@ -14,7 +14,6 @@ import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
 import gregtech.api.gui.widgets.ImageWidget;
 import gregtech.api.gui.widgets.ProgressWidget;
-import gregtech.api.gui.widgets.SuppliedImageWidget;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.SteamMetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -51,7 +50,7 @@ public class MetaTileEntitySteamVacuumChamber extends SteamMetaTileEntity implem
     @Override
     protected void initializeInventory() {
         super.initializeInventory();
-        this.pressureContainer = new PressureContainer(this, 13E-5, GCYSValues.EARTH_PRESSURE, 1.0);
+        this.pressureContainer = new PressureContainer(this, 13E-5, GCYSValues.EARTH_PRESSURE, 1);
     }
 
     @Override

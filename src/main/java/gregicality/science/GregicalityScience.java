@@ -7,11 +7,15 @@ import gregicality.science.common.CommonProxy;
 import gregicality.science.common.block.GCYSMetaBlocks;
 import gregicality.science.common.items.GCYSMetaItems;
 import gregicality.science.common.metatileentities.GCYSMetaTileEntities;
+import gregicality.science.intergration.theoneprobe.TheOneProbeModule;
 import gregtech.GTInternalTags;
 import gregtech.api.event.HighTierEvent;
+import gregtech.api.util.Mods;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -46,5 +50,12 @@ public class GregicalityScience {
         GCYSMetaTileEntities.init();
 
         proxy.preLoad();
+    }
+
+    @Mod.EventHandler
+    public void onInit(@NotNull FMLInitializationEvent event) {
+        if (Mods.TheOneProbe.isModLoaded()) {
+            TheOneProbeModule.init();
+        }
     }
 }

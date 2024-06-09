@@ -14,6 +14,8 @@ import net.minecraftforge.fluids.IFluidTank;
 
 import javax.annotation.Nonnull;
 
+import static gregtech.api.unification.material.Materials.Air;
+
 public class PressureSteamRecipeLogic extends RecipeLogicSteam {
 
     private double recipePressure = GCYSValues.EARTH_PRESSURE;
@@ -53,10 +55,9 @@ public class PressureSteamRecipeLogic extends RecipeLogicSteam {
         double pressureToChange;
 
         // pressure changes by 1 percent per tick
-        if (pressure != GCYSValues.EARTH_PRESSURE) pressureToChange = containerPressure * 0.01;
-        else return true;
+        if (pressure == GCYSValues.EARTH_PRESSURE) return true;
 
-        if (pressure > GCYSValues.EARTH_PRESSURE) pressureToChange = -pressureToChange;
+        pressureToChange = containerPressure * 0.01;
 
         final double newPressure = containerPressure + pressureToChange;
         // pressure must be within +/- 1 exponent of the target
@@ -64,8 +65,11 @@ public class PressureSteamRecipeLogic extends RecipeLogicSteam {
             return false;
         }
 
-        // P * V = n
-        return container.changeParticles(pressureToChange * container.getVolume(), simulate);
+        if (pressure > GCYSValues.EARTH_PRESSURE) {
+            return container.popGas(pressureToChange * container.getVolume(), simulate);
+        } else {
+            return container.pushGas(Air.getFluid(), pressureToChange * container.getVolume(), simulate);
+        }
     }
 
     protected IPressureContainer getPressureContainer() {

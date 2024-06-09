@@ -8,17 +8,20 @@ import gregtech.api.metatileentity.MetaTileEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.capabilities.Capability;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import static gregtech.api.unification.material.Materials.Air;
 
 public class PressureContainer extends MTETrait implements IPressureContainer {
 
     private final double minPressure;
     private final double maxPressure;
-    private final double volume;
+    private final int volume;
 
-    private double particles;
+    private final GasMap gasMap;
 
     /**
      * Default pressure container
@@ -26,12 +29,13 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
      *
      * @param volume the volume of the container, must be nonzero
      */
-    public PressureContainer(MetaTileEntity metaTileEntity, double minPressure, double maxPressure, double volume) {
+    public PressureContainer(MetaTileEntity metaTileEntity, double minPressure, double maxPressure, int volume) {
         super(metaTileEntity);
         this.minPressure = minPressure;
         this.maxPressure = maxPressure;
         this.volume = volume;
-        this.particles = volume * GCYSValues.EARTH_PRESSURE;
+        this.gasMap = new GasMap();
+        this.gasMap.pushGas(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
     }
 
     @Override
@@ -40,18 +44,12 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     }
 
     @Override
-    public double getParticles() {
-        return this.particles;
+    public GasMap getGasMap() {
+        return gasMap;
     }
 
     @Override
-    public void setParticles(double amount) {
-        this.particles = amount;
-        this.metaTileEntity.markDirty();
-    }
-
-    @Override
-    public double getVolume() {
+    public int getVolume() {
         return this.volume;
     }
 
@@ -61,31 +59,33 @@ public class PressureContainer extends MTETrait implements IPressureContainer {
     }
 
     @Override
-    public NBTTagCompound serializeNBT() {
-        NBTTagCompound compound = new NBTTagCompound();
-        compound.setDouble("particles", this.particles);
-        return compound;
+    public @NotNull NBTTagCompound serializeNBT() {
+        return this.gasMap.serializeNBT();
     }
 
     @Override
     public void deserializeNBT(@Nonnull NBTTagCompound compound) {
-        this.particles = compound.getDouble("particles");
+        this.gasMap.deserializeNBT(compound);
     }
 
     @Override
-    public void writeInitialSyncData(PacketBuffer buffer) {
+    public void writeInitialSyncData(@NotNull PacketBuffer buffer) {
         super.writeInitialSyncData(buffer);
-        buffer.writeDouble(this.particles);
+        buffer.writeCompoundTag(gasMap.serializeNBT());
     }
 
     @Override
-    public void receiveInitialSyncData(PacketBuffer buffer) {
+    public void receiveInitialSyncData(@NotNull PacketBuffer buffer) {
         super.receiveInitialSyncData(buffer);
-        this.particles = buffer.readDouble();
+        try {
+            NBTTagCompound compound = buffer.readCompoundTag();
+            this.gasMap.deserializeNBT(compound);
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "PressureContainer";
     }
 
