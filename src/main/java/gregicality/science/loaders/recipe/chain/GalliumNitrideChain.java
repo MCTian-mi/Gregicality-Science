@@ -54,11 +54,11 @@ public class GalliumNitrideChain {
 
         // 2Ga(CH3)3 + 3H2O -> Ga2O3 + 3CH4 + 3H (H lost)
         CVD_RECIPES.recipeBuilder()
-                .input(plate, Sapphire)
+                .notConsumable(plate, Sapphire)
                 .fluidInputs(Trimethylgallium.getFluid(2000))
                 .fluidInputs(Water.getFluid(3000))
                 .output(dust, GalliumTrioxide, 5)
-                .fluidOutputs(Methane.getFluid(3000))
+                .fluidOutputs(Methane.getFluid(6000))
                 .temperature(923)
                 .duration(160).EUt(VA[HV]).buildAndRegister();
 

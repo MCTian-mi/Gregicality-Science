@@ -631,7 +631,7 @@ public class GCYSFirstDegreeMaterials {
                 .liquid(new FluidBuilder().temperature(2170))
                 .color(0xE4CDFF)
                 .iconSet(MaterialIconSet.METALLIC)
-                .components(Gallium, 1, Oxygen, 3)
+                .components(Gallium, 2, Oxygen, 3)
                 .build();
 
         GalliumNitride = new Material.Builder(3584, gcysId("gallium_nitride"))
