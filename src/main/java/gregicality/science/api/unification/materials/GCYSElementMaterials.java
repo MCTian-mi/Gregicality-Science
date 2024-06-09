@@ -64,7 +64,7 @@ public class GCYSElementMaterials {
                 .build();
 
         Taranium = new Material.Builder(3106, gregtechId("taranium"))
-                .dust()
+                .ingot().dust().fluid()
                 .color(0x4F404F).iconSet(METALLIC)
                 .element(GCYSElements.Tn)
                 .build();
