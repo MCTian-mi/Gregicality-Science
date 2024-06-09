@@ -11,7 +11,6 @@ import gregicality.science.common.metatileentities.multiblockpart.MetaTileEntity
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntityCreativePressurePump;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntitySteamEjector;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntitySteamVacuumChamber;
-import gregicality.science.loaders.recipe.circuits.SuprachronalCircuits;
 import gregtech.api.GTValues;
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;
@@ -90,7 +89,7 @@ public class GCYSMetaTileEntities {
         LOW_POWER_TURBOMOLECULAR_PUMP = registerMetaTileEntity(3913, new MetaTileEntityTurbomolecularPump(gcysId("turbomolecular_pump.low_power"), GTValues.EV, 1E-4, 10_000.0));
         HIGH_POWER_TURBOMOLECULAR_PUMP = registerMetaTileEntity(3914, new MetaTileEntityTurbomolecularPump(gcysId("turbomolecular_pump.high_power"), GTValues.LuV, 1E-7, 50_000.0));
         PLASMA_CVD_UNIT = registerMetaTileEntity(3915, new MetaTileEntityPlasmaCVDUnit(gcysId("plasma_cvd_unit")));
-        SUPRACHRONAL_ASSEMBLER = registerMetaTileEntity(3915, new MetaTileEntitySuprachronalAssembler(gcysId("suprachronal_assembler")));
+        SUPRACHRONAL_ASSEMBLER = registerMetaTileEntity(3916, new MetaTileEntitySuprachronalAssembler(gcysId("suprachronal_assembler")));
     }
 
     @Nonnull

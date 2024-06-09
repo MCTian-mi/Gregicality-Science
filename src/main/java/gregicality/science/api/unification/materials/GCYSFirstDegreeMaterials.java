@@ -9,9 +9,8 @@ import gregtech.api.unification.material.properties.BlastProperty;
 import gregtech.api.unification.material.properties.ToolProperty;
 
 import static gregicality.science.api.unification.material.info.GCYSMaterialFlags.DISABLE_CRYSTALLIZATION;
-import static gregicality.science.api.unification.material.info.GCYSMaterialFlags.GENERATE_BOULE;
 import static gregicality.science.api.unification.materials.GCYSMaterials.*;
-import static gregtech.api.GTValues.*;
+import static gregtech.api.GTValues.UEV;
 import static gregtech.api.unification.material.Materials.*;
 import static gregtech.api.unification.material.info.MaterialFlags.*;
 import static gregtech.api.util.GTUtility.gregtechId;
@@ -997,7 +996,7 @@ public class GCYSFirstDegreeMaterials {
                 .colorAverage()
                 .build();
 
-        ChloroplatinicAcid = new Material.Builder(8582, gregtechId("chloroplatinic_acid"))
+        ChloroplatinicAcid = new Material.Builder(3632, gregtechId("chloroplatinic_acid"))
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .components(Hydrogen, 2, Platinum, 1, Chlorine, 6)
                 .colorAverage()
@@ -1005,57 +1004,50 @@ public class GCYSFirstDegreeMaterials {
 
         // FREE IDs 3629 - 3639
 
-        LithiumPeroxide = new Material.Builder(3640, "lithium_peroxide")
+        LithiumPeroxide = new Material.Builder(3640, gregtechId("lithium_peroxide"))
                 .dust()
                 .color(0xB4D0D8)
                 .components(Lithium, 2, Oxygen, 2)
                 .build();
 
-        LithiumOxide = new Material.Builder(3641, "lithium_oxide")
+        LithiumOxide = new Material.Builder(3641, gregtechId("lithium_oxide"))
                 .dust()
                 .color(0xA0D0D8)
                 .components(Lithium, 2, Oxygen, 1)
                 .build();
 
-        BSCCO = new Material.Builder(3642, "bscco")
+        BSCCO = new Material.Builder(3642, gregtechId("bscco"))
                 .ingot()
                 .color(0xD880D8)
                 .components(Bismuth, 2, Strontium, 2, Calcium, 1, Copper, 2, Oxygen, 8)
-                .blastTemp(7000, BlastProperty.GasTier.HIGHER, GTValues.VA[GTValues.UEV])
+                .blast(b -> b.temp(7000, BlastProperty.GasTier.HIGHER).blastStats(GTValues.VA[GTValues.UEV]))
                 .cableProperties(GTValues.V[UEV], 24, 0, true)
                 .build();
 
-        StrontiumCarbonate = new Material.Builder(3643, "strontium_carbonate")
+        StrontiumCarbonate = new Material.Builder(3643, gregtechId("strontium_carbonate"))
                 .dust()
                 .color(0xFFFFF0).iconSet(MaterialIconSet.FINE)
                 .components(Strontium, 1, Carbon, 1, Oxygen, 3)
                 .build();
 
-        Celestine = new Material.Builder(3644, "celestine")
+        Celestine = new Material.Builder(3644, gregtechId("celestine"))
                 .gem(2).ore()
                 .color(0x85C1C4).iconSet(MaterialIconSet.NETHERSTAR)
                 .components(Strontium, 1, Sulfur, 1, Oxygen, 4)
                 .addOreByproducts(Salt, Gypsum, Barite)
                 .build();
 
-        StrontiumSulfide = new Material.Builder(3645, "strontium_sulfide")
+        StrontiumSulfide = new Material.Builder(3645, gregtechId("strontium_sulfide"))
                 .dust()
                 .color(0xFFEAA0).iconSet(MaterialIconSet.FINE)
                 .components(Strontium, 1, Sulfur, 1)
                 .build();
 
-        CupricOxide = new Material.Builder(3646, "cupric_oxide")
-                .dust(1)
-                .color(0x0F0F0F)
-                .components(Copper, 1, Oxygen, 1)
-                .build();
-
-        AdvancedSolder = new Material.Builder(3647, "advanced_solder")
-                .fluid()
+        AdvancedSolder = new Material.Builder(3646, gregtechId("advanced_solder"))
+                .liquid(new FluidBuilder().temperature(450))
                 .color(0xBAA0FF)
                 .components(Tin, 4, Lead, 3, Bismuth, 1, Cadmium, 1, Indium, 1)
                 .flags(DISABLE_DECOMPOSITION)
-                .fluidTemp(450)
                 .build();
     }
 }

@@ -5,7 +5,6 @@ import gregicality.science.api.unification.OrePrefixAdditions;
 import gregicality.science.api.unification.materials.GCYSMaterials;
 import gregicality.science.api.unification.materials.properties.GCYSMaterialPropertyAddition;
 import gregtech.api.unification.material.event.MaterialEvent;
-import gregtech.api.unification.material.event.MaterialRegistryEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;

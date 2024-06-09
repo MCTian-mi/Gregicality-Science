@@ -177,7 +177,7 @@ public class GCYSSecondDegreeMaterials {
 
         // FREE IDs 6027 - 6036
 
-        LithiumNiobate = new Material.Builder(6037, "lithium_niobate")
+        LithiumNiobate = new Material.Builder(6037, gregtechId("lithium_niobate"))
                 .gem()
                 .color(0x80E0E0).iconSet(MaterialIconSet.QUARTZ)
                 .components(LithiumOxide, 1, NiobiumPentoxide, 1)

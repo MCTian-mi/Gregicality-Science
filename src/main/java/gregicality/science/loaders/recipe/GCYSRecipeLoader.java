@@ -6,7 +6,6 @@ import gregicality.science.loaders.recipe.component.GCYSComponentRecipes;
 import gregicality.science.loaders.recipe.handlers.BouleRecipeHandler;
 import gregicality.science.loaders.recipe.oreprocessing.*;
 
-import static gregicality.science.api.recipes.GCYSRecipeMaps.*;
 import static gregtech.api.recipes.RecipeMaps.CHEMICAL_BATH_RECIPES;
 import static gregtech.api.recipes.RecipeMaps.ELECTROLYZER_RECIPES;
 

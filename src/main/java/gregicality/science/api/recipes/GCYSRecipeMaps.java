@@ -94,9 +94,9 @@ public class GCYSRecipeMaps {
             .setSlotOverlay(true, false, true, GuiTextures.DUST_OVERLAY)
             .setSound(GTSoundEvents.MACERATOR);
 
-    public static final RecipeMapSuprachronalAssembler<SimpleRecipeBuilder> SUPRACHRONAL_ASSEMBLER_RECIPES = (RecipeMapSuprachronalAssembler<SimpleRecipeBuilder>) new RecipeMapSuprachronalAssembler<>("suprachronal_assembler_recipes", 1, 16, 0, 1, 0, 4, 0, 0, new SimpleRecipeBuilder(), false)
+    public static final RecipeMapSuprachronalAssembler<SimpleRecipeBuilder> SUPRACHRONAL_ASSEMBLER_RECIPES = (RecipeMapSuprachronalAssembler<SimpleRecipeBuilder>) new RecipeMapSuprachronalAssembler<>("suprachronal_assembler_recipes", 16, 1, 4, 0, new SimpleRecipeBuilder(), false)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ASSEMBLY_LINE, ProgressWidget.MoveType.HORIZONTAL)
-            .setSound(GTSounds.REPLICATOR);
+            .setSound(GTSoundEvents.REPLICATOR);
 
     // Generators
 

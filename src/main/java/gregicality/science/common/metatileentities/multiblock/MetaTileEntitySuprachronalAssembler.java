@@ -24,6 +24,11 @@ public class MetaTileEntitySuprachronalAssembler extends RecipeMapMultiblockCont
         super(metaTileEntityId, GCYSRecipeMaps.SUPRACHRONAL_ASSEMBLER_RECIPES);
     }
 
+    @Nonnull
+    private static IBlockState getCasingState() {
+        return GCYSMetaBlocks.MULTIBLOCK_CASING.getState(BlockGCYSMultiblockCasing.CasingType.SUPRACHRONAL_CASING);
+    }
+
     @Override
     protected BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
@@ -52,11 +57,6 @@ public class MetaTileEntitySuprachronalAssembler extends RecipeMapMultiblockCont
                 .where('A', air())
                 .where('#', any())
                 .build();
-    }
-
-    @Nonnull
-    private static IBlockState getCasingState() {
-        return GCYSMetaBlocks.MULTIBLOCK_CASING.getState(BlockGCYSMultiblockCasing.CasingType.SUPRACHRONAL_CASING);
     }
 
     @Override

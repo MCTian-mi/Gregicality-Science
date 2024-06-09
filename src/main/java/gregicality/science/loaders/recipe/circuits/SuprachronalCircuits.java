@@ -87,7 +87,7 @@ public class SuprachronalCircuits {
                 .EUt(GTValues.VA[OpV])
                 .buildAndRegister();
 
-        for(int i = 0; i < GTValues.V.length; i++) {
+        for (int i = 0; i < GTValues.V.length; i++) {
             GCYSRecipeMaps.SUPRACHRONAL_ASSEMBLER_RECIPES.recipeBuilder()
                     .notConsumable(GCYSMetaItems.HYPERDIMENSIONAL_DRONE.getStackForm())
                     .notConsumable(new IntCircuitIngredient(i))

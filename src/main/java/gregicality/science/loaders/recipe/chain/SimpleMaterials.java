@@ -2,13 +2,14 @@ package gregicality.science.loaders.recipe.chain;
 
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 
-import static gregicality.science.api.recipes.GCYSRecipeMaps.*;
+import static gregicality.science.api.recipes.GCYSRecipeMaps.ROASTER_RECIPES;
 import static gregicality.science.api.unification.materials.GCYSMaterials.*;
-import static gregicality.science.api.unification.ore.GCYSOrePrefix.*;
+import static gregicality.science.api.unification.ore.GCYSOrePrefix.seedCrystal;
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.*;
 import static gregtech.api.unification.material.Materials.*;
-import static gregtech.api.unification.ore.OrePrefix.*;
+import static gregtech.api.unification.ore.OrePrefix.dust;
+import static gregtech.api.unification.ore.OrePrefix.gem;
 
 /**
  * Adds recipes for simple materials with few steps

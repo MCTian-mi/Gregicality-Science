@@ -12,11 +12,9 @@ import javax.annotation.Nonnull;
 
 public class RecipeMapSuprachronalAssembler<R extends RecipeBuilder<R>> extends RecipeMap<R> {
 
-    public RecipeMapSuprachronalAssembler(String unlocalizedName,
-                                 int minInputs, int maxInputs, int minOutputs, int maxOutputs,
-                                 int minFluidInputs, int maxFluidInputs, int minFluidOutputs, int maxFluidOutputs,
-                                 R defaultRecipe, boolean isHidden) {
-        super(unlocalizedName, minInputs, maxInputs, minOutputs, maxOutputs, minFluidInputs, maxFluidInputs, minFluidOutputs, maxFluidOutputs, defaultRecipe, isHidden);
+    public RecipeMapSuprachronalAssembler(String unlocalizedName, int maxInputs, int maxOutputs, int maxFluidInputs,
+                                          int maxFluidOutputs, R defaultRecipe, boolean isHidden) {
+        super(unlocalizedName, maxInputs, maxOutputs, maxFluidInputs, maxFluidOutputs, defaultRecipe, isHidden);
     }
 
     @Override

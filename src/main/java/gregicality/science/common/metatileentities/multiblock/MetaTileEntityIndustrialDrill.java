@@ -1,6 +1,5 @@
 package gregicality.science.common.metatileentities.multiblock;
 
-import gregicality.multiblocks.api.unification.GCYMMaterials;
 import gregicality.multiblocks.common.block.GCYMMetaBlocks;
 import gregicality.multiblocks.common.block.blocks.BlockLargeMultiblockCasing;
 import gregicality.science.api.recipes.GCYSRecipeMaps;
@@ -19,7 +18,6 @@ import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.pattern.TraceabilityPredicate;
 import gregtech.api.recipes.Recipe;
-import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
 import gregtech.api.util.GTUtility;
 import gregtech.client.renderer.ICubeRenderer;
@@ -65,8 +63,8 @@ public class MetaTileEntityIndustrialDrill extends RecipeMapMultiblockController
                 .aisle("         ", "   F F   ", "   F F   ", "   F F   ", "   F F   ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ", "         ")
                 .where('S', selfPredicate())
                 .where('X', states(MetaBlocks.METAL_CASING.getState(BlockMetalCasing.MetalCasingType.TUNGSTENSTEEL_ROBUST))
-                    .setMinGlobalLimited(30)
-                    .or(autoAbilities(true, true, false, true, true, true, true)))
+                        .setMinGlobalLimited(30)
+                        .or(autoAbilities(true, true, false, true, true, true, true)))
                 .where('F', states(MetaBlocks.FRAMES.get(Materials.Darmstadtium).getBlock(Materials.Darmstadtium)))
                 .where('I', states(GCYMMetaBlocks.LARGE_MULTIBLOCK_CASING.getState(BlockLargeMultiblockCasing.CasingType.VIBRATION_SAFE_CASING)))
                 .where('G', states(GCYSMetaBlocks.TRANSPARENT_CASING.getState(BlockTransparentCasing.CasingType.PMMA)))

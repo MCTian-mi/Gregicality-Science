@@ -150,7 +150,6 @@ public class GCYSMaterials {
     public static Material StrontiumCarbonate;
     public static Material Celestine;
     public static Material StrontiumSulfide;
-    public static Material CupricOxide;
     public static Material AdvancedSolder;
 
     // From SuSy
