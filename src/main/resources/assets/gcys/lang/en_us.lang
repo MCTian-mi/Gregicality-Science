@@ -411,7 +411,7 @@ gcys.multiblock.turbomolecular_pump.tooltip.2=Consumes §e%sL/s§7 Lubricant whe
 gcys.multiblock.turbomolecular_pump.tooltip.3=Uses %s§7 power. Does not overclock.
 
 # Single Block Machines
-
+# Dryer
 gcys.machine.dryer.lv.name=Basic Dryer
 gcys.machine.dryer.lv.tooltip=Not for Hair
 gcys.machine.dryer.mv.name=Advanced Dryer
@@ -438,6 +438,34 @@ gcys.machine.dryer.uxv.name=Epic Dryer IV
 gcys.machine.dryer.uxv.tooltip=Moisture Remover
 gcys.machine.dryer.opv.name=Legendary Dryer
 gcys.machine.dryer.opv.tooltip=Moisture Remover
+
+# GCYS autoclave
+gcys.machine.gcys_autoclave.lv.name=Basic Autoclave
+gcys.machine.gcys_autoclave.lv.tooltip=Hydrogenate your Olefins
+gcys.machine.gcys_autoclave.mv.name=Advanced Autoclave
+gcys.machine.gcys_autoclave.mv.tooltip=Hydrogenate your Olefins
+gcys.machine.gcys_autoclave.hv.name=Advanced Autoclave II
+gcys.machine.gcys_autoclave.hv.tooltip=Hydrogenate your Olefins
+gcys.machine.gcys_autoclave.ev.name=Advanced Autoclave III
+gcys.machine.gcys_autoclave.ev.tooltip=Hydrogenate your Olefins
+gcys.machine.gcys_autoclave.iv.name=Elite Autoclave
+gcys.machine.gcys_autoclave.iv.tooltip=Pressure Cooker
+gcys.machine.gcys_autoclave.luv.name=Elite Autoclave II
+gcys.machine.gcys_autoclave.luv.tooltip=Pressure Cooker
+gcys.machine.gcys_autoclave.zpm.name=Elite Autoclave III
+gcys.machine.gcys_autoclave.zpm.tooltip=Pressure Cooker
+gcys.machine.gcys_autoclave.uv.name=Ultimate Autoclave
+gcys.machine.gcys_autoclave.uv.tooltip=Encumbrance Unit
+gcys.machine.gcys_autoclave.uhv.name=Epic Autoclave
+gcys.machine.gcys_autoclave.uhv.tooltip=Encumbrance Unit
+gcys.machine.gcys_autoclave.uev.name=Epic Autoclave II
+gcys.machine.gcys_autoclave.uev.tooltip=Encumbrance Unit
+gcys.machine.gcys_autoclave.uiv.name=Epic Autoclave III
+gcys.machine.gcys_autoclave.uiv.tooltip=Encumbrance Unit
+gcys.machine.gcys_autoclave.uxv.name=Epic Autoclave IV
+gcys.machine.gcys_autoclave.uxv.tooltip=Encumbrance Unit
+gcys.machine.gcys_autoclave.opv.name=Legendary Autoclave
+gcys.machine.gcys_autoclave.opv.tooltip=Encumbrance Unit
 
 # Pipes
 gcys.pipe.pressure_pipe_low_vacuum.name=Low Vacuum Pipe
@@ -706,6 +734,7 @@ metaitem.circuit.suprachronal.max.tooltip=§fMAX-tier Circuit/n
 # RecipeMaps
 # Machines
 recipemap.dryer_recipes.name=Drying
+recipemap.gcys_autoclave_recipes.name=High-pressure Reactions
 recipemap.pressure_chamber_recipes.name=Pressure Chamber
 recipemap.catalytic_reformer_recipes.name=Catalytic Reformation
 recipemap.crystallization_recipes.name=Crystallization

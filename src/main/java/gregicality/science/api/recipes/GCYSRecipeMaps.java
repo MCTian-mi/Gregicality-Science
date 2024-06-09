@@ -97,7 +97,7 @@ public class GCYSRecipeMaps {
     public static final RecipeMap<PressureRequirementRecipeBuilder> GCYS_AUTOCLAVE_RECIPES = new RecipeMap<>("gcys_autoclave_recipes", 3, 2, 3, 2, new PressureRequirementRecipeBuilder(), false)
             .setSlotOverlay(false, false, GuiTextures.DUST_OVERLAY)
             .setSlotOverlay(true, false, GuiTextures.CRYSTAL_OVERLAY)
-            .setProgressBar(GuiTextures.PROGRESS_BAR_CRYSTALLIZATION, ProgressWidget.MoveType.HORIZONTAL)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW_MULTIPLE, ProgressWidget.MoveType.HORIZONTAL)
             .setSound(GTSoundEvents.FURNACE);
 
 
