@@ -1,5 +1,9 @@
 package gregicality.science.api;
 
+import gregtech.api.GTValues;
+
+import java.util.function.Function;
+
 import static net.minecraft.util.text.TextFormatting.*;
 
 public class GCYSValues {
@@ -9,6 +13,7 @@ public class GCYSValues {
      * Anything smaller than this counts as a Vacuum
      */
     public static final double EARTH_PRESSURE = 101_325;
+
 
     /**
      * Earth's Temperature in Kelvin
@@ -113,5 +118,35 @@ public class GCYSValues {
             "Electron Degeneracy Pressure",
             "White Dwarf Pressure",
             "Neutron Star Pressure"
+    };
+
+
+    // TODO
+    public static final Function<Integer, Double> defaultMinimumPressureFunction = tier -> {
+        if (tier == GTValues.ULV)
+            return GCYSValues.P[6];
+        if (tier <= GTValues.MV)
+            return GCYSValues.P[5];
+        if (tier <= GTValues.EV)
+            return GCYSValues.P[4];
+        if (tier == GTValues.LuV)
+            return GCYSValues.P[3];
+        // ZPM+
+        return GCYSValues.P[2];
+    };
+
+
+    // TODO
+    public static final Function<Integer, Double> defaultMaximumPressureFunction = tier -> {
+        if (tier == GTValues.ULV)
+            return GCYSValues.P[8];
+        if (tier <= GTValues.MV)
+            return GCYSValues.P[9];
+        if (tier <= GTValues.EV)
+            return GCYSValues.P[10];
+        if (tier == GTValues.LuV)
+            return GCYSValues.P[11];
+        // ZPM+
+        return GCYSValues.P[12];
     };
 }

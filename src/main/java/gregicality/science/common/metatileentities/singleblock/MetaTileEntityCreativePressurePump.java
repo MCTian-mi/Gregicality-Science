@@ -67,6 +67,8 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
     @Getter
     private double targetPressure = GCYSValues.EARTH_PRESSURE;
 
+    private int pressureTicks = 0;
+
     public MetaTileEntityCreativePressurePump() {
         super(gcysId("creative_pressure_pump"));
         this.pressureContainer = new PressureContainer(this, Double.MIN_VALUE, Double.MAX_VALUE, VOLUME);
@@ -145,7 +147,8 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
     @Override
     public void update() {
         super.update();
-        if (getWorld().isRemote || !active) return; // TODO: make this tick less frequently
+        pressureTicks = (pressureTicks + 1) % 20;
+        if (getWorld().isRemote || !active || pressureTicks != 0) return; // TODO: make this tick less frequently
 
         double deltaPressure = targetPressure - pressureContainer.getPressure(getMarkedFluid());
         if (deltaPressure > 0) {
@@ -194,6 +197,7 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
     @Override
     public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound data) {
         super.writeToNBT(data);
+        data.setInteger("PressureTicks", pressureTicks);
         data.setTag("PressureContainer", this.pressureContainer.serializeNBT());
         data.setBoolean("Active", active);
         data.setInteger("OutputFacing", getOutputFacing().getIndex());
@@ -205,6 +209,7 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
     @Override
     public void readFromNBT(@Nonnull NBTTagCompound data) {
         super.readFromNBT(data);
+        this.pressureTicks = data.getInteger("PressureTicks");
         this.pressureContainer.deserializeNBT(data.getCompoundTag("PressureContainer"));
         this.active = data.getBoolean("Active");
         this.outputFacing = EnumFacing.VALUES[data.getInteger("OutputFacing")];
