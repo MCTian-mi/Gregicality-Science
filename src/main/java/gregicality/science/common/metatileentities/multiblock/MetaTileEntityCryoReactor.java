@@ -21,6 +21,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,7 +41,7 @@ public class MetaTileEntityCryoReactor extends RecipeMapMultiblockController {
 
 
     @Override
-    protected BlockPattern createStructurePattern() {
+    protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
                 .aisle("    RR", "    TV", "    VV", "    TV", "    TT")
                 .aisle("F   RR", "F X TT", "FXPPPV", "F X TT", "F   TT")

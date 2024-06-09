@@ -1,7 +1,9 @@
 package gregicality.science.common.pipelike.pressure;
 
 import gregicality.science.api.GCYSValues;
+import lombok.Getter;
 
+@Getter
 public class PressurePipeData {
 
     public static final PressurePipeData EMPTY = new PressurePipeData(GCYSValues.EARTH_PRESSURE, GCYSValues.EARTH_PRESSURE, 1);
@@ -16,15 +18,4 @@ public class PressurePipeData {
         this.volume = volume;
     }
 
-    public double getMinPressure() {
-        return minPressure;
-    }
-
-    public double getMaxPressure() {
-        return maxPressure;
-    }
-
-    public int getVolume() {
-        return volume;
-    }
 }

@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class GCYSMetaBlocks {
 
@@ -80,10 +79,10 @@ public class GCYSMetaBlocks {
     @Nonnull
     private static String statePropertiesToString(@Nonnull Map<IProperty<?>, Comparable<?>> properties) {
         StringBuilder stringbuilder = new StringBuilder();
-        List<Map.Entry<IProperty<?>, Comparable<?>>> entries = properties.entrySet().stream().sorted(Comparator.comparing((c) -> c.getKey().getName())).collect(Collectors.toList());
+        List<Map.Entry<IProperty<?>, Comparable<?>>> entries = properties.entrySet().stream().sorted(Comparator.comparing((c) -> c.getKey().getName())).toList();
 
         for (Map.Entry<IProperty<?>, Comparable<?>> iPropertyComparableEntry : entries) {
-            if (stringbuilder.length() != 0) {
+            if (!stringbuilder.isEmpty()) {
                 stringbuilder.append(",");
             }
 
@@ -93,7 +92,7 @@ public class GCYSMetaBlocks {
             stringbuilder.append(getPropertyName(property, (Comparable<?>) ((Map.Entry<?, ?>) iPropertyComparableEntry).getValue()));
         }
 
-        if (stringbuilder.length() == 0) {
+        if (stringbuilder.isEmpty()) {
             stringbuilder.append("normal");
         }
 

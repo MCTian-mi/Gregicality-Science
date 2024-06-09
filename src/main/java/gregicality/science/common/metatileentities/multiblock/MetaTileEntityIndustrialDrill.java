@@ -31,6 +31,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -51,7 +52,7 @@ public class MetaTileEntityIndustrialDrill extends RecipeMapMultiblockController
     }
 
     @Override
-    protected BlockPattern createStructurePattern() {
+    protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
                 .aisle("       ", "XXXXXXX", "X     X", "X     X", "X     X", "X     X", "X     X", "XXXXXXX")
                 .aisle("       ", "X     X", "       ", " F   F ", "       ", "       ", "       ", "X  F  X")
@@ -137,20 +138,18 @@ public class MetaTileEntityIndustrialDrill extends RecipeMapMultiblockController
         }
 
         @Override
-        public MetaTileEntityIndustrialDrill getMetaTileEntity() {
+        public @NotNull MetaTileEntityIndustrialDrill getMetaTileEntity() {
             return (MetaTileEntityIndustrialDrill) super.getMetaTileEntity();
         }
 
         @Override
-        protected boolean setupAndConsumeRecipeInputs(Recipe recipe, IItemHandlerModifiable importInventory) {
+        protected boolean setupAndConsumeRecipeInputs(@NotNull Recipe recipe, @NotNull IItemHandlerModifiable importInventory) {
             boolean result = super.setupAndConsumeRecipeInputs(recipe, importInventory);
 
             // break the block in world if it is consumable
             if (result && !recipe.getInputs().get(0).isNonConsumable()) {
                 MetaTileEntityIndustrialDrill drill = getMetaTileEntity();
-                if (drill != null) {
-                    drill.getWorld().destroyBlock(drill.targetBlock, false);
-                }
+                drill.getWorld().destroyBlock(drill.targetBlock, false);
             }
 
             return result;

@@ -2,6 +2,7 @@ package gregicality.science.common.pipelike.pressure;
 
 import gregicality.science.api.GCYSValues;
 import gregtech.api.pipenet.block.IPipeType;
+import lombok.Getter;
 
 import javax.annotation.Nonnull;
 
@@ -23,8 +24,11 @@ public enum PressurePipeType implements IPipeType<PressurePipeData> {
 
     public final float thickness;
     public final String name;
+    @Getter
     public final double maxPressure;
+    @Getter
     private final double minPressure;
+    @Getter
     private final int volume;
 
     PressurePipeType(String name, float thickness, double minPressure, double maxPressure, int volume) {
@@ -38,18 +42,6 @@ public enum PressurePipeType implements IPipeType<PressurePipeData> {
     @Override
     public float getThickness() {
         return this.thickness;
-    }
-
-    public double getMinPressure() {
-        return this.minPressure;
-    }
-
-    public double getMaxPressure() {
-        return this.maxPressure;
-    }
-
-    public int getVolume() {
-        return this.volume;
     }
 
     @Nonnull

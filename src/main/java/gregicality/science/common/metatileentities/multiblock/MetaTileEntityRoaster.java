@@ -31,6 +31,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nonnull;
@@ -50,8 +51,7 @@ public class MetaTileEntityRoaster extends RecipeMapMultiblockController impleme
     private static TraceabilityPredicate fireboxPredicate() {
         return new TraceabilityPredicate(blockWorldState -> {
             IBlockState blockState = blockWorldState.getBlockState();
-            if ((blockState.getBlock() instanceof BlockFireboxCasing)) {
-                BlockFireboxCasing BlockFireboxCasing = (BlockFireboxCasing) blockState.getBlock();
+            if ((blockState.getBlock() instanceof BlockFireboxCasing BlockFireboxCasing)) {
                 BlockFireboxCasing.FireboxCasingType casingType = BlockFireboxCasing.getState(blockState);
                 Object currentCasingType = blockWorldState.getMatchContext().getOrPut("CasingType", casingType);
                 if (!currentCasingType.toString().equals(casingType.toString())) {
@@ -115,7 +115,7 @@ public class MetaTileEntityRoaster extends RecipeMapMultiblockController impleme
     }
 
     @Override
-    protected BlockPattern createStructurePattern() {
+    protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
                 .aisle("     ", "     ", " P P ", " P P ", " P P ")
                 .aisle("F   F", "FBBBF", "XPXPX", "XXXXX", " P P ")
@@ -148,7 +148,7 @@ public class MetaTileEntityRoaster extends RecipeMapMultiblockController impleme
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World player, @NotNull List<String> tooltip, boolean advanced) {
         super.addInformation(stack, player, tooltip, advanced);
         if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             tooltip.add(I18n.format("gcys.multiblock.roaster.tooltip.1"));

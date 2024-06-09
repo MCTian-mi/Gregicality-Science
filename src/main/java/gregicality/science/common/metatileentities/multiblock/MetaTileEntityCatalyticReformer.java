@@ -16,6 +16,7 @@ import gregtech.common.blocks.BlockBoilerCasing;
 import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
 import net.minecraft.util.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
@@ -31,7 +32,7 @@ public class MetaTileEntityCatalyticReformer extends RecipeMapMultiblockControll
     }
 
     @Override
-    protected BlockPattern createStructurePattern() {
+    protected @NotNull BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
                 .aisle("F   F", "XXXPX", "XXXPX", "XXXPX")
                 .aisle("     ", "XXXPX", "X###M", "XXXPX")
