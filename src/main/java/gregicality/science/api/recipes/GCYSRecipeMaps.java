@@ -94,11 +94,25 @@ public class GCYSRecipeMaps {
             .setSlotOverlay(true, false, true, GuiTextures.DUST_OVERLAY)
             .setSound(GTSoundEvents.MACERATOR);
 
-    public static final RecipeMap<PressureRequirementRecipeBuilder> GCYS_AUTOCLAVE_RECIPES = new RecipeMap<>("gcys_autoclave_recipes", 3, 2, 3, 2, new PressureRequirementRecipeBuilder(), false)
-            .setSlotOverlay(false, false, GuiTextures.DUST_OVERLAY)
-            .setSlotOverlay(true, false, GuiTextures.CRYSTAL_OVERLAY)
+    public static final RecipeMap<PressureRequirementRecipeBuilder> GCYS_AUTOCLAVE_RECIPES = new RecipeMap<>("gcys_autoclave_recipes", 2, 2, 2, 2, new PressureRequirementRecipeBuilder(), false)
+            .setSlotOverlay(false, false, false, GuiTextures.MOLECULAR_OVERLAY_1)
+            .setSlotOverlay(false, false, true, GuiTextures.MOLECULAR_OVERLAY_2)
+            .setSlotOverlay(false, true, false, GuiTextures.MOLECULAR_OVERLAY_3)
+            .setSlotOverlay(false, true, true, GuiTextures.MOLECULAR_OVERLAY_4)
+            .setSlotOverlay(true, false, GuiTextures.VIAL_OVERLAY_1)
+            .setSlotOverlay(true, true, GuiTextures.VIAL_OVERLAY_2)
             .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW_MULTIPLE, ProgressWidget.MoveType.HORIZONTAL)
-            .setSound(GTSoundEvents.FURNACE);
+            .setSound(GTSoundEvents.CHEMICAL_REACTOR);
+
+    public static final RecipeMap<PressureRequirementRecipeBuilder> VACUUM_REACTOR = new RecipeMap<>("vacuum_reactor_recipes", 2, 2, 2, 2, new PressureRequirementRecipeBuilder(), false)
+            .setSlotOverlay(false, false, false, GuiTextures.MOLECULAR_OVERLAY_1)
+            .setSlotOverlay(false, false, true, GuiTextures.MOLECULAR_OVERLAY_2)
+            .setSlotOverlay(false, true, false, GuiTextures.MOLECULAR_OVERLAY_3)
+            .setSlotOverlay(false, true, true, GuiTextures.MOLECULAR_OVERLAY_4)
+            .setSlotOverlay(true, false, GuiTextures.VIAL_OVERLAY_1)
+            .setSlotOverlay(true, true, GuiTextures.VIAL_OVERLAY_2)
+            .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW_MULTIPLE, ProgressWidget.MoveType.HORIZONTAL)
+            .setSound(GTSoundEvents.CHEMICAL_REACTOR);
 
 
     // Generators

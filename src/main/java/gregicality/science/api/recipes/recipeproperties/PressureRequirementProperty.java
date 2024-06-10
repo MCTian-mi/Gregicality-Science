@@ -61,11 +61,11 @@ public class PressureRequirementProperty extends RecipeProperty<PressureRequirem
 
     @Override
     public void drawInfo(@Nonnull Minecraft minecraft, int x, int y, int color, Object value) {
-        minecraft.fontRenderer.drawString(I18n.format("gcys.recipe.has_pressure_requirement"), x, y, color);
         GlStateManager.enableLighting();
         GlStateManager.enableLight(1);
         GCYSGuiTextures.PRESSURE_INDICATOR.draw(PRESSURE_INDICATOR_POSITION.getX(), PRESSURE_INDICATOR_POSITION.getY(), PRESSURE_INDICATOR_SIZE.getWidth(), PRESSURE_INDICATOR_SIZE.getHeight());
         GlStateManager.disableLight(1);
         GlStateManager.disableLighting();
+        minecraft.fontRenderer.drawString(I18n.format("gcys.recipe.has_pressure_requirement"), x, y, color);
     }
 }

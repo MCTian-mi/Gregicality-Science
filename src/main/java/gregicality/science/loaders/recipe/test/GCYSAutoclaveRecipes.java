@@ -4,6 +4,7 @@ import gregicality.science.api.GCYSValues;
 import gregicality.science.api.recipes.recipeproperties.PressureRequirementType;
 
 import static gregicality.science.api.recipes.GCYSRecipeMaps.GCYS_AUTOCLAVE_RECIPES;
+import static gregicality.science.api.recipes.GCYSRecipeMaps.VACUUM_REACTOR;
 import static gregtech.api.GTValues.HV;
 import static gregtech.api.GTValues.VA;
 import static gregtech.api.unification.material.Materials.*;
@@ -23,7 +24,8 @@ public class GCYSAutoclaveRecipes {
                 .EUt(VA[HV])
                 .buildAndRegister();
 
-        GCYS_AUTOCLAVE_RECIPES.recipeBuilder()
+        // Vacuum Reactor Recipes
+        VACUUM_REACTOR.recipeBuilder()
                 .fluidInputs(Propane.getFluid(1000))
                 .fluidOutputs(Propene.getFluid(1000), Hydrogen.getFluid(2000))
                 .pressure(PressureRequirementType.LOWER_THAN, Hydrogen.getFluid(), GCYSValues.EARTH_PRESSURE * 0.001)

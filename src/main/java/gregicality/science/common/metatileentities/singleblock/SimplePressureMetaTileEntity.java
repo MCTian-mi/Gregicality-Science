@@ -14,14 +14,17 @@ import gregtech.api.recipes.RecipeMap;
 import gregtech.api.util.GTUtility;
 import gregtech.client.particle.IMachineParticleEffect;
 import gregtech.client.renderer.ICubeRenderer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.function.Function;
 
 public class SimplePressureMetaTileEntity extends SimpleMachineMetaTileEntity implements IPressureMachine {
@@ -137,5 +140,11 @@ public class SimplePressureMetaTileEntity extends SimpleMachineMetaTileEntity im
             this.pressureContainer.deserializeNBT(buf.readCompoundTag());
         } catch (IOException ignored) {
         }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        addPressureInformation(stack, player, tooltip, advanced);
     }
 }

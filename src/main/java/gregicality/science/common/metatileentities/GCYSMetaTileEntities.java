@@ -26,6 +26,7 @@ public class GCYSMetaTileEntities {
     public static MetaTileEntitySteamVacuumChamber SMALL_VACUUM_CHAMBER;
     public static MetaTileEntityCreativePressurePump CREATIVE_PRESSURE;
     public static SimplePressureMetaTileEntity[] GCYS_AUTOCLAVE = new SimplePressureMetaTileEntity[GTValues.V.length - 1];
+    public static SimplePressureMetaTileEntity[] VACUUM_REACTOR = new SimplePressureMetaTileEntity[GTValues.V.length - 1];
 
     public static SimpleMachineMetaTileEntity[] DRYER = new SimpleMachineMetaTileEntity[GTValues.V.length - 1];
 
@@ -53,6 +54,7 @@ public class GCYSMetaTileEntities {
         STEAM_EJECTOR = registerMetaTileEntity(2100, new MetaTileEntitySteamEjector(gcysId("steam_ejector")));
         SMALL_VACUUM_CHAMBER = registerMetaTileEntity(2101, new MetaTileEntitySteamVacuumChamber(gcysId("steam_vacuum_chamber")));
         CREATIVE_PRESSURE = registerMetaTileEntity(2102, new MetaTileEntityCreativePressurePump());
+
         registerMetaTileEntities(GCYS_AUTOCLAVE, 2103, "gcys_autoclave",
                 (tier, voltageName) -> new SimplePressureMetaTileEntity(
                         gcysId(String.format("%s.%s", "gcys_autoclave", voltageName)),
@@ -60,6 +62,14 @@ public class GCYSMetaTileEntities {
                         Textures.AUTOCLAVE_OVERLAY,
                         tier,
                         false));
+
+        registerMetaTileEntities(VACUUM_REACTOR, 2118, "vacuum_reactor",
+                (tier, voltageName) -> new SimplePressureMetaTileEntity(
+                        gcysId(String.format("%s.%s", "vacuum_reactor", voltageName)),
+                        GCYSRecipeMaps.VACUUM_REACTOR,
+                        Textures.AUTOCLAVE_OVERLAY,
+                        tier,
+                        true));
 
 
         // Simple Machines: ID 2300-3000+
