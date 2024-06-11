@@ -1,6 +1,7 @@
 package gregicality.science.common;
 
-import gregicality.science.GregicalityScience;
+import gregicality.GCYSInternalTags;
+import gregicality.science.api.unification.materials.properties.GCYSPropertyKey;
 import gregicality.science.common.block.GCYSMetaBlocks;
 import gregicality.science.common.items.GCYSMetaItems;
 import gregicality.science.common.pipelike.pressure.BlockPressurePipe;
@@ -11,6 +12,8 @@ import gregicality.science.loaders.recipe.GCYSRecipeLoader;
 import gregicality.science.loaders.recipe.component.GCYSCraftingComponent;
 import gregtech.api.GregTechAPI;
 import gregtech.api.block.VariantItemBlock;
+import gregtech.api.unification.material.Material;
+import gregtech.api.unification.material.registry.MaterialRegistry;
 import gregtech.api.unification.stack.ItemMaterialInfo;
 import gregtech.loaders.recipe.CraftingComponent;
 import net.minecraft.block.Block;
@@ -32,13 +35,15 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Function;
 
-@Mod.EventBusSubscriber(modid = GregicalityScience.MODID)
+import static gregicality.science.common.block.GCYSMetaBlocks.PRESSURE_PIPES;
+
+@Mod.EventBusSubscriber(modid = GCYSInternalTags.MODID)
 public class CommonProxy {
 
     @SubscribeEvent
     public static void syncConfigValues(@Nonnull ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(GregicalityScience.MODID)) {
-            ConfigManager.sync(GregicalityScience.MODID, Config.Type.INSTANCE);
+        if (event.getModID().equals(GCYSInternalTags.MODID)) {
+            ConfigManager.sync(GCYSInternalTags.MODID, Config.Type.INSTANCE);
         }
     }
 
@@ -50,7 +55,17 @@ public class CommonProxy {
         registry.register(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE);
         registry.register(GCYSMetaBlocks.TRANSPARENT_CASING);
 
-        for (BlockPressurePipe pipe : GCYSMetaBlocks.PRESSURE_PIPES) registry.register(pipe);
+        for (MaterialRegistry materialRegistry : GregTechAPI.materialManager.getRegistries()) {
+            for (Material material : materialRegistry) {
+                if (material.hasProperty(GCYSPropertyKey.PRESSURE_PIPE)) {
+                    for (BlockPressurePipe pipe : PRESSURE_PIPES.get(materialRegistry.getModid())) {
+                        if (!pipe.getItemPipeType(pipe.getItem(material)).getOrePrefix().isIgnored(material)) {
+                            pipe.addPipeMaterial(material, material.getProperty(GCYSPropertyKey.PRESSURE_PIPE));
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -63,8 +78,10 @@ public class CommonProxy {
         registry.register(createItemBlock(GCYSMetaBlocks.MULTIBLOCK_CASING_ACTIVE, VariantItemBlock::new));
         registry.register(createItemBlock(GCYSMetaBlocks.TRANSPARENT_CASING, VariantItemBlock::new));
 
-        for (BlockPressurePipe pipe : GCYSMetaBlocks.PRESSURE_PIPES)
-            registry.register(createItemBlock(pipe, ItemBlockPressurePipe::new));
+        for (MaterialRegistry materialRegistry : GregTechAPI.materialManager.getRegistries()) {
+            for (BlockPressurePipe pipe : PRESSURE_PIPES.get(materialRegistry.getModid()))
+                registry.register(createItemBlock(pipe, ItemBlockPressurePipe::new));
+        }
     }
 
     @Nonnull
@@ -102,6 +119,6 @@ public class CommonProxy {
     }
 
     public void preLoad() {
-        GameRegistry.registerTileEntity(TileEntityPressurePipe.class, new ResourceLocation(GregicalityScience.MODID, "pressure_pipe"));
+        GameRegistry.registerTileEntity(TileEntityPressurePipe.class, new ResourceLocation(GCYSInternalTags.MODID, "pressure_pipe"));
     }
 }

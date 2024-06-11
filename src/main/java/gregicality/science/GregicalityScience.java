@@ -19,17 +19,13 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-@Mod(modid = GregicalityScience.MODID,
-        name = GregicalityScience.NAME,
-        version = GregicalityScience.VERSION,
+@Mod(modid = GCYSInternalTags.MODID,
+        name = GCYSInternalTags.MODNAME,
+        version = GCYSInternalTags.VERSION,
         dependencies = GTInternalTags.DEP_VERSION_STRING + "required-after:gcym")
 public class GregicalityScience {
 
-    public static final String MODID = GCYSInternalTags.MODID;
-    public static final String NAME = GCYSInternalTags.MODNAME;
-    public static final String VERSION = GCYSInternalTags.VERSION;
-
-    @SidedProxy(modId = GregicalityScience.MODID,
+    @SidedProxy(modId = GCYSInternalTags.MODID,
             clientSide = "gregicality.science.common.ClientProxy",
             serverSide = "gregicality.science.common.CommonProxy")
     public static CommonProxy proxy;

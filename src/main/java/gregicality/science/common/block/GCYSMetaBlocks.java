@@ -7,13 +7,19 @@ import gregicality.science.common.block.blocks.BlockGCYSMultiblockCasingActive;
 import gregicality.science.common.block.blocks.BlockTransparentCasing;
 import gregicality.science.common.pipelike.pressure.BlockPressurePipe;
 import gregicality.science.common.pipelike.pressure.PressurePipeType;
+import gregtech.api.GregTechAPI;
+import gregtech.api.unification.OreDictUnifier;
+import gregtech.api.unification.material.Material;
+import gregtech.api.unification.material.registry.MaterialRegistry;
 import gregtech.client.model.SimpleStateMapper;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,14 +32,13 @@ import java.util.stream.Collectors;
 
 public class GCYSMetaBlocks {
 
-    public static final BlockPressurePipe[] PRESSURE_PIPES = new BlockPressurePipe[PressurePipeType.values().length];
+    public static final Map<String, BlockPressurePipe[]> PRESSURE_PIPES = new Object2ObjectOpenHashMap<>();
     public static BlockCrucible CRUCIBLE;
     public static BlockGCYSMultiblockCasing MULTIBLOCK_CASING;
     public static BlockGCYSMultiblockCasingActive MULTIBLOCK_CASING_ACTIVE;
     public static BlockTransparentCasing TRANSPARENT_CASING;
 
     private GCYSMetaBlocks() {
-
     }
 
     public static void init() {
@@ -46,9 +51,15 @@ public class GCYSMetaBlocks {
         TRANSPARENT_CASING = new BlockTransparentCasing();
         TRANSPARENT_CASING.setRegistryName("transparent_casing");
 
-        for (PressurePipeType type : PressurePipeType.values()) {
-            PRESSURE_PIPES[type.ordinal()] = new BlockPressurePipe(type);
-            PRESSURE_PIPES[type.ordinal()].setRegistryName(String.format("pressure_pipe_%s", type.name));
+        for (MaterialRegistry registry : GregTechAPI.materialManager.getRegistries()) {
+            String modid = registry.getModid();
+            BlockPressurePipe[] pressurePipes = new BlockPressurePipe[PressurePipeType.VALUES.length];
+
+            for (PressurePipeType type : PressurePipeType.VALUES) {
+                pressurePipes[type.ordinal()] = new BlockPressurePipe(type, registry);
+                pressurePipes[type.ordinal()].setRegistryName(modid, String.format("pressure_pipe_%s", type.name));
+            }
+            PRESSURE_PIPES.put(modid, pressurePipes);
         }
     }
 
@@ -60,9 +71,8 @@ public class GCYSMetaBlocks {
         registerItemModel(TRANSPARENT_CASING);
 
         IStateMapper normalStateMapper = new SimpleStateMapper(PressurePipeRenderer.INSTANCE.getModelLocation());
-        for (BlockPressurePipe pipe : PRESSURE_PIPES) {
-            ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(pipe), stack -> PressurePipeRenderer.INSTANCE.getModelLocation());
-            ModelLoader.setCustomStateMapper(pipe, normalStateMapper);
+        for (MaterialRegistry registry : GregTechAPI.materialManager.getRegistries()) {
+            for (BlockPressurePipe pipe : PRESSURE_PIPES.get(registry.getModid())) pipe.onModelRegister();
         }
     }
 
@@ -74,6 +84,17 @@ public class GCYSMetaBlocks {
                     block.getMetaFromState(state),
                     new ModelResourceLocation(block.getRegistryName(),
                             statePropertiesToString(state.getProperties())));
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void registerStateMappers() {
+        IStateMapper normalStateMapper;
+        for (MaterialRegistry registry : GregTechAPI.materialManager.getRegistries()) {
+            normalStateMapper = new SimpleStateMapper(PressurePipeRenderer.INSTANCE.getModelLocation());
+            for (BlockPressurePipe pipe : PRESSURE_PIPES.get(registry.getModid())) {
+                ModelLoader.setCustomStateMapper(pipe, normalStateMapper);
+            }
         }
     }
 
@@ -98,6 +119,17 @@ public class GCYSMetaBlocks {
         }
 
         return stringbuilder.toString();
+    }
+
+    public static void registerOreDict() {
+        for (MaterialRegistry registry : GregTechAPI.materialManager.getRegistries()) {
+            for (BlockPressurePipe pipe : PRESSURE_PIPES.get(registry.getModid())) {
+                for (Material pipeMaterial : pipe.getEnabledMaterials()) {
+                    ItemStack itemStack = pipe.getItem(pipeMaterial);
+                    OreDictUnifier.registerOre(itemStack, pipe.getPrefix(), pipeMaterial);
+                }
+            }
+        }
     }
 
     @Nonnull

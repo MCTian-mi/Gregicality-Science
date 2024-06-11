@@ -1,11 +1,11 @@
 package gregicality.science.client.render;
 
-import gregicality.science.GregicalityScience;
+import gregicality.GCYSInternalTags;
 import gregtech.api.gui.resources.TextureArea;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber(modid = GregicalityScience.MODID, value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid = GCYSInternalTags.MODID, value = Side.CLIENT)
 public class GCYSGuiTextures {
 
     public static final TextureArea PRESSURE_INDICATOR = TextureArea.fullImage("textures/gui/icon/pressure_indicator.png");

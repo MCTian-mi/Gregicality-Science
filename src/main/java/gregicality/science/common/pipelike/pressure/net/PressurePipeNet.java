@@ -3,7 +3,7 @@ package gregicality.science.common.pipelike.pressure.net;
 import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.IPressureContainer;
 import gregicality.science.api.capability.impl.GasMap;
-import gregicality.science.common.pipelike.pressure.PressurePipeData;
+import gregicality.science.api.unification.materials.properties.PressurePipeProperties;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,29 +13,34 @@ import javax.annotation.Nonnull;
 
 import static gregtech.api.unification.material.Materials.Air;
 
-public class PressurePipeNet extends PipeNet<PressurePipeData> implements IPressureContainer {
+public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements IPressureContainer {
 
     private final GasMap gasMap;
     private int volume = 1;
     private double minNetPressure = Double.MAX_VALUE;
     private double maxNetPressure = Double.MIN_VALUE;
 
-    public PressurePipeNet(WorldPipeNet<PressurePipeData, ? extends PipeNet> world) {
+    public PressurePipeNet(WorldPipeNet<PressurePipeProperties, PressurePipeNet> world) {
         super(world);
         this.gasMap = new GasMap();
         this.gasMap.pushGas(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
     }
 
     @Override
-    protected void writeNodeData(@Nonnull PressurePipeData pressurePipeData, @Nonnull NBTTagCompound nbt) {
-        nbt.setDouble("MinP", pressurePipeData.getMinPressure());
-        nbt.setDouble("MaxP", pressurePipeData.getMaxPressure());
-        nbt.setDouble("Volume", pressurePipeData.getVolume());
+    protected void writeNodeData(@Nonnull PressurePipeProperties pressurePipeProperties, @Nonnull NBTTagCompound nbt) {
+        nbt.setDouble("MinP", pressurePipeProperties.getMinPressure());
+        nbt.setDouble("MaxP", pressurePipeProperties.getMaxPressure());
+        nbt.setDouble("Volume", pressurePipeProperties.getVolume());
+        nbt.setFloat("PressureTightness", pressurePipeProperties.getPressureTightness());
     }
 
     @Override
-    protected PressurePipeData readNodeData(@Nonnull NBTTagCompound nbt) {
-        return new PressurePipeData(nbt.getDouble("MinP"), nbt.getDouble("MaxP"), nbt.getInteger("Volume"));
+    protected PressurePipeProperties readNodeData(@Nonnull NBTTagCompound nbt) {
+        int minP = nbt.getInteger("MinP");
+        int maxP = nbt.getInteger("MaxP");
+        int volume = nbt.getInteger("Volume");
+        float pressureTightness = nbt.getFloat("PressureTightness");
+        return new PressurePipeProperties(minP, maxP, volume, pressureTightness);
     }
 
     @Override

@@ -1,15 +1,17 @@
 package gregicality.science.client.render;
 
-import gregicality.science.GregicalityScience;
+import gregicality.GCYSInternalTags;
 import gregtech.client.renderer.texture.cube.OrientedOverlayRenderer;
+import gregtech.client.renderer.texture.cube.SimpleOverlayRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod.EventBusSubscriber(modid = GregicalityScience.MODID, value = Side.CLIENT)
+import static gregtech.api.util.GTUtility.gregtechId;
+
+@Mod.EventBusSubscriber(modid = GCYSInternalTags.MODID, value = Side.CLIENT)
 public class GCYSTextures {
 
     public static OrientedOverlayRenderer DRYER_OVERLAY = new OrientedOverlayRenderer("machines/dryer");
@@ -28,13 +30,28 @@ public class GCYSTextures {
     public static OrientedOverlayRenderer LOW_POWER_TURBOMOLECULAR_PUMP = new OrientedOverlayRenderer("multiblock/low_power_turbomolecular_pump");
     public static OrientedOverlayRenderer HIGH_POWER_TURBOMOLECULAR_PUMP = new OrientedOverlayRenderer("multiblock/high_power_turbomolecular_pump");
 
-    public static TextureAtlasSprite PRESSURE_PIPE_SIDE;
-    public static TextureAtlasSprite PRESSURE_PIPE_OPEN;
+    public static SimpleOverlayRenderer INFINITE_PRESSURE_PUMP_OVERLAY = new SimpleOverlayRenderer("overlay/machine/overlay_infinite_pump");
+
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite SEALED_OVERLAY;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_SIDE;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_TINY;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_SMALL;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_NORMAL;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_LARGE;
 
     @SideOnly(Side.CLIENT)
     public static void register(TextureMap textureMap) {
-        PRESSURE_PIPE_SIDE = textureMap.registerSprite(new ResourceLocation(GregicalityScience.MODID, "blocks/pipe/pressure_pipe_side"));
-        PRESSURE_PIPE_OPEN = textureMap.registerSprite(new ResourceLocation(GregicalityScience.MODID, "blocks/pipe/pressure_pipe_open"));
+        SEALED_OVERLAY = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_sealed"));
+        PIPE_PRESSURE_SIDE = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_side"));
+        PIPE_PRESSURE_TINY = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_tiny_in"));
+        PIPE_PRESSURE_SMALL = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_small_in"));
+        PIPE_PRESSURE_NORMAL = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_normal_in"));
+        PIPE_PRESSURE_LARGE = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_large_in"));
     }
-
 }

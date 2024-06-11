@@ -1,9 +1,9 @@
 package gregicality.science.common;
 
-import gregicality.science.GregicalityScience;
+import gregicality.GCYSInternalTags;
 import net.minecraftforge.common.config.Config;
 
-@Config(modid = GregicalityScience.MODID)
+@Config(modid = GCYSInternalTags.MODID)
 public class GCYSConfigHolder {
 
     @Config.Comment("Config options for modification of GTCEu Processing Chains")

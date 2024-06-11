@@ -12,6 +12,7 @@ import gregicality.science.api.capability.GCYSTileCapabilities;
 import gregicality.science.api.capability.IPressureContainer;
 import gregicality.science.api.capability.IPressureMachine;
 import gregicality.science.api.capability.impl.PressureContainer;
+import gregicality.science.client.render.GCYSTextures;
 import gregtech.api.GTValues;
 import gregtech.api.capability.IActiveOutputSide;
 import gregtech.api.gui.GuiTextures;
@@ -101,9 +102,9 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
                 new ColourMultiplier(GTUtility.convertRGBtoOpaqueRGBA_CL(getPaintingColorForRendering())));
         Textures.VOLTAGE_CASINGS[GTValues.MAX].render(renderState, translation, renderPipeline, Cuboid6.full);
         for (EnumFacing face : EnumFacing.VALUES) {
-            Textures.INFINITE_EMITTER_FACE.renderSided(face, renderState, translation, pipeline); // TODO: Add new texture for this
+            GCYSTextures.INFINITE_PRESSURE_PUMP_OVERLAY.renderSided(face, renderState, translation, pipeline);
         }
-        Textures.PIPE_OUT_OVERLAY.renderSided(getOutputFacing(), renderState, translation, pipeline);
+        Textures.PUMP_OVERLAY.renderSided(getOutputFacing(), renderState, translation, pipeline);
     }
 
     @Override

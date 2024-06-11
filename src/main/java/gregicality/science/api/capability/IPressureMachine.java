@@ -44,8 +44,8 @@ public interface IPressureMachine {
     }
 
     default void addPressureInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
-        tooltip.add(I18n.format("gcys.universal.tooltip.min_pressure", new Object[]{NumberFormattingUtil.formatDoubleToCompactString(getPressureContainer().getMinPressure()), GCYSValues.PNF[GCYSUtility.getTierByPressure(getPressureContainer().getMinPressure())]}));
-        tooltip.add(I18n.format("gcys.universal.tooltip.max_pressure", new Object[]{NumberFormattingUtil.formatDoubleToCompactString(getPressureContainer().getMaxPressure()), GCYSValues.PNF[GCYSUtility.getTierByPressure(getPressureContainer().getMaxPressure())]}));
-        tooltip.add(I18n.format("gcys.universal.tooltip.volume", new Object[]{getPressureContainer().getVolume()}));
+        tooltip.add(I18n.format("gcys.universal.tooltip.volume", getPressureContainer().getVolume()));
+        tooltip.add(I18n.format("gcys.universal.tooltip.min_pressure", NumberFormattingUtil.formatDoubleToCompactString(getPressureContainer().getMinPressure()), GCYSValues.PNF[GCYSUtility.getTierByPressure(getPressureContainer().getMinPressure())]));
+        tooltip.add(I18n.format("gcys.universal.tooltip.max_pressure", NumberFormattingUtil.formatDoubleToCompactString(getPressureContainer().getMaxPressure()), GCYSValues.PNF[GCYSUtility.getTierByPressure(getPressureContainer().getMaxPressure())]));
     }
 }

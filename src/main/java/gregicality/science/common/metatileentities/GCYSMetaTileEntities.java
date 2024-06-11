@@ -1,6 +1,6 @@
 package gregicality.science.common.metatileentities;
 
-import gregicality.science.GregicalityScience;
+import gregicality.GCYSInternalTags;
 import gregicality.science.api.GCYSValues;
 import gregicality.science.api.recipes.GCYSRecipeMaps;
 import gregicality.science.client.render.GCYSTextures;
@@ -108,6 +108,6 @@ public class GCYSMetaTileEntities {
 
     @Nonnull
     public static ResourceLocation gcysId(String name) {
-        return new ResourceLocation(GregicalityScience.MODID, name);
+        return new ResourceLocation(GCYSInternalTags.MODID, name);
     }
 }

@@ -1,42 +1,42 @@
 package gregicality.science.common.pipelike.pressure;
 
-import gregicality.science.api.GCYSValues;
-import gregtech.api.pipenet.block.IPipeType;
+import gregicality.science.api.unification.materials.properties.PressurePipeProperties;
+import gregicality.science.api.unification.ore.GCYSOrePrefix;
+import gregtech.api.pipenet.block.material.IMaterialPipeType;
+import gregtech.api.unification.ore.OrePrefix;
 import lombok.Getter;
 
 import javax.annotation.Nonnull;
 
-public enum PressurePipeType implements IPipeType<PressurePipeData> {
-    LOW_VACUUM("low_vacuum", 0.125f, GCYSValues.P[GCYSValues.LV], GCYSValues.EARTH_PRESSURE, 10000),
-    MEDIUM_VACUUM("medium_vacuum", 0.25f, GCYSValues.P[GCYSValues.MV], GCYSValues.EARTH_PRESSURE, 12500),
-    HIGH_VACUUM("high_vacuum", 0.5f, GCYSValues.P[GCYSValues.HV], GCYSValues.EARTH_PRESSURE, 15000),
-    ULTRA_HIGH_VACUUM("ultra_high_vacuum", 0.625f, GCYSValues.P[GCYSValues.UHV], GCYSValues.EARTH_PRESSURE, 20000),
-    EXTREMELY_HIGH_VACUUM("extremely_high_vacuum", 0.75f, GCYSValues.P[GCYSValues.EHV], GCYSValues.EARTH_PRESSURE, 30000),
-    CLOSE_SPACE_VACUUM("close_space_vacuum", 0.825f, GCYSValues.P[GCYSValues.CSV], GCYSValues.EARTH_PRESSURE, 50000),
-    INTERGALACTIC_VOID_VACUUM("intergalactic_void_vacuum", 0.9f, GCYSValues.P[GCYSValues.IVV], GCYSValues.EARTH_PRESSURE, 100000),
-    LOW_PRESSURE("low_pressure", 0.75f, GCYSValues.EARTH_PRESSURE, GCYSValues.P[GCYSValues.LP], 10000),
-    MEDIUM_PRESSURE("medium_pressure", 0.625f, GCYSValues.EARTH_PRESSURE, GCYSValues.P[GCYSValues.MP], 7500),
-    HIGH_PRESSURE("high_pressure", 0.5f, GCYSValues.EARTH_PRESSURE, GCYSValues.P[GCYSValues.HP], 6250),
-    ULTRA_HIGH_PRESSURE("ultra_high_pressure", 0.375f, GCYSValues.EARTH_PRESSURE, GCYSValues.P[GCYSValues.UHP], 5000),
-    ELECTRON_DEGENERACY_PRESSURE("electron_degeneracy_pressure", 0.25f, GCYSValues.EARTH_PRESSURE, GCYSValues.P[GCYSValues.EDP], 250),
-    WHITE_DWARF_PRESSURE("white_dwarf_pressure", 0.125f, GCYSValues.EARTH_PRESSURE, GCYSValues.P[GCYSValues.WDP], 125),
-    NEUTRON_STAR_PRESSURE("neutron_star_pressure", 0.05f, GCYSValues.EARTH_PRESSURE, GCYSValues.P[GCYSValues.NSP], 10);
+public enum PressurePipeType implements IMaterialPipeType<PressurePipeProperties> {
 
-    public final float thickness;
+    TINY("tiny", 0.25f, GCYSOrePrefix.pipeTinyPressure, 1, 1),
+    SMALL("small", 0.375f, GCYSOrePrefix.pipeSmallPressure, 2, 1),
+    NORMAL("normal", 0.5f, GCYSOrePrefix.pipeNormalPressure, 6, 1),
+    LARGE("large", 0.75f, GCYSOrePrefix.pipeLargePressure, 12, 1),
+
+    SEALED_TINY("tiny_sealed", 0.25f, GCYSOrePrefix.pipeTinyPressureSealed, 1, 4),
+    SEALED_SMALL("small_sealed", 0.375f, GCYSOrePrefix.pipeSmallPressureSealed, 2, 4),
+    SEALED_NORMAL("normal_sealed", 0.5f, GCYSOrePrefix.pipeNormalPressureSealed, 6, 4),
+    SEALED_LARGE("large_sealed", 0.75f, GCYSOrePrefix.pipeLargePressureSealed, 12, 4);
+
+    public static final PressurePipeType[] VALUES = values();
+
     public final String name;
+    public final float thickness;
     @Getter
-    public final double maxPressure;
+    private final int volumeMultiplier;
     @Getter
-    private final double minPressure;
+    private final OrePrefix orePrefix;
     @Getter
-    private final int volume;
+    private final int pressureTightnessMultiplier;
 
-    PressurePipeType(String name, float thickness, double minPressure, double maxPressure, int volume) {
+    PressurePipeType(String name, float thickness, OrePrefix orePrefix, int volumeMultiplier, int pressureTightnessMultiplier) {
         this.thickness = thickness;
         this.name = name;
-        this.minPressure = minPressure;
-        this.maxPressure = maxPressure;
-        this.volume = volume;
+        this.orePrefix = orePrefix;
+        this.volumeMultiplier = volumeMultiplier;
+        this.pressureTightnessMultiplier = pressureTightnessMultiplier;
     }
 
     @Override
@@ -44,11 +44,15 @@ public enum PressurePipeType implements IPipeType<PressurePipeData> {
         return this.thickness;
     }
 
-    @Nonnull
     @Override
-    public PressurePipeData modifyProperties(PressurePipeData pipeData) {
-        return new PressurePipeData(minPressure, maxPressure, volume);
+    public PressurePipeProperties modifyProperties(PressurePipeProperties baseProperties) {
+        return new PressurePipeProperties(
+                baseProperties.getMinPressure(),
+                baseProperties.getMaxPressure(),
+                baseProperties.getVolume() * volumeMultiplier,
+                baseProperties.getPressureTightness() * pressureTightnessMultiplier);
     }
+
 
     @Override
     public boolean isPaintable() {
@@ -59,5 +63,9 @@ public enum PressurePipeType implements IPipeType<PressurePipeData> {
     @Override
     public String getName() {
         return name;
+    }
+
+    public boolean isSealed() {
+        return ordinal() > 3;
     }
 }

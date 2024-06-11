@@ -47,7 +47,7 @@ public class GCYSMaterialPropertyAddition {
         SodiumBisulfate.setProperty(PropertyKey.FLUID, fluidProperty);
 
         // Ore Byproducts
-        //TODO Fix ore byproduct changes
+        // TODO Fix ore byproduct changes
         Pollucite.getProperty(PropertyKey.ORE).setOreByProducts(Aluminium, Potassium, Caesium, Pollucite);
 
         // Cable Properties
@@ -55,5 +55,8 @@ public class GCYSMaterialPropertyAddition {
         wireProp.setSuperconductor(false);
         wireProp.setLossPerBlock(32);
         wireProp.setVoltage((int) GTValues.V[GTValues.UIV]);
+
+        // PressurePipe Properties
+        Plutonium241.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties());
     }
 }
