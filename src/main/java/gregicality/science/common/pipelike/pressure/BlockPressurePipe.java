@@ -1,5 +1,6 @@
 package gregicality.science.common.pipelike.pressure;
 
+import codechicken.lib.vec.Cuboid6;
 import com.google.common.base.Preconditions;
 import gregicality.science.api.capability.GCYSTileCapabilities;
 import gregicality.science.api.unification.materials.properties.PressurePipeProperties;
@@ -40,6 +41,28 @@ public class BlockPressurePipe extends BlockMaterialPipe<PressurePipeType, Press
 
     private final SortedMap<Material, PressurePipeProperties> enabledMaterials = new TreeMap<>();
 
+    public static Cuboid6 getFlangeBox(EnumFacing side, double thickness) { // F**k you float
+        double min = (thickness > 0.3 ? (3 - 4 * thickness) / 8.0 : (7 - 8 * thickness) / 16.0) + 0.002;
+        double max = 1.0 - min;
+        double faceMin = 0.0;
+        double faceMax = 1.0;
+        double flangeMin = 0.125;
+        double flangeMax = 0.875;
+
+        if (side == null) {
+            return new Cuboid6(min, min, min, max, max, max);
+        } else {
+            return switch (side) {
+                case WEST -> new Cuboid6(faceMin, min, min, flangeMin, max, max);
+                case EAST -> new Cuboid6(flangeMax, min, min, faceMax, max, max);
+                case NORTH -> new Cuboid6(min, min, faceMin, max, max, flangeMin);
+                case SOUTH -> new Cuboid6(min, min, flangeMax, max, max, faceMax);
+                case UP -> new Cuboid6(min, flangeMax, min, max, faceMax, max);
+                case DOWN -> new Cuboid6(min, faceMin, min, max, flangeMin, max);
+            };
+        }
+    }
+
     public BlockPressurePipe(PressurePipeType pressurePipeType, MaterialRegistry registry) {
         super(pressurePipeType, registry);
         setCreativeTab(GregTechAPI.TAB_GREGTECH_PIPES);
@@ -57,6 +80,7 @@ public class BlockPressurePipe extends BlockMaterialPipe<PressurePipeType, Press
     public Collection<Material> getEnabledMaterials() {
         return Collections.unmodifiableSet(enabledMaterials.keySet());
     }
+
 
     @Override
     public Class<PressurePipeType> getPipeTypeClass() {
@@ -86,7 +110,7 @@ public class BlockPressurePipe extends BlockMaterialPipe<PressurePipeType, Press
     }
 
     @Override
-    public TileEntityPipeBase<PressurePipeType, PressurePipeProperties> createNewTileEntity(boolean b) {
+    public TileEntityPipeBase<PressurePipeType, PressurePipeProperties> createNewTileEntity(boolean supportsTicking) {
         return new TileEntityPressurePipe();
     }
 

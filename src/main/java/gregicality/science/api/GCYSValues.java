@@ -124,29 +124,29 @@ public class GCYSValues {
     // TODO
     public static final Function<Integer, Double> defaultMinimumPressureFunction = tier -> {
         if (tier == GTValues.ULV)
-            return GCYSValues.P[6];
+            return GCYSValues.P[LV];
         if (tier <= GTValues.MV)
-            return GCYSValues.P[5];
+            return GCYSValues.P[MV];
         if (tier <= GTValues.EV)
-            return GCYSValues.P[4];
+            return GCYSValues.P[HV];
         if (tier == GTValues.LuV)
-            return GCYSValues.P[3];
+            return GCYSValues.P[UHV];
         // ZPM+
-        return GCYSValues.P[2];
+        return GCYSValues.P[EHV];
     };
 
 
     // TODO
     public static final Function<Integer, Double> defaultMaximumPressureFunction = tier -> {
         if (tier == GTValues.ULV)
-            return GCYSValues.P[8];
+            return GCYSValues.P[LP];
         if (tier <= GTValues.MV)
-            return GCYSValues.P[9];
+            return GCYSValues.P[MP];
         if (tier <= GTValues.EV)
-            return GCYSValues.P[10];
+            return GCYSValues.P[HP];
         if (tier == GTValues.LuV)
-            return GCYSValues.P[11];
+            return GCYSValues.P[UHP];
         // ZPM+
-        return GCYSValues.P[12];
+        return GCYSValues.P[EDP];
     };
 }

@@ -517,6 +517,14 @@ gcys.vacuum_level.perfect=Perfect Vacuum
 # Ore Prefixes
 item.material.oreprefix.seedCrystal=%s Seed Crystal
 item.material.oreprefix.boule=%s Boule
+item.material.oreprefix.pipeTinyPressure=Tiny %s Pressure Pipe
+item.material.oreprefix.pipeSmallPressure=Small %s Pressure Pipe
+item.material.oreprefix.pipeNormalPressure=%s Pressure Pipe
+item.material.oreprefix.pipeLargePressure=Large %s Pressure Pipe
+item.material.oreprefix.pipeTinyPressureSealed=Tiny Sealed %s Pressure Pipe
+item.material.oreprefix.pipeSmallPressureSealed=Small Sealed %s Pressure Pipe
+item.material.oreprefix.pipeNormalPressureSealed=Sealed %s Pressure Pipe
+item.material.oreprefix.pipeLargePressureSealed=Large Sealed %s Pressure Pipe
 
 # Metaitems
 

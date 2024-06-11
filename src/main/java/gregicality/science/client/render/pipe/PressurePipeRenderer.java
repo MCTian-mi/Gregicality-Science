@@ -2,7 +2,6 @@ package gregicality.science.client.render.pipe;
 
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
-import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.uv.IconTransformation;
 import gregicality.science.client.render.GCYSTextures;
 import gregicality.science.common.pipelike.pressure.PressurePipeType;
@@ -19,6 +18,7 @@ import javax.annotation.Nullable;
 import java.util.EnumMap;
 
 import static gregicality.science.common.metatileentities.GCYSMetaTileEntities.gcysId;
+import static gregicality.science.common.pipelike.pressure.BlockPressurePipe.getFlangeBox;
 
 public class PressurePipeRenderer extends PipeRenderer {
 
@@ -27,34 +27,6 @@ public class PressurePipeRenderer extends PipeRenderer {
 
     private PressurePipeRenderer() {
         super("gcys_pressure_pipe", gcysId("pressure_pipe"));
-    }
-
-    public static Cuboid6 getFlangeBox(EnumFacing side, float thickness) {
-        float min = (0.75F - thickness) / 2.0F + 0.01F;
-        float max = 1.0F - min;
-        float faceMin = 0.0001F;
-        float faceMax = 0.9999F;
-        float flangeMin = 0.125F;
-        float flangeMax = 0.875F;
-
-        if (side == null) {
-            return new Cuboid6((double) min, (double) min, (double) min, (double) max, (double) max, (double) max);
-        } else {
-            return switch (side) {
-                case WEST ->
-                        new Cuboid6((double) faceMin, (double) min, (double) min, (double) flangeMin, (double) max, (double) max);
-                case EAST ->
-                        new Cuboid6((double) flangeMax, (double) min, (double) min, (double) faceMax, (double) max, (double) max);
-                case NORTH ->
-                        new Cuboid6((double) min, (double) min, (double) faceMin, (double) max, (double) max, (double) flangeMin);
-                case SOUTH ->
-                        new Cuboid6((double) min, (double) min, (double) flangeMax, (double) max, (double) max, (double) faceMax);
-                case UP ->
-                        new Cuboid6((double) min, (double) flangeMax, (double) min, (double) max, (double) faceMax, (double) max);
-                case DOWN ->
-                        new Cuboid6((double) min, (double) faceMin, (double) min, (double) max, (double) flangeMin, (double) max);
-            };
-        }
     }
 
     @Override
@@ -80,7 +52,7 @@ public class PressurePipeRenderer extends PipeRenderer {
                 .addSideRender(new IconTransformation(GCYSTextures.PIPE_PRESSURE_SIDE));
 
         if (((PressurePipeType) pipeType).isSealed()) {
-            renderContext.addSideRender(false, new IconTransformation(GCYSTextures.SEALED_OVERLAY));
+            renderContext.addOpenFaceRender(false, new IconTransformation(GCYSTextures.SEALED_OVERLAY));
         }
     }
 
@@ -100,8 +72,6 @@ public class PressurePipeRenderer extends PipeRenderer {
     @Override
     public void renderPipeCube(CCRenderState renderState, PipeRenderContext renderContext, EnumFacing side) {
         super.renderPipeCube(renderState, renderContext, side);
-        if ((renderContext.getConnections() & 1 << (6 + side.getIndex())) <= 0) {
-            renderFlange(renderState, renderContext, side);
-        }
+        renderFlange(renderState, renderContext, side);
     }
 }

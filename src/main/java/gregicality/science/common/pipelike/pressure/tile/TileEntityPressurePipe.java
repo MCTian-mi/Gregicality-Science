@@ -51,7 +51,7 @@ public class TileEntityPressurePipe extends TileEntityMaterialPipeBase<PressureP
             if (world == null || world.isRemote) {
                 return GCYSTileCapabilities.CAPABILITY_PRESSURE_CONTAINER.cast(IPressureContainer.EMPTY);
             }
-            return GCYSTileCapabilities.CAPABILITY_PRESSURE_CONTAINER.cast(getPipeNet());
+            return GCYSTileCapabilities.CAPABILITY_PRESSURE_CONTAINER.cast(getPressurePipeNet());
         }
         return super.getCapabilityInternal(capability, facing);
     }
@@ -65,7 +65,7 @@ public class TileEntityPressurePipe extends TileEntityMaterialPipeBase<PressureP
     }
 
     public void causePressureExplosion() {
-        PressurePipeNet net = getPipeNet();
+        PressurePipeNet net = getPressurePipeNet();
         if (net != null) net.causePressureExplosion(getWorld(), getPos());
     }
 
@@ -96,7 +96,7 @@ public class TileEntityPressurePipe extends TileEntityMaterialPipeBase<PressureP
     }
 
     public boolean updateLeakage() {
-        PressurePipeNet net = getPipeNet();
+        PressurePipeNet net = getPressurePipeNet();
         if (net != null) {
             net.onLeak();
             if (!net.isPressureSafe()) causePressureExplosion();
@@ -105,9 +105,8 @@ public class TileEntityPressurePipe extends TileEntityMaterialPipeBase<PressureP
         return true;
     }
 
-    public PressurePipeNet getPipeNet() {
-        if (world == null || world.isRemote)
-            return null;
+    public PressurePipeNet getPressurePipeNet() {
+        if (world == null || world.isRemote) return null;
         PressurePipeNet currentPipeNet = this.currentPipeNet.get();
         if (currentPipeNet != null && currentPipeNet.isValid() &&
                 currentPipeNet.containsNode(getPipePos()))

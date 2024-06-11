@@ -1,9 +1,11 @@
 package gregicality.science.api.unification.materials.properties;
 
 import gregicality.science.api.GCYSValues;
+import gregicality.science.api.utils.GCYSLog;
 import gregtech.api.unification.material.properties.IMaterialProperty;
 import gregtech.api.unification.material.properties.MaterialProperties;
 import gregtech.api.unification.material.properties.PropertyKey;
+import gregtech.api.util.GTLog;
 import lombok.Getter;
 
 import java.util.Objects;
@@ -32,9 +34,12 @@ public class PressurePipeProperties implements IMaterialProperty {
         properties.ensureSet(PropertyKey.INGOT, true);
 
         if (properties.hasProperty(PropertyKey.ITEM_PIPE) || properties.hasProperty(PropertyKey.FLUID_PIPE)) { // TODO: decide whether we really want this
-            throw new IllegalStateException(
+//            throw new IllegalStateException(
+//                    "Material " + properties.getMaterial() +
+//                            " has both Pressure and Fluid (or Item) Pipe Property, which is not allowed!");
+            GTLog.logger.warn(
                     "Material " + properties.getMaterial() +
-                            " has both Pressure and Fluid (or Item) Pipe Property, which is not allowed!");
+                            " has both Pressure and Fluid (or Item) Pipe Property, which is not recommended!");
         }
     }
 
