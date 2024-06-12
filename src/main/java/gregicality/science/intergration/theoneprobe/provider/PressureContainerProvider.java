@@ -38,7 +38,7 @@ public class PressureContainerProvider implements IProbeInfoProvider {
                 if (pressureContainer != null) {
 
                     // Total Pressure
-                    ITextComponent componentPressure = TextComponentUtil.translationWithColor(TextFormatting.GRAY, NumberFormattingUtil.formatDoubleToCompactString(pressureContainer.getPressure()));
+                    ITextComponent componentPressure = TextComponentUtil.translationWithColor(TextFormatting.WHITE, NumberFormattingUtil.formatDoubleToCompactString(pressureContainer.getPressure()));
                     probeInfo.text(TextComponentUtil.translationWithColor(TextFormatting.WHITE,
                             "gcys.top.pressure",
                             componentPressure).getFormattedText());
@@ -46,7 +46,7 @@ public class PressureContainerProvider implements IProbeInfoProvider {
                     // Partial Pressure
                     List<String> partialPressureStrings = new ArrayList<>();
                     pressureContainer.getGasMap().forEach((fluid, amount) -> {
-                        ITextComponent componentPartialPressure = TextComponentUtil.translationWithColor(TextFormatting.GRAY, NumberFormattingUtil.formatDoubleToCompactString(pressureContainer.getPressure(fluid)));
+                        ITextComponent componentPartialPressure = TextComponentUtil.translationWithColor(TextFormatting.WHITE, NumberFormattingUtil.formatDoubleToCompactString(pressureContainer.getPressure(fluid)));
                         partialPressureStrings.add(TextComponentUtil.translationWithColor(TextFormatting.WHITE,
                                 "gcys.top.partial_pressure",
                                 fluid.getLocalizedName(new FluidStack(fluid, 1)),

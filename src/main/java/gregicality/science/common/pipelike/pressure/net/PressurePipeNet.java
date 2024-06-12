@@ -4,12 +4,15 @@ import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.IPressureContainer;
 import gregicality.science.api.capability.impl.GasMap;
 import gregicality.science.api.unification.materials.properties.PressurePipeProperties;
+import gregtech.api.pipenet.Node;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 
 import javax.annotation.Nonnull;
+import java.util.Map;
 
 import static gregtech.api.unification.material.Materials.Air;
 
@@ -23,7 +26,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
     public PressurePipeNet(WorldPipeNet<PressurePipeProperties, PressurePipeNet> world) {
         super(world);
         this.gasMap = new GasMap();
-        this.gasMap.pushGas(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
+//        this.gasMap.pushGas(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
     }
 
     @Override
@@ -66,20 +69,49 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         super.onNodeConnectionsUpdate();
         this.minNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMinPressure()).max().orElse(Double.MAX_VALUE);
         this.maxNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMaxPressure()).min().orElse(Double.MIN_VALUE);
-        final int oldVolume = getVolume();
+//        final int oldVolume = getVolume();
         this.volume = Math.max(1, getAllNodes().values().stream().mapToInt(node -> node.data.getVolume()).sum());
-        int deltaVolume = getVolume() - oldVolume;
-        if (deltaVolume > 0) {
-            pushGas(Air.getFluid(), deltaVolume * GCYSValues.EARTH_PRESSURE, false);
-        } else if (deltaVolume < 0) {
-            popGas(-deltaVolume * GCYSValues.EARTH_PRESSURE, false);
-        }
+//        int deltaVolume = getVolume() - oldVolume;
+//        if (deltaVolume > 0) {
+//            pushGas(Air.getFluid(), deltaVolume * GCYSValues.EARTH_PRESSURE, false);
+//        } else if (deltaVolume < 0) {
+//            popGas(-deltaVolume * GCYSValues.EARTH_PRESSURE, false);
+//        }
     }
 
     @Override
     public void onPipeConnectionsUpdate() {
         super.onPipeConnectionsUpdate();
     }
+
+    @Override
+    protected void transferNodeData(Map<BlockPos, Node<PressurePipeProperties>> transferredNodes,
+                                    PipeNet<PressurePipeProperties> parentNet) {
+        super.transferNodeData(transferredNodes, parentNet);
+        if (parentNet instanceof PressurePipeNet pressurePipeNet) {
+            transferredNodes.forEach((pos, node) -> {
+                pressurePipeNet.volume -= node.data.getVolume();
+            });
+            IPressureContainer.mergeContainers(pressurePipeNet, this);
+        }
+    }
+
+    @Override
+    protected void addNode(BlockPos nodePos, Node<PressurePipeProperties> node) {
+        super.addNode(nodePos, node);
+        int deltaVolume = node.data.getVolume();
+        pushGas(Air.getFluid(), deltaVolume * GCYSValues.EARTH_PRESSURE, false);
+    }
+
+    @Override
+    public void removeNode(BlockPos nodePos) {
+        double oldPressure = getPressure();
+        int deltaVolume = getNodeAt(nodePos).data.getVolume();
+        popGas(deltaVolume * oldPressure, false);
+        this.volume -= deltaVolume;
+        super.removeNode(nodePos);
+    }
+
 
     @Override
     public GasMap getGasMap() {

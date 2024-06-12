@@ -37,8 +37,8 @@ public class NumberFormattingUtil {
 
     @Nonnull
     public static String formatDoubleToCompactString(double value, int precision) {
-        if (value <= Double.MIN_VALUE) return "0";
-        if (value >= Double.MAX_VALUE) return "Infinity";
+        if (value <= Double.MIN_VALUE) return "0 ";
+        if (value >= Double.MAX_VALUE) return "Infinity ";
         //Double.MIN_VALUE == -Double.MIN_VALUE so we need an adjustment here ← Why?
 //        if (value == Double.MIN_VALUE) return formatDoubleToCompactString(Double.MIN_VALUE + 1, precision);
 
