@@ -19,11 +19,13 @@ import java.util.EnumMap;
 
 import static gregicality.science.common.metatileentities.GCYSMetaTileEntities.gcysId;
 import static gregicality.science.common.pipelike.pressure.BlockPressurePipe.getFlangeBox;
+import static gregtech.api.unification.material.Materials.Paper;
 
 public class PressurePipeRenderer extends PipeRenderer {
 
     public static final PressurePipeRenderer INSTANCE = new PressurePipeRenderer();
     private final EnumMap<PressurePipeType, TextureAtlasSprite> pipeTextures = new EnumMap<>(PressurePipeType.class);
+    private final EnumMap<PressurePipeType, TextureAtlasSprite> pipeTexturesPaper = new EnumMap<>(PressurePipeType.class);
 
     private PressurePipeRenderer() {
         super("gcys_pressure_pipe", gcysId("pressure_pipe"));
@@ -40,6 +42,17 @@ public class PressurePipeRenderer extends PipeRenderer {
         pipeTextures.put(PressurePipeType.SEALED_SMALL, GCYSTextures.PIPE_PRESSURE_SMALL);
         pipeTextures.put(PressurePipeType.SEALED_NORMAL, GCYSTextures.PIPE_PRESSURE_NORMAL);
         pipeTextures.put(PressurePipeType.SEALED_LARGE, GCYSTextures.PIPE_PRESSURE_LARGE);
+
+        pipeTexturesPaper.put(PressurePipeType.TINY, GCYSTextures.PIPE_PRESSURE_TINY_PAPER);
+        pipeTexturesPaper.put(PressurePipeType.SMALL, GCYSTextures.PIPE_PRESSURE_SMALL_PAPER);
+        pipeTexturesPaper.put(PressurePipeType.NORMAL, GCYSTextures.PIPE_PRESSURE_NORMAL_PAPER);
+        pipeTexturesPaper.put(PressurePipeType.LARGE, GCYSTextures.PIPE_PRESSURE_LARGE_PAPER);
+
+        pipeTexturesPaper.put(PressurePipeType.SEALED_TINY, GCYSTextures.PIPE_PRESSURE_TINY_PAPER);
+        pipeTexturesPaper.put(PressurePipeType.SEALED_SMALL, GCYSTextures.PIPE_PRESSURE_SMALL_PAPER);
+        pipeTexturesPaper.put(PressurePipeType.SEALED_NORMAL, GCYSTextures.PIPE_PRESSURE_NORMAL_PAPER);
+        pipeTexturesPaper.put(PressurePipeType.SEALED_LARGE, GCYSTextures.PIPE_PRESSURE_LARGE_PAPER);
+
     }
 
     @Override
@@ -48,8 +61,14 @@ public class PressurePipeRenderer extends PipeRenderer {
         if (material == null || !(pipeType instanceof PressurePipeType)) {
             return;
         }
-        renderContext.addOpenFaceRender(new IconTransformation(pipeTextures.get(pipeType)))
-                .addSideRender(new IconTransformation(GCYSTextures.PIPE_PRESSURE_SIDE));
+        
+        if (material == Paper) {
+            renderContext.addOpenFaceRender(new IconTransformation(pipeTexturesPaper.get(pipeType)))
+                    .addSideRender(new IconTransformation(GCYSTextures.PIPE_PRESSURE_SIDE_PAPER));
+        } else {
+            renderContext.addOpenFaceRender(new IconTransformation(pipeTextures.get(pipeType)))
+                    .addSideRender(new IconTransformation(GCYSTextures.PIPE_PRESSURE_SIDE));
+        }
 
         if (((PressurePipeType) pipeType).isSealed()) {
             renderContext.addOpenFaceRender(false, new IconTransformation(GCYSTextures.SEALED_OVERLAY));

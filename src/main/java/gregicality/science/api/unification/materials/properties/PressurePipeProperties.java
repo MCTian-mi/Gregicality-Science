@@ -1,7 +1,7 @@
 package gregicality.science.api.unification.materials.properties;
 
 import gregicality.science.api.GCYSValues;
-import gregicality.science.api.utils.GCYSLog;
+import gregtech.api.unification.material.Materials;
 import gregtech.api.unification.material.properties.IMaterialProperty;
 import gregtech.api.unification.material.properties.MaterialProperties;
 import gregtech.api.unification.material.properties.PropertyKey;
@@ -31,7 +31,9 @@ public class PressurePipeProperties implements IMaterialProperty {
 
     @Override
     public void verifyProperty(MaterialProperties properties) {
-        properties.ensureSet(PropertyKey.INGOT, true);
+        if (properties.getMaterial() != Materials.Paper) {
+            properties.ensureSet(PropertyKey.INGOT, true);
+        }
 
         if (properties.hasProperty(PropertyKey.ITEM_PIPE) || properties.hasProperty(PropertyKey.FLUID_PIPE)) { // TODO: decide whether we really want this
 //            throw new IllegalStateException(

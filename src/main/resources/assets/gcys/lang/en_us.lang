@@ -149,6 +149,7 @@ gcys.material.alumina=Alumina
 gcys.material.hematite=Hematite
 gcys.material.copper_sulfate=Copper Sulfate
 gcys.material.chloroplatinic_acid=Chloroplatinic Acid
+gcys.material.galvanized_steel=Galvanized Steel
 
 
 # Second Degree Materials

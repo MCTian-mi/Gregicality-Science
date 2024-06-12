@@ -995,10 +995,21 @@ public class GCYSFirstDegreeMaterials {
                 .color(0xdedee0)
                 .build();
 
-        ChloroplatinicAcid = new Material.Builder(8582, gcysId("chloroplatinic_acid"))
+        ChloroplatinicAcid = new Material.Builder(3632, gcysId("chloroplatinic_acid"))
                 .liquid(new FluidBuilder().attribute(FluidAttributes.ACID))
                 .components(Hydrogen, 2, Platinum, 1, Chlorine, 6)
                 .color(0xe24900)
                 .build();
+
+        // Additions
+        // From GT6
+        GalvanizedSteel = new Material.Builder(3633, gcysId("galvanized_steel"))
+                .ingot()
+                .flags(NO_UNIFICATION, GENERATE_PLATE, GENERATE_DOUBLE_PLATE, GENERATE_DENSE, GENERATE_ROD,
+                        GENERATE_LONG_ROD, GENERATE_FRAME)
+                .components(Steel, 8, Zinc, 1)
+                .color(0xfaf0f0)
+                .build();
+
     }
 }

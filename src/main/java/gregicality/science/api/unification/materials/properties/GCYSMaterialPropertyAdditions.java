@@ -9,9 +9,10 @@ import gregtech.api.unification.material.info.MaterialIconSet;
 import gregtech.api.unification.material.properties.*;
 
 import static gregicality.science.api.GCYSValues.*;
+import static gregicality.science.api.unification.materials.GCYSMaterials.GalvanizedSteel;
 import static gregtech.api.unification.material.Materials.*;
 
-public class GCYSMaterialPropertyAddition {
+public class GCYSMaterialPropertyAdditions {
 
     public static void init() {
 
@@ -60,7 +61,9 @@ public class GCYSMaterialPropertyAddition {
 
         // PressurePipe Properties
         // TODO
+        Paper.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[EAP] * 0.9, GCYSValues.P[EAP] * 1.1, 60, 1f));
         Copper.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[LV], GCYSValues.P[LP], 120, 1f));
+        GalvanizedSteel.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[MV], GCYSValues.P[MP], 400, 1f));
         BlackSteel.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[HV], GCYSValues.P[HP], 16000, 1f));
         Neutronium.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[IVV], GCYSValues.P[NSP], 100000, 1f));
     }
