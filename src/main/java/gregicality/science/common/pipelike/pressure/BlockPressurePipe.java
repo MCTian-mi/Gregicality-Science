@@ -48,10 +48,10 @@ public class BlockPressurePipe extends BlockMaterialPipe<PressurePipeType, Press
     }
 
     public static Cuboid6 getFlangeBox(EnumFacing side, double thickness) { // F**k you float
-        double min = (thickness > 0.3 ? (3 - 4 * thickness) / 8.0 : (7 - 8 * thickness) / 16.0) + 0.002;
+        double min = (thickness > 0.3 ? (3 - 4 * thickness) / 8.0 : (7 - 8 * thickness) / 16.0) + 0.0002;
         double max = 1.0 - min;
-        double faceMin = 0.0;
-        double faceMax = 1.0;
+        double faceMin = 0.0002;
+        double faceMax = 0.9998;
         double flangeMin = 0.125;
         double flangeMax = 0.875;
 
