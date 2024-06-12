@@ -10,15 +10,15 @@ import javax.annotation.Nonnull;
 
 public enum PressurePipeType implements IMaterialPipeType<PressurePipeProperties> {
 
-    TINY("tiny", 0.25f, GCYSOrePrefix.pipeTinyPressure, 1, 1),
-    SMALL("small", 0.375f, GCYSOrePrefix.pipeSmallPressure, 2, 1),
-    NORMAL("normal", 0.5f, GCYSOrePrefix.pipeNormalPressure, 6, 1),
-    LARGE("large", 0.75f, GCYSOrePrefix.pipeLargePressure, 12, 1),
+    TINY("tiny", 0.25f, GCYSOrePrefix.pipeTinyPressure, 1),
+    SMALL("small", 0.375f, GCYSOrePrefix.pipeSmallPressure, 2),
+    NORMAL("normal", 0.5f, GCYSOrePrefix.pipeNormalPressure, 6),
+    LARGE("large", 0.75f, GCYSOrePrefix.pipeLargePressure, 12),
 
-    SEALED_TINY("tiny_sealed", 0.25f, GCYSOrePrefix.pipeTinyPressureSealed, 1, 4),
-    SEALED_SMALL("small_sealed", 0.375f, GCYSOrePrefix.pipeSmallPressureSealed, 2, 4),
-    SEALED_NORMAL("normal_sealed", 0.5f, GCYSOrePrefix.pipeNormalPressureSealed, 6, 4),
-    SEALED_LARGE("large_sealed", 0.75f, GCYSOrePrefix.pipeLargePressureSealed, 12, 4);
+    SEALED_TINY("tiny_sealed", 0.25f, GCYSOrePrefix.pipeTinyPressureSealed, 1),
+    SEALED_SMALL("small_sealed", 0.375f, GCYSOrePrefix.pipeSmallPressureSealed, 2),
+    SEALED_NORMAL("normal_sealed", 0.5f, GCYSOrePrefix.pipeNormalPressureSealed, 6),
+    SEALED_LARGE("large_sealed", 0.75f, GCYSOrePrefix.pipeLargePressureSealed, 12);
 
     public static final PressurePipeType[] VALUES = values();
 
@@ -28,15 +28,12 @@ public enum PressurePipeType implements IMaterialPipeType<PressurePipeProperties
     private final int volumeMultiplier;
     @Getter
     private final OrePrefix orePrefix;
-    @Getter
-    private final int pressureTightnessMultiplier;
 
-    PressurePipeType(String name, float thickness, OrePrefix orePrefix, int volumeMultiplier, int pressureTightnessMultiplier) {
+    PressurePipeType(String name, float thickness, OrePrefix orePrefix, int volumeMultiplier) {
         this.thickness = thickness;
         this.name = name;
         this.orePrefix = orePrefix;
         this.volumeMultiplier = volumeMultiplier;
-        this.pressureTightnessMultiplier = pressureTightnessMultiplier;
     }
 
     @Override
@@ -49,8 +46,7 @@ public enum PressurePipeType implements IMaterialPipeType<PressurePipeProperties
         return new PressurePipeProperties(
                 baseProperties.getMinPressure(),
                 baseProperties.getMaxPressure(),
-                baseProperties.getVolume() * volumeMultiplier,
-                baseProperties.getPressureTightness() * pressureTightnessMultiplier);
+                baseProperties.getVolume() * volumeMultiplier);
     }
 
 

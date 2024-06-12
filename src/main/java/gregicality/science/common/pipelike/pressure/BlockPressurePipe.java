@@ -41,6 +41,12 @@ public class BlockPressurePipe extends BlockMaterialPipe<PressurePipeType, Press
 
     private final SortedMap<Material, PressurePipeProperties> enabledMaterials = new TreeMap<>();
 
+    public BlockPressurePipe(PressurePipeType pressurePipeType, MaterialRegistry registry) {
+        super(pressurePipeType, registry);
+        setCreativeTab(GregTechAPI.TAB_GREGTECH_PIPES);
+        setHarvestLevel(ToolClasses.WRENCH, 1);
+    }
+
     public static Cuboid6 getFlangeBox(EnumFacing side, double thickness) { // F**k you float
         double min = (thickness > 0.3 ? (3 - 4 * thickness) / 8.0 : (7 - 8 * thickness) / 16.0) + 0.002;
         double max = 1.0 - min;
@@ -61,12 +67,6 @@ public class BlockPressurePipe extends BlockMaterialPipe<PressurePipeType, Press
                 case DOWN -> new Cuboid6(min, faceMin, min, max, flangeMin, max);
             };
         }
-    }
-
-    public BlockPressurePipe(PressurePipeType pressurePipeType, MaterialRegistry registry) {
-        super(pressurePipeType, registry);
-        setCreativeTab(GregTechAPI.TAB_GREGTECH_PIPES);
-        setHarvestLevel(ToolClasses.WRENCH, 1);
     }
 
     public void addPipeMaterial(Material material, PressurePipeProperties properties) {

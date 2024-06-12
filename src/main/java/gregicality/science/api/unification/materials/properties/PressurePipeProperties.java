@@ -16,17 +16,15 @@ public class PressurePipeProperties implements IMaterialProperty {
     public final double maxPressure;
     private final double minPressure;
     private final int volume;
-    private final float pressureTightness;
 
-    public PressurePipeProperties(double minPressure, double maxPressure, int volume, float pressureTightness) {
+    public PressurePipeProperties(double minPressure, double maxPressure, int volume) {
         this.minPressure = minPressure;
         this.maxPressure = maxPressure;
         this.volume = volume;
-        this.pressureTightness = pressureTightness;
     }
 
     public PressurePipeProperties() {
-        this(GCYSValues.EARTH_PRESSURE, GCYSValues.EARTH_PRESSURE, 1, 1f);
+        this(GCYSValues.EARTH_PRESSURE, GCYSValues.EARTH_PRESSURE, 1);
     }
 
     @Override
@@ -51,13 +49,12 @@ public class PressurePipeProperties implements IMaterialProperty {
         if (!(o instanceof PressurePipeProperties other)) return false;
         return getMaxPressure() == other.getMaxPressure() &&
                 getMinPressure() == other.getMinPressure() &&
-                getVolume() == other.getVolume() &&
-                getPressureTightness() == other.getPressureTightness();
+                getVolume() == other.getVolume();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMaxPressure(), getMinPressure(), getVolume(), getPressureTightness());
+        return Objects.hash(getMaxPressure(), getMinPressure(), getVolume());
     }
 
     @Override
@@ -66,7 +63,6 @@ public class PressurePipeProperties implements IMaterialProperty {
                 "{maxPressure=" + maxPressure +
                 ", minPressure=" + minPressure +
                 ", volume=" + volume +
-                ", pressureTightness=" + pressureTightness +
                 '}';
     }
 }

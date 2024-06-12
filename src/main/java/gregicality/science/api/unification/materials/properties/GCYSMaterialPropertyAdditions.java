@@ -61,10 +61,10 @@ public class GCYSMaterialPropertyAdditions {
 
         // PressurePipe Properties
         // TODO
-        Paper.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[EAP] * 0.9, GCYSValues.P[EAP] * 1.1, 60, 1f));
-        Copper.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[LV], GCYSValues.P[LP], 120, 1f));
-        GalvanizedSteel.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[MV], GCYSValues.P[MP], 400, 1f));
-        BlackSteel.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[HV], GCYSValues.P[HP], 16000, 1f));
-        Neutronium.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[IVV], GCYSValues.P[NSP], 100000, 1f));
+        Paper.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[EAP] * 0.9, GCYSValues.P[EAP] * 1.1, 60));
+        Copper.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[LV], GCYSValues.P[LP], 120));
+        GalvanizedSteel.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[MV], GCYSValues.P[MP], 400));
+        BlackSteel.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[HV], GCYSValues.P[HP], 16000));
+        Neutronium.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[IVV], GCYSValues.P[NSP], 100000));
     }
 }

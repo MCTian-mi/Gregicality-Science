@@ -31,7 +31,6 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         nbt.setDouble("MinP", pressurePipeProperties.getMinPressure());
         nbt.setDouble("MaxP", pressurePipeProperties.getMaxPressure());
         nbt.setDouble("Volume", pressurePipeProperties.getVolume());
-        nbt.setFloat("PressureTightness", pressurePipeProperties.getPressureTightness());
     }
 
     @Override
@@ -39,8 +38,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         int minP = nbt.getInteger("MinP");
         int maxP = nbt.getInteger("MaxP");
         int volume = nbt.getInteger("Volume");
-        float pressureTightness = nbt.getFloat("PressureTightness");
-        return new PressurePipeProperties(minP, maxP, volume, pressureTightness);
+        return new PressurePipeProperties(minP, maxP, volume);
     }
 
     @Override

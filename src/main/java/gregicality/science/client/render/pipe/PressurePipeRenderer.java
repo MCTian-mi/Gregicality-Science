@@ -61,7 +61,7 @@ public class PressurePipeRenderer extends PipeRenderer {
         if (material == null || !(pipeType instanceof PressurePipeType)) {
             return;
         }
-        
+
         if (material == Paper) {
             renderContext.addOpenFaceRender(new IconTransformation(pipeTexturesPaper.get(pipeType)))
                     .addSideRender(new IconTransformation(GCYSTextures.PIPE_PRESSURE_SIDE_PAPER));

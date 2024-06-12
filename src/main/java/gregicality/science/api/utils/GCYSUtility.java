@@ -16,6 +16,6 @@ public class GCYSUtility {
                 if (p >= pressure) return i;
             }
         }
-        return 0;
+        return pressure > GCYSValues.EARTH_PRESSURE ? GCYSValues.NSP : GCYSValues.IVV;
     }
 }
