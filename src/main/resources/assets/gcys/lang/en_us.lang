@@ -786,4 +786,4 @@ gcys.top.partial_pressure=%s: %sPa
 # Pressure Tooltip
 gcys.universal.tooltip.min_pressure=§bMin Pressure: §f%sPa (%s§f)
 gcys.universal.tooltip.max_pressure=§6Max Pressure: §f%sPa (%s§f)
-gcys.universal.tooltip.volume=§dGas Capacity: §f%,d L
+gcys.universal.tooltip.volume=§dVolume: §f%,d L
