@@ -19,7 +19,7 @@ import static gregtech.api.unification.material.Materials.Air;
 public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements IPressureContainer {
 
     private final GasMap gasMap;
-    private int volume = 1;
+    private int volume = 0;
     private double minNetPressure = Double.MAX_VALUE;
     private double maxNetPressure = Double.MIN_VALUE;
 

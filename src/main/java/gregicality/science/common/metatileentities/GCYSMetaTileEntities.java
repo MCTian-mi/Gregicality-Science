@@ -2,6 +2,7 @@ package gregicality.science.common.metatileentities;
 
 import gregicality.GCYSInternalTags;
 import gregicality.science.api.GCYSValues;
+import gregicality.science.api.metatileentity.SimplePressureMetaTileEntity;
 import gregicality.science.api.recipes.GCYSRecipeMaps;
 import gregicality.science.client.render.GCYSTextures;
 import gregicality.science.common.metatileentities.multiblock.*;
@@ -9,7 +10,6 @@ import gregicality.science.common.metatileentities.multiblockpart.MetaTileEntity
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntityCreativePressurePump;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntitySteamEjector;
 import gregicality.science.common.metatileentities.singleblock.MetaTileEntitySteamVacuumChamber;
-import gregicality.science.common.metatileentities.singleblock.SimplePressureMetaTileEntity;
 import gregtech.api.GTValues;
 import gregtech.api.metatileentity.SimpleMachineMetaTileEntity;
 import gregtech.api.util.GTUtility;

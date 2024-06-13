@@ -1,4 +1,4 @@
-package gregicality.science.common.metatileentities.singleblock;
+package gregicality.science.api.metatileentity;
 
 import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.GCYSTileCapabilities;
