@@ -6,12 +6,14 @@ import gregicality.science.common.block.GCYSMetaBlocks;
 import gregicality.science.common.items.GCYSMetaItems;
 import gregicality.science.common.pipelike.pressure.BlockPressurePipe;
 import gregicality.science.common.pipelike.pressure.ItemBlockPressurePipe;
+import gregicality.science.common.pipelike.pressure.net.WorldPressurePipeNet;
 import gregicality.science.common.pipelike.pressure.tile.TileEntityPressurePipe;
 import gregicality.science.loaders.recipe.GCYSMaterialInfoLoader;
 import gregicality.science.loaders.recipe.GCYSRecipeLoader;
 import gregicality.science.loaders.recipe.component.GCYSCraftingComponent;
 import gregtech.api.GregTechAPI;
 import gregtech.api.block.VariantItemBlock;
+import gregtech.api.pipenet.tickable.TickableWorldPipeNetEventHandler;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.registry.MaterialRegistry;
 import gregtech.api.unification.stack.ItemMaterialInfo;
@@ -121,5 +123,6 @@ public class CommonProxy {
 
     public void preLoad() {
         GameRegistry.registerTileEntity(TileEntityPressurePipe.class, gcysId("pressure_pipe"));
+        TickableWorldPipeNetEventHandler.registerTickablePipeNet(WorldPressurePipeNet::getWorldPipeNet);
     }
 }

@@ -14,6 +14,10 @@ public class GCYSValues {
      */
     public static final double EARTH_PRESSURE = 101_325;
 
+    /**
+     * Scale the leak rate to a reasonable amount
+     */
+    public static final double PRESSURE_LEAK_SCALE = 0.8;
 
     /**
      * Earth's Temperature in Kelvin

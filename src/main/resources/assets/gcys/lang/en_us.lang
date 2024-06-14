@@ -317,7 +317,7 @@ gcys.material.heavy_hyper_fuel=Heavy Hyper Fuel
 
 
 # Tricorder Info
-behavior.tricorder.current_pressure=Current Pressure: %s Pa
+behavior.tricorder.current_pressure=Current Pressure: %s Pa (%s)
 behavior.tricorder.min_pressure=Minimum Pressure: %s Pa
 behavior.tricorder.max_pressure=Maximum Pressure: %s Pa
 

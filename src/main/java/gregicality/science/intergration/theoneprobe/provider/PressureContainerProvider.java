@@ -3,6 +3,7 @@ package gregicality.science.intergration.theoneprobe.provider;
 import gregicality.GCYSInternalTags;
 import gregicality.science.api.capability.GCYSTileCapabilities;
 import gregicality.science.api.capability.IPressureContainer;
+import gregicality.science.api.utils.GCYSUtility;
 import gregicality.science.api.utils.NumberFormattingUtil;
 import gregtech.api.util.TextComponentUtil;
 import mcjty.theoneprobe.api.IProbeHitData;
@@ -38,10 +39,11 @@ public class PressureContainerProvider implements IProbeInfoProvider {
                 if (pressureContainer != null) {
 
                     // Total Pressure
-                    ITextComponent componentPressure = TextComponentUtil.translationWithColor(TextFormatting.WHITE, NumberFormattingUtil.formatDoubleToCompactString(pressureContainer.getPressure()));
+                    ITextComponent componentPressure = TextComponentUtil.translationWithColor(TextFormatting.WHITE,
+                            NumberFormattingUtil.formatDoubleToCompactString(pressureContainer.getPressure()));
                     probeInfo.text(TextComponentUtil.translationWithColor(TextFormatting.WHITE,
                             "gcys.top.pressure",
-                            componentPressure).getFormattedText());
+                            componentPressure, GCYSUtility.formatPressureThreshold(pressureContainer.getPressure())).getFormattedText());
 
                     // Partial Pressure
                     List<String> partialPressureStrings = new ArrayList<>();
