@@ -13,7 +13,10 @@ public class GasMap extends Object2DoubleArrayMap<Fluid> implements INBTSerializ
 
     public static final GasMap EMPTY = new GasMap();
 
-    private static final double MIN_RATIO = 0.000_000_1;
+    /**
+     * Minimum ratio of a gas exists in this map. If smaller, that type of gas is removed.
+     */
+    public static final double MIN_RATIO = 0.000_000_1;
     private double totalGas;
 
     public GasMap() {
@@ -23,7 +26,7 @@ public class GasMap extends Object2DoubleArrayMap<Fluid> implements INBTSerializ
 
     public void merge(GasMap other) {
         for (Object2DoubleMap.Entry<Fluid> entry : other.object2DoubleEntrySet()) {
-            pushGas(entry.getKey(), getGasAmount(entry.getKey()) + entry.getDoubleValue());
+            pushGas(entry.getKey(), entry.getDoubleValue());
             totalGas += entry.getDoubleValue();
         }
     }
@@ -38,23 +41,25 @@ public class GasMap extends Object2DoubleArrayMap<Fluid> implements INBTSerializ
 
     public void popGas(Fluid fluid, double amount) {
         if (amount < 0d || amount > getGasAmount(fluid)) return;
-        setGasAmount(fluid, getGasAmount(fluid) - amount);
+        this.put(fluid, getGasAmount(fluid) - amount);
+        this.totalGas -= amount;
     }
 
     public void pushGas(Fluid fluid, double amount) {
         if (amount < 0d) throw new IllegalArgumentException("Pushed gas amount must be positive!");
-        setGasAmount(fluid, getGasAmount(fluid) + amount);
+        this.put(fluid, getGasAmount(fluid) + amount);
+        this.totalGas += amount;
     }
 
     public void setGasAmount(Fluid fluid, double amount) {
         if (amount < 0d) throw new IllegalArgumentException("Set amount must be positive!");
-        this.totalGas -= this.getOrDefault(fluid, 0d);
+        this.totalGas -= this.getDouble(fluid);
         this.put(fluid, amount);
         this.totalGas += amount;
     }
 
     public double getGasAmount(Fluid fluid) {
-        return this.getOrDefault(fluid, 0d);
+        return this.getDouble(fluid);
     }
 
     public double getTotalGasAmount() {
@@ -70,7 +75,8 @@ public class GasMap extends Object2DoubleArrayMap<Fluid> implements INBTSerializ
     }
 
     public void cleanUp() {
-        for (Fluid fluid : this.keySet()) {
+        // Never modify a map while iterating it
+        for (Fluid fluid : this.keySet().toArray(new Fluid[0])) {
             if (getRatio(fluid) < MIN_RATIO) {
                 this.totalGas -= this.removeDouble(fluid);
             }

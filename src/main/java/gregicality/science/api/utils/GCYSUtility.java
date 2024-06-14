@@ -18,4 +18,9 @@ public class GCYSUtility {
         }
         return pressure > GCYSValues.EARTH_PRESSURE ? GCYSValues.NSP : GCYSValues.IVV;
     }
+
+
+    public static String formatPressureThreshold(double pressure) {
+        return GCYSValues.PN[getTierByPressure(pressure)];
+    }
 }

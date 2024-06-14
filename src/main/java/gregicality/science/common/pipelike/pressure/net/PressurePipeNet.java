@@ -1,29 +1,39 @@
 package gregicality.science.common.pipelike.pressure.net;
 
+import gregicality.GCYSInternalTags;
 import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.IPressureContainer;
 import gregicality.science.api.capability.impl.GasMap;
 import gregicality.science.api.unification.materials.properties.PressurePipeProperties;
+import gregicality.science.common.pipelike.pressure.PressurePipeType;
 import gregtech.api.pipenet.Node;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
+import gregtech.api.pipenet.tickable.TickableWorldPipeNet;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
 
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.relauncher.Side;
+
 import static gregtech.api.unification.material.Materials.Air;
 
-public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements IPressureContainer {
+@Mod.EventBusSubscriber(modid = GCYSInternalTags.MODID, value = Side.SERVER)
+public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements IPressureContainer, ITickable {
 
     private final GasMap gasMap;
     private int volume = 0;
     private double minNetPressure = Double.MAX_VALUE;
     private double maxNetPressure = Double.MIN_VALUE;
 
-    public PressurePipeNet(WorldPipeNet<PressurePipeProperties, PressurePipeNet> world) {
+    private double leakRate = 0.0;
+
+    public PressurePipeNet(TickableWorldPipeNet<PressurePipeProperties, PressurePipeNet> world) {
         super(world);
         this.gasMap = new GasMap();
 //        this.gasMap.pushGas(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
@@ -51,6 +61,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         compound.setDouble("maxNetP", maxNetPressure);
         compound.setDouble("Volume", volume);
         compound.setTag("GasMap", gasMap.serializeNBT());
+        compound.setDouble("LeakRate", leakRate);
         return compound;
     }
 
@@ -62,6 +73,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         this.maxNetPressure = nbt.getDouble("maxNetP");
         this.volume = nbt.getInteger("Volume");
         this.gasMap.deserializeNBT(nbt.getCompoundTag("GasMap"));
+        this.leakRate = nbt.getDouble("LeakRate");
     }
 
     @Override
@@ -71,6 +83,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         this.maxNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMaxPressure()).min().orElse(Double.MIN_VALUE);
 //        final int oldVolume = getVolume();
         this.volume = Math.max(1, getAllNodes().values().stream().mapToInt(node -> node.data.getVolume()).sum());
+
 //        int deltaVolume = getVolume() - oldVolume;
 //        if (deltaVolume > 0) {
 //            pushGas(Air.getFluid(), deltaVolume * GCYSValues.EARTH_PRESSURE, false);
@@ -82,6 +95,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
     @Override
     public void onPipeConnectionsUpdate() {
         super.onPipeConnectionsUpdate();
+        leakRate = PressureNetWalker.getLeakage(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
     }
 
     @Override
@@ -155,13 +169,41 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         return isPressureSafe();
     }
 
-    public void onLeak() {
-        if (getPressure() < GCYSValues.EARTH_PRESSURE) this.popGas(getLeakRate(), false);
-        else if (getPressure() > GCYSValues.EARTH_PRESSURE) this.pushGas(Air.getFluid(), getLeakRate(), false);
+    // TODO We should do this only once per tick, instead of ticking them in TE
+    @Deprecated
+    public void onLeak(PressurePipeType pipeType) {
+        // Calculate the pressure drop per tick
+        var k = (-Math.log(getPressure() / GCYSValues.EARTH_PRESSURE)) * (pipeType.getThickness() * 4.0) * GCYSValues.PRESSURE_LEAK_SCALE;
+
+        // And corresponding gas amount...
+        k *= getVolume();
+
+        if (k > 0) {
+            this.pushGas(Air.getFluid(), k, false);
+        } else if (k < 0) {
+            this.popGas(-k, false);
+        }
+    }
+
+    public void onLeakTick() {
+        // Calculate the pressure drop
+        var k = (-Math.log(getPressure() / GCYSValues.EARTH_PRESSURE)) * leakRate * GCYSValues.PRESSURE_LEAK_SCALE;
+
+        // And corresponding gas amount...
+        k *= getVolume();
+
+        // And update rate...
+        k *= WorldPressurePipeNet.UPDATE_RATE;
+
+        if (k > 0) {
+            this.pushGas(Air.getFluid(), k, false);
+        } else if (k < 0) {
+            this.popGas(-k, false);
+        }
     }
 
     public double getLeakRate() {
-        return 0D; // TODO make this depend on exposed faces
+        return leakRate;
     }
 
     @Override
@@ -172,5 +214,10 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
     @Override
     public double getMaxPressure() {
         return maxNetPressure;
+    }
+
+    @Override
+    public void update() {
+        onLeakTick();
     }
 }

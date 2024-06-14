@@ -42,6 +42,8 @@ public class GCYSMetaTileEntities {
     public static MetaTileEntitySonicator SONICATOR;
     public static MetaTileEntityCatalyticReformer CATALYTIC_REFORMER;
     public static MetaTileEntityIndustrialDrill INDUSTRIAL_DRILL;
+
+
 //    public static MetaTileEntityAxialCompressor SUBSONIC_AXIAL_COMPRESSOR;
 //    public static MetaTileEntityAxialCompressor SUPERSONIC_AXIAL_COMPRESSOR;
 //    public static MetaTileEntityTurbomolecularPump LOW_POWER_TURBOMOLECULAR_PUMP;

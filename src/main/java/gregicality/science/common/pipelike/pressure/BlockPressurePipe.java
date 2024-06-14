@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import gregicality.science.api.capability.GCYSTileCapabilities;
 import gregicality.science.api.unification.materials.properties.PressurePipeProperties;
 import gregicality.science.client.render.pipe.PressurePipeRenderer;
+import gregicality.science.common.pipelike.pressure.net.PressurePipeNet;
 import gregicality.science.common.pipelike.pressure.net.WorldPressurePipeNet;
 import gregicality.science.common.pipelike.pressure.tile.TileEntityPressurePipe;
 import gregtech.api.GregTechAPI;
@@ -16,6 +17,7 @@ import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.registry.MaterialRegistry;
 import gregtech.api.util.TaskScheduler;
 import gregtech.client.renderer.pipe.PipeRenderer;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,6 +30,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -90,6 +93,18 @@ public class BlockPressurePipe extends BlockMaterialPipe<PressurePipeType, Press
     @Override
     public WorldPressurePipeNet getWorldPipeNet(World world) {
         return WorldPressurePipeNet.getWorldPipeNet(world);
+    }
+
+    @Override
+    public void neighborChanged(@NotNull IBlockState state, @NotNull World worldIn,
+                                @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
+        if (getPipeTileEntity(worldIn, pos) instanceof TileEntityPressurePipe te) {
+            te.getPressurePipeNet().onPipeConnectionsUpdate();
+            for (EnumFacing facing : EnumFacing.values()) {
+                te.leakDetect(facing, te.isConnected(facing));
+            }
+        }
     }
 
     @Override
