@@ -70,7 +70,6 @@ public class GCYSMetaBlocks {
         registerItemModel(MULTIBLOCK_CASING_ACTIVE);
         registerItemModel(TRANSPARENT_CASING);
 
-        IStateMapper normalStateMapper = new SimpleStateMapper(PressurePipeRenderer.INSTANCE.getModelLocation());
         for (MaterialRegistry registry : GregTechAPI.materialManager.getRegistries()) {
             for (BlockPressurePipe pipe : PRESSURE_PIPES.get(registry.getModid())) pipe.onModelRegister();
         }

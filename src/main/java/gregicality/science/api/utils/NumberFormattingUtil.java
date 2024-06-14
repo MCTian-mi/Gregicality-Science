@@ -37,8 +37,8 @@ public class NumberFormattingUtil {
 
     @Nonnull
     public static String formatDoubleToCompactString(double value, int precision) {
-        if (value == Double.MIN_VALUE) return "0";
-        if (value == Double.MAX_VALUE) return "Infinity";
+        if (value <= Double.MIN_VALUE) return "0 ";
+        if (value >= Double.MAX_VALUE) return "Infinity ";
         //Double.MIN_VALUE == -Double.MIN_VALUE so we need an adjustment here ← Why?
 //        if (value == Double.MIN_VALUE) return formatDoubleToCompactString(Double.MIN_VALUE + 1, precision);
 
@@ -48,7 +48,7 @@ public class NumberFormattingUtil {
 
         double truncated = value / (divideBy / 10); //the number part of the output times 10
         boolean hasDecimal = truncated < 100 && (truncated / 10D) != (truncated / 10);
-        return hasDecimal ? TextFormattingUtil.formatNumbers(truncated / 10D) + suffix : TextFormattingUtil.formatNumbers(truncated / 10) + suffix;
+        return hasDecimal ? TextFormattingUtil.formatNumbers(truncated / 10D) + suffix : TextFormattingUtil.formatNumbers(truncated / 10) + ' ' + suffix;
     }
 
     @Nonnull

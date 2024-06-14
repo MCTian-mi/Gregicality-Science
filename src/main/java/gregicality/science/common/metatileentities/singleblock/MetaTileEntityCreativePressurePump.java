@@ -132,7 +132,13 @@ public class MetaTileEntityCreativePressurePump extends MetaTileEntity implement
         builder.label(7, 32, "gcys.creative.pressure.pump.pressure");
         builder.widget(new ImageWidget(7, 45, 154, 14, GuiTextures.DISPLAY));
         builder.widget(new TextFieldWidget2(9, 47, 152, 16, () -> String.valueOf(getTargetPressure()), value -> {
-            if (!value.isEmpty()) setTargetPressure(Double.parseDouble(value));
+            if (!value.isEmpty()) {
+                try {
+                    setTargetPressure(Double.parseDouble(value));
+                } catch (NumberFormatException e) {
+                    setTargetPressure(GCYSValues.EARTH_PRESSURE);
+                }
+            }
         }).setAllowedChars(TextFieldWidget2.DECIMALS).setMaxLength(35).setValidator(getTextFieldValidator()));
 
         builder.widget(new CycleButtonWidget(7, 62, 162, 20, () -> active, value -> active = value,

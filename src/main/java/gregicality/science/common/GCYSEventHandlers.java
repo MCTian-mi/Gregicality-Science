@@ -1,9 +1,9 @@
 package gregicality.science.common;
 
 import gregicality.GCYSInternalTags;
-import gregicality.science.api.unification.OrePrefixAdditions;
+import gregicality.science.api.unification.GCYSOrePrefixAdditions;
 import gregicality.science.api.unification.materials.GCYSMaterials;
-import gregicality.science.api.unification.materials.properties.GCYSMaterialPropertyAddition;
+import gregicality.science.api.unification.materials.properties.GCYSMaterialPropertyAdditions;
 import gregtech.api.event.HighTierEvent;
 import gregtech.api.unification.material.event.MaterialEvent;
 import gregtech.api.unification.material.event.PostMaterialEvent;
@@ -17,12 +17,12 @@ public class GCYSEventHandlers {
     @SubscribeEvent
     public static void registerMaterials(@NotNull MaterialEvent event) {
         GCYSMaterials.init();
-        GCYSMaterialPropertyAddition.init();
+        GCYSMaterialPropertyAdditions.init();
     }
 
     @SubscribeEvent
     public static void postRegisterMaterials(@NotNull PostMaterialEvent event) {
-        OrePrefixAdditions.init();
+        GCYSOrePrefixAdditions.init();
     }
 
     @SubscribeEvent

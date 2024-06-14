@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public class WorldPressurePipeNet extends WorldPipeNet<PressurePipeProperties, PressurePipeNet> {
 
-    private static final String DATA_ID = "gcys.pressure_pipe_net";
+    private static final String DATA_ID = "gregtech.pressure_pipe_net";
 
     public WorldPressurePipeNet(String name) {
         super(name);

@@ -1,15 +1,18 @@
 package gregicality.science.api.unification.materials.properties;
 
 
+import gregicality.science.api.GCYSValues;
 import gregtech.api.GTValues;
 import gregtech.api.fluids.FluidBuilder;
 import gregtech.api.fluids.store.FluidStorageKeys;
 import gregtech.api.unification.material.info.MaterialIconSet;
 import gregtech.api.unification.material.properties.*;
 
+import static gregicality.science.api.GCYSValues.*;
+import static gregicality.science.api.unification.materials.GCYSMaterials.GalvanizedSteel;
 import static gregtech.api.unification.material.Materials.*;
 
-public class GCYSMaterialPropertyAddition {
+public class GCYSMaterialPropertyAdditions {
 
     public static void init() {
 
@@ -57,6 +60,11 @@ public class GCYSMaterialPropertyAddition {
         wireProp.setVoltage((int) GTValues.V[GTValues.UIV]);
 
         // PressurePipe Properties
-        Plutonium241.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties());
+        // TODO
+        Paper.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[EAP] * 0.9, GCYSValues.P[EAP] * 1.1, 60));
+        Copper.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[LV], GCYSValues.P[LP], 120));
+        GalvanizedSteel.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[MV], GCYSValues.P[MP], 400));
+        BlackSteel.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[HV], GCYSValues.P[HP], 16000));
+        Neutronium.setProperty(GCYSPropertyKey.PRESSURE_PIPE, new PressurePipeProperties(GCYSValues.P[IVV], GCYSValues.P[NSP], 100000));
     }
 }

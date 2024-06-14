@@ -150,6 +150,9 @@ public class GCYSMaterials {
     public static Material CopperSulfate;
     public static Material ChloroplatinicAcid;
 
+    // Additions
+    public static Material GalvanizedSteel;
+
     // Second Degree Materials
     public static Material LaPrNdCeOxidesSolution;
     public static Material ScEuGdSmOxidesSolution;

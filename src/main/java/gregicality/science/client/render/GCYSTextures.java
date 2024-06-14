@@ -46,6 +46,17 @@ public class GCYSTextures {
     public static TextureAtlasSprite PIPE_PRESSURE_LARGE;
 
     @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_SIDE_PAPER;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_TINY_PAPER;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_SMALL_PAPER;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_NORMAL_PAPER;
+    @SideOnly(Side.CLIENT)
+    public static TextureAtlasSprite PIPE_PRESSURE_LARGE_PAPER;
+
+    @SideOnly(Side.CLIENT)
     public static void register(TextureMap textureMap) {
         SEALED_OVERLAY = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_sealed"));
         PIPE_PRESSURE_SIDE = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_side"));
@@ -53,5 +64,11 @@ public class GCYSTextures {
         PIPE_PRESSURE_SMALL = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_small_in"));
         PIPE_PRESSURE_NORMAL = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_normal_in"));
         PIPE_PRESSURE_LARGE = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_large_in"));
+
+        PIPE_PRESSURE_SIDE_PAPER = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_side_paper"));
+        PIPE_PRESSURE_TINY_PAPER = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_tiny_in_paper"));
+        PIPE_PRESSURE_SMALL_PAPER = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_small_in_paper"));
+        PIPE_PRESSURE_NORMAL_PAPER = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_normal_in_paper"));
+        PIPE_PRESSURE_LARGE_PAPER = textureMap.registerSprite(gregtechId("blocks/pipe/pipe_pressure_large_in_paper"));
     }
 }

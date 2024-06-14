@@ -4,8 +4,8 @@ import gregicality.science.api.GCYSValues;
 import gregicality.science.api.unification.materials.properties.PressurePipeProperties;
 import gregicality.science.api.utils.GCYSUtility;
 import gregicality.science.api.utils.NumberFormattingUtil;
-import gregtech.api.pipenet.block.ItemBlockPipe;
 import gregtech.api.pipenet.block.material.BlockMaterialPipe;
+import gregtech.api.pipenet.block.material.ItemBlockMaterialPipe;
 import gregtech.client.utils.TooltipHelper;
 import gregtech.common.ConfigHolder;
 import net.minecraft.client.resources.I18n;
@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ItemBlockPressurePipe extends ItemBlockPipe<PressurePipeType, PressurePipeProperties> {
+public class ItemBlockPressurePipe extends ItemBlockMaterialPipe<PressurePipeType, PressurePipeProperties> {
 
     public ItemBlockPressurePipe(BlockPressurePipe block) {
         super(block);

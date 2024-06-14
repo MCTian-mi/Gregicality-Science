@@ -32,9 +32,10 @@ public class GasMap extends Object2DoubleArrayMap<Fluid> implements INBTSerializ
     }
 
     public void popGas(double amount) {
-        if (amount < 0d || amount > this.totalGas) return;
+        double total = getTotalGasAmount();
+        if (amount < 0d || amount > totalGas) return;
         for (Fluid fluid : this.keySet()) {
-            popGas(fluid, amount * getRatio(fluid));
+            popGas(fluid, amount * getRatio(fluid, total));
         }
     }
 
@@ -66,7 +67,11 @@ public class GasMap extends Object2DoubleArrayMap<Fluid> implements INBTSerializ
     }
 
     public double getRatio(Fluid fluid) {
-        return this.getDouble(fluid) / this.totalGas;
+        return getRatio(fluid, this.totalGas);
+    }
+
+    public double getRatio(Fluid fluid, double total) {
+        return this.getDouble(fluid) / total;
     }
 
     public void cleanUp() {

@@ -40,7 +40,7 @@ public class PressureRequirementPropertyList implements INBTSerializable<NBTTagC
                 maxP = Double.MAX_VALUE;
                 break;
             case LOWER_THAN:
-                minP = Double.MIN_VALUE;
+                minP = 0;
                 maxP = args[0];
                 break;
             case WITHIN_RANGE:

@@ -149,6 +149,7 @@ gcys.material.alumina=Alumina
 gcys.material.hematite=Hematite
 gcys.material.copper_sulfate=Copper Sulfate
 gcys.material.chloroplatinic_acid=Chloroplatinic Acid
+gcys.material.galvanized_steel=Galvanized Steel
 
 
 # Second Degree Materials
@@ -517,6 +518,14 @@ gcys.vacuum_level.perfect=Perfect Vacuum
 # Ore Prefixes
 item.material.oreprefix.seedCrystal=%s Seed Crystal
 item.material.oreprefix.boule=%s Boule
+item.material.oreprefix.pipeTinyPressure=Tiny %s Pressure Pipe
+item.material.oreprefix.pipeSmallPressure=Small %s Pressure Pipe
+item.material.oreprefix.pipeNormalPressure=%s Pressure Pipe
+item.material.oreprefix.pipeLargePressure=Large %s Pressure Pipe
+item.material.oreprefix.pipeTinyPressureSealed=Tiny Sealed %s Pressure Pipe
+item.material.oreprefix.pipeSmallPressureSealed=Small Sealed %s Pressure Pipe
+item.material.oreprefix.pipeNormalPressureSealed=Sealed %s Pressure Pipe
+item.material.oreprefix.pipeLargePressureSealed=Large Sealed %s Pressure Pipe
 
 # Metaitems
 
@@ -777,4 +786,4 @@ gcys.top.partial_pressure=%s: %sPa
 # Pressure Tooltip
 gcys.universal.tooltip.min_pressure=§bMin Pressure: §f%sPa (%s§f)
 gcys.universal.tooltip.max_pressure=§6Max Pressure: §f%sPa (%s§f)
-gcys.universal.tooltip.volume=§dGas Capacity: §f%,d L
+gcys.universal.tooltip.volume=§dVolume: §f%,d L
