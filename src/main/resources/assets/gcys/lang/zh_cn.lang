@@ -545,41 +545,41 @@ metaitem.magnetron.name=磁控管
 
 # Optical Stuff
 metaitem.plate.phase_change_memory.name=PRAM
-metaitem.plate.phase_change_memory.tooltip=相变存储
+metaitem.plate.phase_change_memory.tooltip=相变内存
 metaitem.optical_fiber.name=光纤
 metaitem.optical_fiber.tooltip=透光玻璃
-metaitem.dielectric_mirror.name=介质镜
+metaitem.dielectric_mirror.name=介电镜
 metaitem.dielectric_mirror.tooltip=布拉格对称
 metaitem.laser.assembly.empty.name=空激光组件
 metaitem.laser.assembly.empty.tooltip=用激光介质来填充它
 metaitem.laser.helium_neon.name=氦氖激光
-metaitem.laser.helium_neon.tooltip=用途: 弱光器械
+metaitem.laser.helium_neon.tooltip=用途: 弱光学器械
 metaitem.laser.nd_yag.name=掺钕的钇铝石榴石激光
-metaitem.laser.nd_yag.tooltip=用途: 强光器械
+metaitem.laser.nd_yag.tooltip=用途: 强光学器械
 
 
 # Spintronic Stuff
 metaitem.plate.spin_transfer_torque_memory.name=STTRAM
-metaitem.plate.spin_transfer_torque_memory.tooltip=Spin-Transfer Torque Memory
-metaitem.tube.topological_insulator.name=Topological Insulator Tube
-metaitem.tube.topological_insulator.tooltip=Conductive Surface States
-metaitem.containment_unit.bose_einstein_condensate.name=Bose-Einstein Condensate Containment Unit
-metaitem.containment_unit.bose_einstein_condensate.tooltip=Magnetic Evaporative Cooling
-metaitem.bose_einstein_condensate.name=Bose-Einstein Condensate
-metaitem.bose_einstein_condensate.tooltip=2,000 §cRb-87§7 Atoms at §b170nK§7!
+metaitem.plate.spin_transfer_torque_memory.tooltip=自选转移扭矩内存
+metaitem.tube.topological_insulator.name=拓扑绝缘管
+metaitem.tube.topological_insulator.tooltip=导体表面态
+metaitem.containment_unit.bose_einstein_condensate.name=玻色-爱因斯坦凝聚单元
+metaitem.containment_unit.bose_einstein_condensate.tooltip=磁蒸发冷却
+metaitem.bose_einstein_condensate.name=玻色-爱因斯坦凝聚物
+metaitem.bose_einstein_condensate.tooltip=2,000个§cRb-87§7原子造就了§b170nK§7！
 
 # Supra-Causal Stuff
-metaitem.eigenfolded.kerr.manifold.name=Eigenfolded Kerr Manifold
+metaitem.eigenfolded.kerr.manifold.name=本征折叠克尔流形
 
 # Supra-Chronal Stuff
-metaitem.hyperdimensional.drone.name=Hyperdimensional Drone
+metaitem.hyperdimensional.drone.name=超维度无人机
 
 # Power Components
-metaitem.wafer.nano_power_integrated_circuit.name=NPIC Wafer
-metaitem.wafer.nano_power_integrated_circuit.tooltip=Raw Nano Power Circuit
-metaitem.wafer.pico_power_integrated_circuit.name=PPIC Wafer
-metaitem.wafer.pico_power_integrated_circuit.tooltip=Raw Pico Power Circuit
-metaitem.wafer.femto_power_integrated_circuit.name=FPIC Wafer
+metaitem.wafer.nano_power_integrated_circuit.name=NPIC晶圆
+metaitem.wafer.nano_power_integrated_circuit.tooltip=粗制纳米能量芯片
+metaitem.wafer.pico_power_integrated_circuit.name=PPIC晶圆
+metaitem.wafer.pico_power_integrated_circuit.tooltip=粗制Pico能量芯片
+metaitem.wafer.femto_power_integrated_circuit.name=FPIC晶圆
 metaitem.wafer.femto_power_integrated_circuit.tooltip=Raw Femto Power Circuit
 metaitem.plate.nano_power_integrated_circuit.name=NPIC
 metaitem.plate.nano_power_integrated_circuit.tooltip=Nano Power Integrated Circuit
