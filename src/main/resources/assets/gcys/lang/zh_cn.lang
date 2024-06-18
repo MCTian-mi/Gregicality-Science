@@ -1,4 +1,5 @@
-
+# 当前进度：60%
+# 当前版本：0.0.0
 
 # Materials
 
@@ -357,9 +358,9 @@ gcys.machine.pressure_hatch.ivv.name=星际虚空真空仓
 gcys.machine.pressure_hatch.csv.name=封闭空间真空仓
 gcys.machine.pressure_hatch.ehv.name=极高真空仓
 gcys.machine.pressure_hatch.uhv.name=超高真空仓
-gcys.machine.pressure_hatch.hv.name=高度真空仓
-gcys.machine.pressure_hatch.mv.name=中度真空仓
-gcys.machine.pressure_hatch.lv.name=低度真空仓
+gcys.machine.pressure_hatch.hv.name=高真空仓
+gcys.machine.pressure_hatch.mv.name=中真空仓
+gcys.machine.pressure_hatch.lv.name=低真空仓
 gcys.machine.pressure_hatch.lp.name=低压力仓
 gcys.machine.pressure_hatch.mp.name=中压力仓
 gcys.machine.pressure_hatch.hp.name=高压力仓
@@ -457,101 +458,104 @@ gcys.machine.dryer.opv.name=传奇烘干机
 gcys.machine.dryer.opv.tooltip=湿度删除者
 
 # Pipes
-gcys.pipe.pressure_pipe_low_vacuum.name=Low Vacuum Pipe
-gcys.pipe.pressure_pipe_medium_vacuum.name=Medium Vacuum Pipe
-gcys.pipe.pressure_pipe_high_vacuum.name=High Vacuum Pipe
-gcys.pipe.pressure_pipe_ultra_high_vacuum.name=Ultra High Vacuum Pipe
-gcys.pipe.pressure_pipe_extremely_high_vacuum.name=Extremely High Vacuum Pipe
-gcys.pipe.pressure_pipe_close_space_vacuum.name=Close-Space Vacuum Pipe
-gcys.pipe.pressure_pipe_intergalactic_void_vacuum.name=Intergalactic Void Vacuum Pipe
-gcys.pipe.pressure_pipe_low_pressure.name=Low Pressure Pipe
-gcys.pipe.pressure_pipe_medium_pressure.name=Medium Pressure Pipe
-gcys.pipe.pressure_pipe_high_pressure.name=High Pressure Pipe
-gcys.pipe.pressure_pipe_ultra_high_pressure.name=Ultra High Pressure Pipe
-gcys.pipe.pressure_pipe_electron_degeneracy_pressure.name=Electron Degeneracy Pressure Pipe
-gcys.pipe.pressure_pipe_white_dwarf_pressure.name=White Dwarf Pressure Pipe
-gcys.pipe.pressure_pipe_neutron_star_pressure.name=Neutron Star Pressure Pipe
+gcys.pipe.pressure_pipe_low_vacuum.name=低度真空管道
+gcys.pipe.pressure_pipe_medium_vacuum.name=中度真空管道
+gcys.pipe.pressure_pipe_high_vacuum.name=高度真空管道
+gcys.pipe.pressure_pipe_ultra_high_vacuum.name=超高真空管道
+gcys.pipe.pressure_pipe_extremely_high_vacuum.name=极高真空管道
+gcys.pipe.pressure_pipe_close_space_vacuum.name=封闭空间真空管道
+gcys.pipe.pressure_pipe_intergalactic_void_vacuum.name=星际虚空真空管道
+gcys.pipe.pressure_pipe_low_pressure.name=低压力管道
+gcys.pipe.pressure_pipe_medium_pressure.name=中压力管道
+gcys.pipe.pressure_pipe_high_pressure.name=高压力管道
+gcys.pipe.pressure_pipe_ultra_high_pressure.name=超高压力管道
+gcys.pipe.pressure_pipe_electron_degeneracy_pressure.name=电子简并态压力管道
+gcys.pipe.pressure_pipe_white_dwarf_pressure.name=白矮星级压力管道
+gcys.pipe.pressure_pipe_neutron_star_pressure.name=中子星级压力管道
 
-gcys.pipe.pressure.tooltip.volume=Volume: §a%sL
+gcys.pipe.pressure.tooltip.volume=量: §a%sL
 
 
 # Blocks
-tile.crucible.quartz.name=Quartz Crucible
-tile.crucible.tungsten.name=Tungsten Crucible
-tile.crucible.graphite.name=Graphite Crucible
-tile.crucible.boron_nitride.name=Boron Nitride Crucible
+tile.crucible.quartz.name=石英坩埚
+tile.crucible.tungsten.name=钨坩埚
+tile.crucible.graphite.name=石墨坩埚
+tile.crucible.boron_nitride.name=氮化硼坩埚
 
-tile.multiblock_casing.substrate.name=Substrate Casing
-tile.multiblock_casing.advanced_substrate.name=Advanced Substrate Casing
-tile.multiblock_casing.drill_head.name=Drill Head
-tile.multiblock_casing.suprachronal_casing.name=Supra-Chronal Assembler Casing
+tile.multiblock_casing.substrate.name=基板外壳
+tile.multiblock_casing.advanced_substrate.name=进阶基板外壳
+tile.multiblock_casing.drill_head.name=钻头
+tile.multiblock_casing.suprachronal_casing.name=超时空装配线外壳
 
-tile.multiblock_casing_active.airfoil.name=Airfoil Chamber
-tile.multiblock_casing_active.advanced_airfoil.name=Advanced Airfoil Chamber
+tile.multiblock_casing_active.airfoil.name=翼型室
+tile.multiblock_casing_active.advanced_airfoil.name=进阶翼型室
 
-tile.transparent_casing.pmma.name=PMMA Glass
+tile.transparent_casing.pmma.name=PMMA玻璃
 
 
 # Vacuums
-gcys.vacuum_level.none=No Vacuum
-gcys.vacuum_level.low=Low Vacuum
-gcys.vacuum_level.medium=Medium Vacuum
-gcys.vacuum_level.high=High Vacuum
-gcys.vacuum_level.ultra_high=Ultra High Vacuum
-gcys.vacuum_level.extremely_high=Extremely High Vacuum
-gcys.vacuum_level.perfect=Perfect Vacuum
+gcys.vacuum_level.none=非真空
+gcys.vacuum_level.low=低真空
+gcys.vacuum_level.medium=中真空
+gcys.vacuum_level.high=高真空
+gcys.vacuum_level.ultra_high=超高真空
+gcys.vacuum_level.extremely_high=极高真空
+gcys.vacuum_level.perfect=优良真空
+
+
+真空
 
 # Ore Prefixes
-item.material.oreprefix.seedCrystal=%s Seed Crystal
-item.material.oreprefix.boule=%s Boule
+item.material.oreprefix.seedCrystal=%s晶种
+item.material.oreprefix.boule=%s晶球
 
 # Metaitems
 
 # Primitive Stuff
-metaitem.vacuum_tube.components.name=Vacuum Tube Components
-metaitem.vacuum_tube.components.tooltip=You hope it won't burn out
+metaitem.vacuum_tube.components.name=真空管组件
+metaitem.vacuum_tube.components.tooltip=希望它不会被烧坏
 
 # Crystal Stuff
-metaitem.boule.cubic_zirconia.europium.name=Europium-doped Monocrystalline Cubic Zirconia Boule
-metaitem.boule.cubic_zirconia.europium.tooltip=Raw Crystal
-metaitem.wafer.cubic_zirconia.europium.name=Europium-doped Cubic Zirconia Wafer
-metaitem.wafer.cubic_zirconia.europium.tooltip=Raw Crystal
-metaitem.wafer.crystal.interface.name=Crystal Interface Wafer
-metaitem.wafer.crystal.interface.tooltip=Raw Crystal Interface
-metaitem.plate.crystal.interface.name=Crystal Interface Chip
-metaitem.plate.crystal.interface.tooltip=Crystal Interface
-metaitem.engraved.crystal_chip.ruby.name=Engraved Ruby Crystal Chip
-metaitem.engraved.crystal_chip.ruby.tooltip=Control Ruby
-metaitem.engraved.crystal_chip.sapphire.name=Engraved Sapphire Crystal Chip
-metaitem.engraved.crystal_chip.sapphire.tooltip=Conversion Sapphire
-metaitem.engraved.crystal_chip.diamond.name=Engraved Diamond Crystal Chip
-metaitem.engraved.crystal_chip.diamond.tooltip=Logic Diamond
-metaitem.crystal.modulator.ruby.name=Ruby Crystal Modulator
-metaitem.crystal.modulator.ruby.tooltip=Control Processing Circuit
-metaitem.crystal.modulator.sapphire.name=Sapphire Crystal Modulator
-metaitem.crystal.modulator.sapphire.tooltip=Conversion Processing Circuit
-metaitem.crystal.modulator.diamond.name=Diamond Crystal Modulator
-metaitem.crystal.modulator.diamond.tooltip=Logic Processing Circuit
-metaitem.crystal.system_on_chip.socket.name=Crystal SOC Socket
-metaitem.crystal.system_on_chip.socket.tooltip=Bridging Crystal and Circuit
+metaitem.boule.cubic_zirconia.europium.name=铕掺杂的单晶立方氧化锆晶球
+metaitem.boule.cubic_zirconia.europium.tooltip=粗晶体
+metaitem.wafer.cubic_zirconia.europium.name=铕掺杂立方氧化锆晶圆
+metaitem.wafer.cubic_zirconia.europium.tooltip=粗晶体
+metaitem.wafer.crystal.interface.name=晶体接口晶圆
+metaitem.wafer.crystal.interface.tooltip=粗制晶体接口
+metaitem.plate.crystal.interface.name=晶体接口芯片
+metaitem.plate.crystal.interface.tooltip=晶体接口
+metaitem.engraved.crystal_chip.ruby.name=雕刻红宝石晶体芯片
+metaitem.engraved.crystal_chip.ruby.tooltip=红宝石控制
+metaitem.engraved.crystal_chip.sapphire.name=雕刻蓝宝石晶体芯片
+metaitem.engraved.crystal_chip.sapphire.tooltip=蓝宝石转换
+metaitem.engraved.crystal_chip.diamond.name=雕刻钻石晶体芯片
+metaitem.engraved.crystal_chip.diamond.tooltip=钻石逻辑
+metaitem.crystal.modulator.ruby.name=红宝石晶体调制器
+metaitem.crystal.modulator.ruby.tooltip=控制处理芯片
+metaitem.crystal.modulator.sapphire.name=蓝宝石晶体调制器
+metaitem.crystal.modulator.sapphire.tooltip=转换处理芯片
+metaitem.crystal.modulator.diamond.name=钻石晶体调制器
+metaitem.crystal.modulator.diamond.tooltip=逻辑处理芯片
+metaitem.crystal.system_on_chip.socket.name=晶体嵌入SOC
+metaitem.crystal.system_on_chip.socket.tooltip=桥接晶体-电路
 
 # Wetware Stuff
-metaitem.magnetron.name=Magnetron
+metaitem.magnetron.name=磁控管
 
 
 # Optical Stuff
 metaitem.plate.phase_change_memory.name=PRAM
-metaitem.plate.phase_change_memory.tooltip=Phase-change Memory
-metaitem.optical_fiber.name=Optical Fiber
-metaitem.optical_fiber.tooltip=Light-transmitting Glass
-metaitem.dielectric_mirror.name=Dielectric Mirror
-metaitem.dielectric_mirror.tooltip=Bragg Mirror
-metaitem.laser.assembly.empty.name=Empty Laser Assembly
-metaitem.laser.assembly.empty.tooltip=Fill this with some Laser Medium
-metaitem.laser.helium_neon.name=Helium-Neon Laser
-metaitem.laser.helium_neon.tooltip=Purpose: Weak Optical Appliances
-metaitem.laser.nd_yag.name=Nd:YAG Laser
-metaitem.laser.nd_yag.tooltip=Purpose: Strong Optical Appliances
+metaitem.plate.phase_change_memory.tooltip=相变存储
+metaitem.optical_fiber.name=光纤
+metaitem.optical_fiber.tooltip=透光玻璃
+metaitem.dielectric_mirror.name=介质镜
+metaitem.dielectric_mirror.tooltip=布拉格对称
+metaitem.laser.assembly.empty.name=空激光组件
+metaitem.laser.assembly.empty.tooltip=用激光介质来填充它
+metaitem.laser.helium_neon.name=氦氖激光
+metaitem.laser.helium_neon.tooltip=用途: 弱光器械
+metaitem.laser.nd_yag.name=掺钕的钇铝石榴石激光
+metaitem.laser.nd_yag.tooltip=用途: 强光器械
 
 
 # Spintronic Stuff
