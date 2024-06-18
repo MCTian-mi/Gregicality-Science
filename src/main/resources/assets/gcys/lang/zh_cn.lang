@@ -313,13 +313,13 @@ material.light_enriched_bedrock_smoke=轻富集基岩烟
 material.heavy_enriched_taranium_gas=重富集塔兰金属气
 material.medium_enriched_taranium_gas=富集塔兰金属气
 material.light_enriched_taranium_gas=轻富集塔兰金属气
-material.cracked_heavy_enriched_taranium=氡裂解重富集塔兰金属
-material.cracked_medium_enriched_taranium=氡裂解富集塔兰金属
+material.cracked_heavy_enriched_taranium=氡裂解重型富集塔兰金属
+material.cracked_medium_enriched_taranium=氡裂解轻型富集塔兰金属
 material.cracked_light_enriched_taranium=氡裂解轻富集塔兰金属
-material.energetic_naquadria=充能硅岩合金
-material.light_hyper_fuel=轻超极燃料
-material.medium_hyper_fuel=超极燃料
-material.heavy_hyper_fuel=重超极燃料
+material.energetic_naquadria=活性硅岩合金
+material.light_hyper_fuel=轻型超能燃料
+material.medium_hyper_fuel=中型超能燃料
+material.heavy_hyper_fuel=重型超能燃料
 material.qcd_confined_matter=量子色动力学约束物质
 material.reissner_nordstrom_matrix=赖斯纳-努德斯特伦矩阵
 material.sentient_metal=感知金属
@@ -350,8 +350,7 @@ gcys.machine.steam_vacuum_chamber.name=小型蒸汽真空室
 
 # Infinite Pressure Pump
 gcys.machine.infinite_pressure_pump.name=创造模式压力泵
-gcys.machine.infinite_pressure_pump.tooltip=§7你需要§5绝§d对§4天§c马§e行§a空§b的§3想§9象§1能§5力§7来使用它
-
+gcys.machine.infinite_pressure_pump.tooltip=§8你只需要§o§5绝§d对§4无§c所§e不§a能§b的§3创§7造§1模§5式§d力§r§8来使用它
 
 # Multi Block Hatches
 gcys.machine.pressure_hatch.ivv.name=星际虚空真空仓
@@ -366,8 +365,8 @@ gcys.machine.pressure_hatch.mp.name=中压力仓
 gcys.machine.pressure_hatch.hp.name=高压力仓
 gcys.machine.pressure_hatch.uhp.name=超高压力仓
 gcys.machine.pressure_hatch.edp.name=电子简并态压力仓
-gcys.machine.pressure_hatch.wdp.name=白矮星级压力仓
-gcys.machine.pressure_hatch.nsp.name=中子星级压力仓
+gcys.machine.pressure_hatch.wdp.name=白矮星压力仓
+gcys.machine.pressure_hatch.nsp.name=中子星压力仓
 
 # Multi Block Machines
 
@@ -391,7 +390,7 @@ gcys.machine.nanoscale_fabricator.name=纳米级制造室
 gcys.multiblock.nanoscale_fabricator.tooltip.1=坩埚平均温度不能超过目标大于 §c250K§7 。
 
 # CVD Unit
-gcys.machine.cvd_unit.name=CVD单元
+gcys.machine.cvd_unit.name=化学气相沉积单元 (CVD)
 
 # Fracking Machine
 gcys.machine.fracker.name=液压压裂机
@@ -406,25 +405,25 @@ gcys.machine.catalytic_reformer.name=催化重造器
 
 # Industrial Drill
 gcys.machine.industrial_drill.name=工业钻机
-gcys.multiblock.industrial_drill.tooltip.1=开采位于钻头下方的方块。
-gcys.multiblock.industrial_drill.tooltip.2=不消耗时目标方块不会被开采。
+gcys.multiblock.industrial_drill.tooltip.1=钻取位于钻头下方的方块。
+gcys.multiblock.industrial_drill.tooltip.2=目标方块在非消耗时不会被钻取。
 
 # Axial Compressors
 gcys.machine.axial_compressor.subsonic.name=亚音速轴流压缩机
 gcys.machine.axial_compressor.supersonic.name=超音速轴流压缩机
 gcys.multiblock.axial_compressor.tooltip.1=每秒增加 §b%sPa§7 压力直到 §a%sPa (§r%s§a)。
 gcys.multiblock.axial_compressor.tooltip.2=每秒消耗 §e%sL§7 润滑油。
-gcys.multiblock.axial_compressor.tooltip.3=使用 %s§7 动力，无法超频。
+gcys.multiblock.axial_compressor.tooltip.3=使用 %s§7 能量，无法超频。
 
 # Turbomolecular Pumps
 gcys.machine.turbomolecular_pump.low_power.name=低功率涡轮分子泵
 gcys.machine.turbomolecular_pump.high_power.name=高功率涡轮分子泵
 gcys.multiblock.turbomolecular_pump.tooltip.1=每秒消耗 §b%sPa§7 压力直到 §a%sPa (§r%s§a)。
 gcys.multiblock.turbomolecular_pump.tooltip.2=消耗压力时每秒消耗 §e%sL§7 润滑油。
-gcys.multiblock.turbomolecular_pump.tooltip.3=使用 %s§7 动力，无法超频。
+gcys.multiblock.turbomolecular_pump.tooltip.3=使用 %s§7 能量，无法超频。
 
 # Plasma CVD Unit
-gcys.machine.plasma_cvd_unit.name=等离子CVD单元
+gcys.machine.plasma_cvd_unit.name=等离子体化学气相沉积单元  (CVD)
 
 # Supra-Chronal Assembler
 gcys.machine.suprachronal_assembler.name=超时空装配线
@@ -458,9 +457,9 @@ gcys.machine.dryer.opv.name=传奇烘干机
 gcys.machine.dryer.opv.tooltip=湿度删除者
 
 # Pipes
-gcys.pipe.pressure_pipe_low_vacuum.name=低度真空管道
-gcys.pipe.pressure_pipe_medium_vacuum.name=中度真空管道
-gcys.pipe.pressure_pipe_high_vacuum.name=高度真空管道
+gcys.pipe.pressure_pipe_low_vacuum.name=低真空管道
+gcys.pipe.pressure_pipe_medium_vacuum.name=中真空管道
+gcys.pipe.pressure_pipe_high_vacuum.name=高真空管道
 gcys.pipe.pressure_pipe_ultra_high_vacuum.name=超高真空管道
 gcys.pipe.pressure_pipe_extremely_high_vacuum.name=极高真空管道
 gcys.pipe.pressure_pipe_close_space_vacuum.name=封闭空间真空管道
@@ -473,7 +472,7 @@ gcys.pipe.pressure_pipe_electron_degeneracy_pressure.name=电子简并态压力�
 gcys.pipe.pressure_pipe_white_dwarf_pressure.name=白矮星级压力管道
 gcys.pipe.pressure_pipe_neutron_star_pressure.name=中子星级压力管道
 
-gcys.pipe.pressure.tooltip.volume=量: §a%sL
+gcys.pipe.pressure.tooltip.volume=体积: §a%sL
 
 
 # Blocks
@@ -501,9 +500,6 @@ gcys.vacuum_level.high=高度真空
 gcys.vacuum_level.ultra_high=超高度真空
 gcys.vacuum_level.extremely_high=极高度真空
 gcys.vacuum_level.perfect=完全真空
-
-
-真空
 
 # Ore Prefixes
 item.material.oreprefix.seedCrystal=%s晶种
