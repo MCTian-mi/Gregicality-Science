@@ -1,5 +1,5 @@
-# 当前进度：60%
-# 当前版本：0.0.0
+# 当前对应版本：0.0.0
+# 最后更新时间：2024/06/18
 
 # Materials
 
@@ -387,7 +387,7 @@ gcys.machine.burner_reactor.name=燃烧室反应器
 gcys.machine.cryogenic_reactor.name=低温反应室
 
 # Nanoscale Fabricator
-gcys.machine.nanoscale_fabricator.name=Nanoscale Fabricator
+gcys.machine.nanoscale_fabricator.name=纳米级制造室
 gcys.multiblock.nanoscale_fabricator.tooltip.1=坩埚平均温度不能超过目标大于 §c250K§7 。
 
 # CVD Unit
@@ -490,17 +490,17 @@ tile.multiblock_casing.suprachronal_casing.name=超时空装配线外壳
 tile.multiblock_casing_active.airfoil.name=翼型室
 tile.multiblock_casing_active.advanced_airfoil.name=进阶翼型室
 
-tile.transparent_casing.pmma.name=PMMA玻璃
+tile.transparent_casing.pmma.name=亚克力玻璃 (PMMA)
 
 
 # Vacuums
 gcys.vacuum_level.none=非真空
-gcys.vacuum_level.low=低真空
-gcys.vacuum_level.medium=中真空
-gcys.vacuum_level.high=高真空
-gcys.vacuum_level.ultra_high=超高真空
-gcys.vacuum_level.extremely_high=极高真空
-gcys.vacuum_level.perfect=优良真空
+gcys.vacuum_level.low=低度真空
+gcys.vacuum_level.medium=中度真空
+gcys.vacuum_level.high=高度真空
+gcys.vacuum_level.ultra_high=超高度真空
+gcys.vacuum_level.extremely_high=极高度真空
+gcys.vacuum_level.perfect=完全真空
 
 
 真空
@@ -543,7 +543,7 @@ metaitem.crystal.system_on_chip.socket.tooltip=桥接晶体-电路
 metaitem.magnetron.name=磁控管
 
 
-# Optical Stuff
+# 光学 Stuff
 metaitem.plate.phase_change_memory.name=PRAM
 metaitem.plate.phase_change_memory.tooltip=相变内存
 metaitem.optical_fiber.name=光纤
@@ -558,7 +558,7 @@ metaitem.laser.nd_yag.name=掺钕的钇铝石榴石激光
 metaitem.laser.nd_yag.tooltip=用途: 强光学器械
 
 
-# Spintronic Stuff
+# 自旋电子学 Stuff
 metaitem.plate.spin_transfer_torque_memory.name=STTRAM
 metaitem.plate.spin_transfer_torque_memory.tooltip=自选转移扭矩内存
 metaitem.tube.topological_insulator.name=拓扑绝缘管
@@ -568,7 +568,7 @@ metaitem.containment_unit.bose_einstein_condensate.tooltip=磁蒸发冷却
 metaitem.bose_einstein_condensate.name=玻色-爱因斯坦凝聚物
 metaitem.bose_einstein_condensate.tooltip=2,000个§cRb-87§7原子造就了§b170nK§7！
 
-# Supra-Causal Stuff
+# 超因果 Stuff
 metaitem.eigenfolded.kerr.manifold.name=本征折叠克尔流形
 
 # Supra-Chronal Stuff
@@ -576,185 +576,185 @@ metaitem.hyperdimensional.drone.name=超维度无人机
 
 # Power Components
 metaitem.wafer.nano_power_integrated_circuit.name=NPIC晶圆
-metaitem.wafer.nano_power_integrated_circuit.tooltip=粗制纳米能量芯片
+metaitem.wafer.nano_power_integrated_circuit.tooltip=粗制纳米级功率芯片
 metaitem.wafer.pico_power_integrated_circuit.name=PPIC晶圆
-metaitem.wafer.pico_power_integrated_circuit.tooltip=粗制Pico能量芯片
+metaitem.wafer.pico_power_integrated_circuit.tooltip=粗制微米级功率芯片
 metaitem.wafer.femto_power_integrated_circuit.name=FPIC晶圆
-metaitem.wafer.femto_power_integrated_circuit.tooltip=Raw Femto Power Circuit
+metaitem.wafer.femto_power_integrated_circuit.tooltip=粗制毫微米级功率芯片
 metaitem.plate.nano_power_integrated_circuit.name=NPIC
-metaitem.plate.nano_power_integrated_circuit.tooltip=Nano Power Integrated Circuit
+metaitem.plate.nano_power_integrated_circuit.tooltip=纳米功率集成电路
 metaitem.plate.pico_power_integrated_circuit.name=PPIC
-metaitem.plate.pico_power_integrated_circuit.tooltip=Pico Power Integrated Circuit
+metaitem.plate.pico_power_integrated_circuit.tooltip=微米功率集成电路
 metaitem.plate.femto_power_integrated_circuit.name=FPIC
-metaitem.plate.femto_power_integrated_circuit.tooltip=Femto Power Integrated Circuit
+metaitem.plate.femto_power_integrated_circuit.tooltip=毫微米功率集成电路
 
 
 # Item Behaviors
-metaitem.behavior.held_item_destroy.message=Holding the %s damaged it!
+metaitem.behavior.held_item_destroy.message=手持%s会损坏它！
 
 
 # Nanotube Stuff
-metaitem.mixture.carbon_allotrope.name=Carbon Allotrope Mixture
-metaitem.cnt.graphene_aligned.name=Graphene-Aligned Carbon Nanotube
+metaitem.mixture.carbon_allotrope.name=碳同素异型体混合物
+metaitem.cnt.graphene_aligned.name=石墨烯排列碳纳米管
 
 # Crafting Components
-metaitem.component.grinder.boron_nitride.name=Boron Nitride Grinding Head
+metaitem.component.grinder.boron_nitride.name=氮化硼研磨头
 
 # Circuit Boards
-metaitem.board.gooware.name=Kapton Circuit Board
-metaitem.board.gooware.tooltip=A Super Board
-metaitem.board.optical.name=Gallium Nitride Circuit Board
-metaitem.board.optical.tooltip=An Ultimate Board
-metaitem.board.spintronic.name=Carbon Nanotube Circuit Board
-metaitem.board.spintronic.tooltip=An Infinite Board
-metaitem.circuit_board.gooware.name=Super Circuit Board
-metaitem.circuit_board.gooware.tooltip=The Board that performs Reactions
-metaitem.circuit_board.optical.name=Ultimate Circuit Board
-metaitem.circuit_board.optical.tooltip=The Board that transmits Light
-metaitem.circuit_board.spintronic.name=Infinite Circuit Board
-metaitem.circuit_board.spintronic.tooltip=The Board that directs Spin
+metaitem.board.gooware.name=卡普顿电路基板
+metaitem.board.gooware.tooltip=一片超级之板
+metaitem.board.optical.name=氮化镓电路基板
+metaitem.board.optical.tooltip=一片终极之板
+metaitem.board.spintronic.name=碳纳米管电路基板
+metaitem.board.spintronic.tooltip=一片无尽之板
+metaitem.circuit_board.gooware.name=超级电路基板
+metaitem.circuit_board.gooware.tooltip=执行反应的基板
+metaitem.circuit_board.optical.name=终极电路基板
+metaitem.circuit_board.optical.tooltip=传输光的基板
+metaitem.circuit_board.spintronic.name=无限电路基板
+metaitem.circuit_board.spintronic.tooltip=自旋引导的基板
 
 # SMDs
-metaitem.component.optical_smd.capacitor.name=Optical Integrator
-metaitem.component.optical_smd.capacitor.tooltip=Optoelectronic Capacitor
-metaitem.component.optical_smd.diode.name=Optical Isolator
-metaitem.component.optical_smd.diode.tooltip=Optoelectronic Diode
-metaitem.component.optical_smd.resistor.name=Photoresistor
-metaitem.component.optical_smd.resistor.tooltip=Optoelectronic Resistor
-metaitem.component.optical_smd.transistor.name=Optical Transistor
-metaitem.component.optical_smd.transistor.tooltip=Optoelectronic Transistor
-metaitem.component.optical_smd.inductor.name=Optical Polarizer
-metaitem.component.optical_smd.inductor.tooltip=Optoelectronic Inductor
-metaitem.component.spintronic_smd.capacitor.name=Supercapacitor
-metaitem.component.spintronic_smd.capacitor.tooltip=Spin-Electronic Capacitor
-metaitem.component.spintronic_smd.diode.name=Schottky Diode
-metaitem.component.spintronic_smd.diode.tooltip=Spin-Electronic Diode
-metaitem.component.spintronic_smd.resistor.name=Magnetorestrictor
-metaitem.component.spintronic_smd.resistor.tooltip=Spin-Electronic Resistor
-metaitem.component.spintronic_smd.transistor.name=Spin MOSFET
-metaitem.component.spintronic_smd.transistor.tooltip=Spin-Electronic Transistor
-metaitem.component.spintronic_smd.inductor.name=Spin Polarizer
-metaitem.component.spintronic_smd.inductor.tooltip=Spin-Electronic Inductor
+metaitem.component.optical_smd.capacitor.name=光集成器
+metaitem.component.optical_smd.capacitor.tooltip=光电电容
+metaitem.component.optical_smd.diode.name=光隔离器
+metaitem.component.optical_smd.diode.tooltip=光电二极管
+metaitem.component.optical_smd.resistor.name=光敏电阻
+metaitem.component.optical_smd.resistor.tooltip=光电电阻
+metaitem.component.optical_smd.transistor.name=光晶体管
+metaitem.component.optical_smd.transistor.tooltip=光电晶体管
+metaitem.component.optical_smd.inductor.name=光学偏振器
+metaitem.component.optical_smd.inductor.tooltip=光电电感器
+metaitem.component.spintronic_smd.capacitor.name=超级电容
+metaitem.component.spintronic_smd.capacitor.tooltip=自旋电子电容器
+metaitem.component.spintronic_smd.diode.name=肖特基二极管
+metaitem.component.spintronic_smd.diode.tooltip=自旋电子二极管
+metaitem.component.spintronic_smd.resistor.name=磁阻器
+metaitem.component.spintronic_smd.resistor.tooltip=自旋电子电阻器
+metaitem.component.spintronic_smd.transistor.name=自旋金氧半场效晶体管
+metaitem.component.spintronic_smd.transistor.tooltip=自旋电子晶体管
+metaitem.component.spintronic_smd.inductor.name=自旋偏振器
+metaitem.component.spintronic_smd.inductor.tooltip=自旋电子电感器
 
 # Processing Units
-metaitem.reaction_chamber.bz.name=Belousov-Zhabotinsky Reaction Chamber
-metaitem.nonlinear_chemical_oscillator.name=Nonlinear Chemical Oscillator
-metaitem.nonlinear_chemical_oscillator.tooltip=Non-equilibrium Thermodynamics!
-metaitem.optical_laser_control_unit.name=Optical Laser Control Unit
-metaitem.optical_laser_control_unit.tooltip=Laser Information Transmission
-metaitem.esr_computation_unit.name=ESR Computation Unit
-metaitem.esr_computation_unit.tooltip=Electron Spin Resonance Quantum Computation!
+metaitem.reaction_chamber.bz.name=B-Z反应仓
+metaitem.nonlinear_chemical_oscillator.name=非线性化学震荡器
+metaitem.nonlinear_chemical_oscillator.tooltip=非平衡热动力学！
+metaitem.optical_laser_control_unit.name=光学激光控制单元
+metaitem.optical_laser_control_unit.tooltip=激光信息传输
+metaitem.esr_computation_unit.name=ESR计算单元
+metaitem.esr_computation_unit.tooltip=电子自旋共振量子计算！
 
 # Circuits
 # Gooware
-metaitem.circuit.gooware_processor.name=Gooware Processor
-metaitem.circuit.gooware_processor.tooltip=Reaction-Diffusion Computation/n§2ZPM-tier Circuit
-metaitem.circuit.gooware_assembly.name=Gooware Assembly
-metaitem.circuit.gooware_assembly.tooltip=Cyclic Concentration/n§2UV-tier Circuit
-metaitem.circuit.gooware_computer.name=Gooware Supercomputer
-metaitem.circuit.gooware_computer.tooltip=Complex Wave Phenomena!/n§2UHV-tier Circuit
-metaitem.circuit.gooware_mainframe.name=Gooware Mainframe
-metaitem.circuit.gooware_mainframe.tooltip=Spiraling Colored Waves!/n§2UEV-tier Circuit
+metaitem.circuit.gooware_processor.name=化学处理器
+metaitem.circuit.gooware_processor.tooltip=计算反应扩散/n§2ZPM级电路
+metaitem.circuit.gooware_assembly.name=化学处理器集群
+metaitem.circuit.gooware_assembly.tooltip=循环浓缩/n§2UV级电路
+metaitem.circuit.gooware_computer.name=化学超级计算机
+metaitem.circuit.gooware_computer.tooltip=复杂波现象！/n§2UHV级电路
+metaitem.circuit.gooware_mainframe.name=化学处理器主机
+metaitem.circuit.gooware_mainframe.tooltip=螺旋多彩波浪！/n§2UEV级电路
 
 # Optical
-metaitem.circuit.optical_processor.name=Optical Processor
-metaitem.circuit.optical_processor.tooltip=Lightspeed Computing/n§6UV-tier Circuit
-metaitem.circuit.optical_assembly.name=Optical Assembly
-metaitem.circuit.optical_assembly.tooltip=With the Power of Lasers!/n§6UHV-tier Circuit
-metaitem.circuit.optical_computer.name=Optical Supercomputer
-metaitem.circuit.optical_computer.tooltip=In the Blink of an Eye/n§6UEV-tier Circuit
-metaitem.circuit.optical_mainframe.name=Optical Mainframe
-metaitem.circuit.optical_mainframe.tooltip=Could Anything be faster?/n§6UIV-tier Circuit
+metaitem.circuit.optical_processor.name=光学处理器
+metaitem.circuit.optical_processor.tooltip=光速运算/n§6UV级电路
+metaitem.circuit.optical_assembly.name=光学处理器集群
+metaitem.circuit.optical_assembly.tooltip=与激光之力！/n§6UHV级电路
+metaitem.circuit.optical_computer.name=光学超级计算机
+metaitem.circuit.optical_computer.tooltip=眨眼之间/n§6UEV级电路
+metaitem.circuit.optical_mainframe.name=光学处理器主机
+metaitem.circuit.optical_mainframe.tooltip=还有什么比这更快？/n§6UIV级电路
 
 # Spintronic
-metaitem.circuit.spintronic_processor.name=Spintronic Processor
-metaitem.circuit.spintronic_processor.tooltip=Spinning Electrons/n§5UHV-tier Circuit
-metaitem.circuit.spintronic_assembly.name=Spintronic Assembly
-metaitem.circuit.spintronic_assembly.tooltip=Discrete Quantum Walks/n§5UEV-tier Circuit
-metaitem.circuit.spintronic_computer.name=Spintronic Supercomputer
-metaitem.circuit.spintronic_computer.tooltip=Ballistic Spin Filtration/n§5UIV-tier Circuit
-metaitem.circuit.spintronic_mainframe.name=Spintronic Mainframe
-metaitem.circuit.spintronic_mainframe.tooltip=Spin-Wave Logic!/n§5UXV-tier Circuit
+metaitem.circuit.spintronic_processor.name=自旋电子学处理器
+metaitem.circuit.spintronic_processor.tooltip=自旋电子/n§5UHV级电路
+metaitem.circuit.spintronic_assembly.name=自旋电子学处理器集群
+metaitem.circuit.spintronic_assembly.tooltip=离散量子漫步/n§5UEV级电路
+metaitem.circuit.spintronic_computer.name=自旋电子学超级计算机
+metaitem.circuit.spintronic_computer.tooltip=弹道自旋过滤/n§5UIV级电路
+metaitem.circuit.spintronic_mainframe.name=自旋电子学处理器主机
+metaitem.circuit.spintronic_mainframe.tooltip=自旋波逻辑！/n§5UXV级电路
 
 
 # Cosmic
-metaitem.circuit.cosmic_processor.name=Cosmic Processor
-metaitem.circuit.cosmic_processor.tooltip=Phenomenal cosmic powers!/n§8UEV-tier Circuit
-metaitem.circuit.cosmic_assembly.name=Cosmic Assembly
-metaitem.circuit.cosmic_assembly.tooltip=Phenomenal cosmic powers!/n§8UIV-tier Circuit
-metaitem.circuit.cosmic_computer.name=Cosmic Supercomputer
-metaitem.circuit.cosmic_computer.tooltip=Phenomenal cosmic powers!/n§8UXV-tier Circuit
-metaitem.circuit.cosmic_mainframe.name=Cosmic Mainframe
-metaitem.circuit.cosmic_mainframe.tooltip=Phenomenal cosmic powers!/n§8OpV-tier Circuit
+metaitem.circuit.cosmic_processor.name=寰宇处理器
+metaitem.circuit.cosmic_processor.tooltip=惊天寰宇之力！/n§8UEV级电路
+metaitem.circuit.cosmic_assembly.name=寰宇处理器集群
+metaitem.circuit.cosmic_assembly.tooltip=惊天寰宇之力！/n§8UIV级电路
+metaitem.circuit.cosmic_computer.name=寰宇超级计算机
+metaitem.circuit.cosmic_computer.tooltip=惊天寰宇之力！/n§8UXV级电路
+metaitem.circuit.cosmic_mainframe.name=寰宇处理器主机
+metaitem.circuit.cosmic_mainframe.tooltip=惊天寰宇之力！/n§8OpV级电路
 
 # Supracausal
-metaitem.circuit.supracausal_processor.name=Supra-Causal Processor
-metaitem.circuit.supracausal_processor.tooltip=With the Power of Black Holes/n§fUIV-tier Circuit
-metaitem.circuit.supracausal_assembly.name=Supra-Causal Assembly
-metaitem.circuit.supracausal_assembly.tooltip=Singularities on an Epic scale/n§fUXV-tier Circuit
-metaitem.circuit.supracausal_computer.name=Supra-Causal Supercomputer
-metaitem.circuit.supracausal_computer.tooltip=Using Wormholes to our Advantage/n§fOpV-tier Circuit
-metaitem.circuit.supracausal_mainframe.name=Supra-Causal Mainframe
-metaitem.circuit.supracausal_mainframe.tooltip=Answers before questions/n§fMAX-tier Circuit
+metaitem.circuit.supracausal_processor.name=超因果处理器
+metaitem.circuit.supracausal_processor.tooltip=与黑洞之力/n§fUIV级电路
+metaitem.circuit.supracausal_assembly.name=超因果处理器集群
+metaitem.circuit.supracausal_assembly.tooltip=史诗级奇点/n§fUXV级电路
+metaitem.circuit.supracausal_computer.name=超因果超级计算机
+metaitem.circuit.supracausal_computer.tooltip=利用虫洞来发挥优势/n§fOpV级电路
+metaitem.circuit.supracausal_mainframe.name=超因果处理器主机
+metaitem.circuit.supracausal_mainframe.tooltip=问前之答/n§fMAX级电路
 
 # Suprachronal
-metaitem.circuit.suprachronal.ulv.name=Supra-Chronal Circuit (ULV)
-metaitem.circuit.suprachronal.ulv.tooltip=Full control over spacetime/n§fULV-tier Circuit
-metaitem.circuit.suprachronal.lv.name=Supra-Chronal Circuit (LV)
-metaitem.circuit.suprachronal.lv.tooltip=Full control over spacetime/n§fLV-tier Circuit
-metaitem.circuit.suprachronal.mv.name=Supra-Chronal Circuit (MV)
-metaitem.circuit.suprachronal.mv.tooltip=Full control over spacetime/n§fMV-tier Circuit
-metaitem.circuit.suprachronal.hv.name=Supra-Chronal Circuit (HV)
-metaitem.circuit.suprachronal.hv.tooltip=Full control over spacetime/n§fHV-tier Circuit
-metaitem.circuit.suprachronal.ev.name=Supra-Chronal Circuit (EV)
-metaitem.circuit.suprachronal.ev.tooltip=Full control over spacetime/n§fEV-tier Circuit
-metaitem.circuit.suprachronal.iv.name=Supra-Chronal Circuit (IV)
-metaitem.circuit.suprachronal.iv.tooltip=Full control over spacetime/n§fIV-tier Circuit
-metaitem.circuit.suprachronal.luv.name=Supra-Chronal Circuit (LuV)
-metaitem.circuit.suprachronal.luv.tooltip=Full control over spacetime/n§fLuV-tier Circuit
-metaitem.circuit.suprachronal.zpm.name=Supra-Chronal Circuit (ZPM)
-metaitem.circuit.suprachronal.zpm.tooltip=Full control over spacetime/n§fZPM-tier Circuit
-metaitem.circuit.suprachronal.uv.name=Supra-Chronal Circuit (UV)
-metaitem.circuit.suprachronal.uv.tooltip=Full control over spacetime/n§fUV-tier Circuit
-metaitem.circuit.suprachronal.uhv.name=Supra-Chronal Circuit (UHV)
-metaitem.circuit.suprachronal.uhv.tooltip=Full control over spacetime/n§fUHV-tier Circuit
-metaitem.circuit.suprachronal.uev.name=Supra-Chronal Circuit (UEV)
-metaitem.circuit.suprachronal.uev.tooltip=Full control over spacetime/n§fUEV-tier Circuit
-metaitem.circuit.suprachronal.uiv.name=Supra-Chronal Circuit (UIV)
-metaitem.circuit.suprachronal.uiv.tooltip=Full control over spacetime/n§fUIV-tier
-metaitem.circuit.suprachronal.uxv.name=Supra-Chronal Circuit (UXV)
-metaitem.circuit.suprachronal.uxv.tooltip=Full control over spacetime/n§fUXV-tier Circuit
-metaitem.circuit.suprachronal.opv.name=Supra-Chronal Circuit (OpV)
-metaitem.circuit.suprachronal.opv.tooltip=Full control over spacetime/n§fOpV-tier Circuit
-metaitem.circuit.suprachronal.max.name=Supra-Chronal Circuit (MAX)
-metaitem.circuit.suprachronal.max.tooltip=Full control over spacetime/n§fMAX-tier Circuit
+metaitem.circuit.suprachronal.ulv.name=超时空电路 (ULV)
+metaitem.circuit.suprachronal.ulv.tooltip=完全掌控时空/n§fULV级电路
+metaitem.circuit.suprachronal.lv.name=超时空电路 (LV)
+metaitem.circuit.suprachronal.lv.tooltip=完全掌控时空/n§fLV级电路
+metaitem.circuit.suprachronal.mv.name=超时空电路 (MV)
+metaitem.circuit.suprachronal.mv.tooltip=完全掌控时空/n§fMV级电路
+metaitem.circuit.suprachronal.hv.name=超时空电路 (HV)
+metaitem.circuit.suprachronal.hv.tooltip=完全掌控时空/n§fHV级电路
+metaitem.circuit.suprachronal.ev.name=超时空电路 (EV)
+metaitem.circuit.suprachronal.ev.tooltip=完全掌控时空/n§fEV级电路
+metaitem.circuit.suprachronal.iv.name=超时空电路 (IV)
+metaitem.circuit.suprachronal.iv.tooltip=完全掌控时空/n§fIV级电路
+metaitem.circuit.suprachronal.luv.name=超时空电路 (LuV)
+metaitem.circuit.suprachronal.luv.tooltip=完全掌控时空/n§fLuV级电路
+metaitem.circuit.suprachronal.zpm.name=超时空电路 (ZPM)
+metaitem.circuit.suprachronal.zpm.tooltip=完全掌控时空/n§fZPM级电路
+metaitem.circuit.suprachronal.uv.name=超时空电路 (UV)
+metaitem.circuit.suprachronal.uv.tooltip=完全掌控时空/n§fUV级电路
+metaitem.circuit.suprachronal.uhv.name=超时空电路 (UHV)
+metaitem.circuit.suprachronal.uhv.tooltip=完全掌控时空/n§fUHV级电路
+metaitem.circuit.suprachronal.uev.name=超时空电路 (UEV)
+metaitem.circuit.suprachronal.uev.tooltip=完全掌控时空/n§fUEV级电路
+metaitem.circuit.suprachronal.uiv.name=超时空电路 (UIV)
+metaitem.circuit.suprachronal.uiv.tooltip=完全掌控时空/n§fUIV-tier
+metaitem.circuit.suprachronal.uxv.name=超时空电路 (UXV)
+metaitem.circuit.suprachronal.uxv.tooltip=完全掌控时空/n§fUXV级电路
+metaitem.circuit.suprachronal.opv.name=超时空电路 (OpV)
+metaitem.circuit.suprachronal.opv.tooltip=完全掌控时空/n§fOpV级电路
+metaitem.circuit.suprachronal.max.name=超时空电路 (MAX)
+metaitem.circuit.suprachronal.max.tooltip=完全掌控时空/n§fMAX级电路
 
 # RecipeMaps
 # Machines
-recipemap.dryer_recipes.name=Drying
-recipemap.pressure_chamber_recipes.name=Pressure Chamber
-recipemap.catalytic_reformer_recipes.name=Catalytic Reformation
-recipemap.crystallization_recipes.name=Crystallization
-recipemap.roaster_recipes.name=Roasting
-recipemap.burner_reactor_recipes.name=High Temperature Reactions
-recipemap.cryogenic_reactor_recipes.name=Cryogenic Reactions
-recipemap.molecular_beam_recipes.name=Molecular Beam Epitaxy
-recipemap.cvd_recipes.name=Chemical Vapor Deposition
-recipemap.plasma_cvd_recipes.name=Plasma Enhanced CVD
-recipemap.sonication_recipes.name=Sonication
-recipemap.ion_implanter_recipes.name=Ion Implantation
-recipemap.superheavy_reactor_recipes.name=Superheavy Reactions
-recipemap.drill_recipes.name=Drilling
-recipemap.suprachronal_assembler_recipes.name=Supra-Chronal Assembler
+recipemap.dryer_recipes.name=烘干
+recipemap.pressure_chamber_recipes.name=压力室
+recipemap.catalytic_reformer_recipes.name=催熟重造
+recipemap.crystallization_recipes.name=结晶
+recipemap.roaster_recipes.name=焙烧
+recipemap.burner_reactor_recipes.name=高温反应
+recipemap.cryogenic_reactor_recipes.name=低温翻译
+recipemap.molecular_beam_recipes.name=分子束外延
+recipemap.cvd_recipes.name=化学气相沉积
+recipemap.plasma_cvd_recipes.name=等离子体增强化学气相沉积
+recipemap.sonication_recipes.name=超声化
+recipemap.ion_implanter_recipes.name=离子注入
+recipemap.superheavy_reactor_recipes.name=超重反应
+recipemap.drill_recipes.name=钻取
+recipemap.suprachronal_assembler_recipes.name=超时空组装
 
 # Generators
-recipemap.taranium_reactor_mk1_recipes.name=Taranium Reactor Mk.1
-recipemap.taranium_reactor_mk2_recipes.name=Taranium Reactor Mk.2
-recipemap.taranium_reactor_mk3_recipes.name=Taranium Hyper Reactor Mk.3
+recipemap.taranium_reactor_mk1_recipes.name=塔兰反应堆 Mk II
+recipemap.taranium_reactor_mk2_recipes.name=塔兰反应堆 Mk II
+recipemap.taranium_reactor_mk3_recipes.name=塔兰超级反应堆 Mk III
 
 
 # Recipe Properties
-gcys.recipe.temperature=Temperature: %,dK
-gcys.recipe.pressure=Pressure: %sPa
-gcys.recipe.vacuum=Vacuum: %sPa
+gcys.recipe.temperature=温度: %,dK
+gcys.recipe.pressure=压力: %sPa
+gcys.recipe.vacuum=真空度: %sPa
 
