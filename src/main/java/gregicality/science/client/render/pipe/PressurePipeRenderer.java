@@ -1,7 +1,7 @@
 package gregicality.science.client.render.pipe;
 
 import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.pipeline.IVertexOperation;
+import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.uv.IconTransformation;
 import gregicality.science.client.render.GCYSTextures;
 import gregicality.science.common.pipelike.pressure.PressurePipeType;
@@ -61,7 +61,6 @@ public class PressurePipeRenderer extends PipeRenderer {
         if (material == null || !(pipeType instanceof PressurePipeType)) {
             return;
         }
-
         if (material == Paper) {
             renderContext.addOpenFaceRender(new IconTransformation(pipeTexturesPaper.get(pipeType)))
                     .addSideRender(new IconTransformation(GCYSTextures.PIPE_PRESSURE_SIDE_PAPER));
@@ -71,7 +70,7 @@ public class PressurePipeRenderer extends PipeRenderer {
         }
 
         if (((PressurePipeType) pipeType).isSealed()) {
-            renderContext.addOpenFaceRender(false, new IconTransformation(GCYSTextures.SEALED_OVERLAY));
+            renderContext.addOpenFaceRender(new IconTransformation(GCYSTextures.SEALED_OVERLAY));
         }
     }
 
@@ -81,16 +80,16 @@ public class PressurePipeRenderer extends PipeRenderer {
     }
 
     protected void renderFlange(CCRenderState renderState, PipeRenderContext renderContext, EnumFacing side) {
+        Cuboid6 cuboid = getFlangeBox(side, renderContext.getPipeThickness());
         for (EnumFacing renderedSide : EnumFacing.VALUES) {
-            for (IVertexOperation[] operations : renderContext.getOpenFaceRenderer()) {
-                renderFace(renderState, operations, renderedSide, getFlangeBox(side, renderContext.getPipeThickness()));
-            }
+            renderOpenFace(renderState, renderContext, renderedSide, cuboid);
         }
     }
 
     @Override
     public void renderPipeCube(CCRenderState renderState, PipeRenderContext renderContext, EnumFacing side) {
         super.renderPipeCube(renderState, renderContext, side);
+        if ((renderContext.getConnections() & 1 << (6 + side.getIndex())) > 0) return;
         renderFlange(renderState, renderContext, side);
     }
 }

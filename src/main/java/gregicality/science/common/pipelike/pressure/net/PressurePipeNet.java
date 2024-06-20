@@ -20,6 +20,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
 
     private final GasMap gasMap;
     private int volume = 0;
+
     private double minNetPressure = Double.MAX_VALUE;
     private double maxNetPressure = Double.MIN_VALUE;
 
@@ -69,14 +70,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         super.onNodeConnectionsUpdate();
         this.minNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMinPressure()).max().orElse(Double.MAX_VALUE);
         this.maxNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMaxPressure()).min().orElse(Double.MIN_VALUE);
-//        final int oldVolume = getVolume();
         this.volume = Math.max(1, getAllNodes().values().stream().mapToInt(node -> node.data.getVolume()).sum());
-//        int deltaVolume = getVolume() - oldVolume;
-//        if (deltaVolume > 0) {
-//            pushGas(Air.getFluid(), deltaVolume * GCYSValues.EARTH_PRESSURE, false);
-//        } else if (deltaVolume < 0) {
-//            popGas(-deltaVolume * GCYSValues.EARTH_PRESSURE, false);
-//        }
     }
 
     @Override
