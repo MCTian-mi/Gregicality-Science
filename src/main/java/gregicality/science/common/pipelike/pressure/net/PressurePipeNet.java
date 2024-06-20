@@ -4,6 +4,7 @@ import gregicality.science.api.GCYSValues;
 import gregicality.science.api.capability.IPressureContainer;
 import gregicality.science.api.capability.impl.GasMap;
 import gregicality.science.api.unification.materials.properties.PressurePipeProperties;
+import gregtech.api.GTValues;
 import gregtech.api.pipenet.Node;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
@@ -11,7 +12,11 @@ import gregtech.api.util.FacingPos;
 import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.Fluid;
 
 import javax.annotation.Nonnull;
@@ -19,11 +24,10 @@ import java.util.Map;
 
 import static gregtech.api.unification.material.Materials.Air;
 
-public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements IPressureContainer {
+public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements IPressureContainer, ITickable {
 
     private final GasMap gasMap;
     private int volume = 0;
-    //    private final Map<BlockPos, ArrayList<EnumFacing>> leakingFaces;
     private final Map<FacingPos, Double> leakingRates;
     private double totalLeakingRate = 0;
     private double minNetPressure = Double.MAX_VALUE;
@@ -32,7 +36,6 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
     public PressurePipeNet(WorldPipeNet<PressurePipeProperties, PressurePipeNet> world) {
         super(world);
         this.gasMap = new GasMap();
-//        this.leakingFaces = new Object2ObjectArrayMap<>();
         this.leakingRates = new Object2DoubleArrayMap<>();
     }
 
@@ -209,13 +212,31 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         return isPressureSafe();
     }
 
-    public void onLeak() {
-        if (getPressure() < GCYSValues.EARTH_PRESSURE) this.popGas(getLeakRate(), false);
-        else if (getPressure() > GCYSValues.EARTH_PRESSURE) this.pushGas(Air.getFluid(), getLeakRate(), false);
+    public static void spawnParticles(World worldIn, BlockPos pos, EnumFacing direction, EnumParticleTypes particleType, // TODO
+                                      int particleCount) {
+        if (worldIn instanceof WorldServer) {
+            ((WorldServer) worldIn).spawnParticle(particleType,
+                    pos.getX() + 0.5 + direction.getXOffset(),
+                    pos.getY() + 0.5 + direction.getYOffset(),
+                    pos.getZ() + 0.5 + direction.getZOffset(),
+                    particleCount,
+                    direction.getXOffset() + GTValues.RNG.nextDouble() * 0.1,
+                    direction.getYOffset() + GTValues.RNG.nextDouble() * 0.1,
+                    direction.getZOffset() + GTValues.RNG.nextDouble() * 0.1,
+                    0.1);
+        }
     }
 
-    public double getLeakRate() {
-        return 0D; // TODO make this depend on exposed faces
+    public void onLeak() {
+        var pressure = getPressure();
+        if (getPressure() < GCYSValues.EARTH_PRESSURE * 0.9) this.popGas(getLeakRate(), false);
+        else if (getPressure() > GCYSValues.EARTH_PRESSURE * 1.1) this.pushGas(Air.getFluid(), getLeakRate(), false);
+        else return;
+        leakingRates.forEach((facingPos, rate) -> {
+            BlockPos pos = facingPos.getPos();
+            EnumFacing face = facingPos.getFacing();
+            spawnParticles(getWorldData(), pos, face, EnumParticleTypes.CLOUD, 1);
+        });
     }
 
     @Override
@@ -226,5 +247,17 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
     @Override
     public double getMaxPressure() {
         return maxNetPressure;
+    }
+
+    public double getLeakRate() {
+        return totalLeakingRate; // TODO make this depend on exposed faces
+    }
+
+    @Override
+    public void update() {
+        if (totalLeakingRate == 0) {
+            return;
+        }
+        onLeak();
     }
 }
