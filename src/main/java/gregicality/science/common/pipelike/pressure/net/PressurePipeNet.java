@@ -7,7 +7,10 @@ import gregicality.science.api.unification.materials.properties.PressurePipeProp
 import gregtech.api.pipenet.Node;
 import gregtech.api.pipenet.PipeNet;
 import gregtech.api.pipenet.WorldPipeNet;
+import gregtech.api.util.FacingPos;
+import it.unimi.dsi.fastutil.objects.Object2DoubleArrayMap;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.Fluid;
 
@@ -20,14 +23,17 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
 
     private final GasMap gasMap;
     private int volume = 0;
-
+    //    private final Map<BlockPos, ArrayList<EnumFacing>> leakingFaces;
+    private final Map<FacingPos, Double> leakingRates;
+    private double totalLeakingRate = 0;
     private double minNetPressure = Double.MAX_VALUE;
     private double maxNetPressure = Double.MIN_VALUE;
 
     public PressurePipeNet(WorldPipeNet<PressurePipeProperties, PressurePipeNet> world) {
         super(world);
         this.gasMap = new GasMap();
-//        this.gasMap.pushGas(Air.getFluid(), volume * GCYSValues.EARTH_PRESSURE);
+//        this.leakingFaces = new Object2ObjectArrayMap<>();
+        this.leakingRates = new Object2DoubleArrayMap<>();
     }
 
     @Override
@@ -39,10 +45,9 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
 
     @Override
     protected PressurePipeProperties readNodeData(@Nonnull NBTTagCompound nbt) {
-        int minP = nbt.getInteger("MinP");
-        int maxP = nbt.getInteger("MaxP");
-        int volume = nbt.getInteger("Volume");
-        return new PressurePipeProperties(minP, maxP, volume);
+        return new PressurePipeProperties(nbt.getInteger("MinP"),
+                nbt.getInteger("MaxP"),
+                nbt.getInteger("Volume"));
     }
 
     @Override
@@ -68,6 +73,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
     @Override
     protected void onNodeConnectionsUpdate() {
         super.onNodeConnectionsUpdate();
+        // TODO ig we don't need to do this in such a brute force way
         this.minNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMinPressure()).max().orElse(Double.MAX_VALUE);
         this.maxNetPressure = getAllNodes().values().stream().mapToDouble(node -> node.data.getMaxPressure()).min().orElse(Double.MIN_VALUE);
         this.volume = Math.max(1, getAllNodes().values().stream().mapToInt(node -> node.data.getVolume()).sum());
@@ -83,8 +89,20 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
                                     PipeNet<PressurePipeProperties> parentNet) {
         super.transferNodeData(transferredNodes, parentNet);
         if (parentNet instanceof PressurePipeNet pressurePipeNet) {
+            var parentLeakingRates = pressurePipeNet.leakingRates;
             transferredNodes.forEach((pos, node) -> {
                 pressurePipeNet.volume -= node.data.getVolume();
+
+                // TODO there must be better way to do this
+                for (EnumFacing face : EnumFacing.VALUES) {
+                    var facingPos = new FacingPos(pos, face);
+                    if (parentLeakingRates.containsKey(facingPos)) {
+                        var rate = parentLeakingRates.remove(facingPos);
+                        leakingRates.put(facingPos, rate);
+                        this.totalLeakingRate += rate;
+                        pressurePipeNet.totalLeakingRate -= rate;
+                    }
+                }
             });
             IPressureContainer.mergeContainers(pressurePipeNet, this);
         }
@@ -95,17 +113,59 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         super.addNode(nodePos, node);
         int deltaVolume = node.data.getVolume();
         pushGas(Air.getFluid(), deltaVolume * GCYSValues.EARTH_PRESSURE, false);
+        var selfNode = getNodeAt(nodePos);
+
+        // TODO this is a very inefficient way to do this
+        for (EnumFacing face : EnumFacing.VALUES) {
+
+            // adds the pipe's own leaking faces
+//            var facingPos = new FacingPos(nodePos, face);
+//            if (leakingRates.containsKey(facingPos)) {
+//                totalLeakingRate -= leakingRates.remove(facingPos);
+//            }
+
+            // removes the leaking faces of the neighboring pipes
+            var offsetPos = nodePos.offset(face);
+            var offsetFacingPos = new FacingPos(offsetPos, face.getOpposite());
+            if (containsNode(offsetPos)) {
+                Node<PressurePipeProperties> secondNode = getNodeAt(offsetPos);
+                if (canNodesConnect(selfNode, face, secondNode, this)
+                        && leakingRates.containsKey(offsetFacingPos)) {
+                    totalLeakingRate -= leakingRates.remove(offsetFacingPos);
+                }
+            }
+        }
     }
 
     @Override
     public void removeNode(BlockPos nodePos) {
+
+        // TODO this is a very inefficient way to do this
+        var selfNode = getNodeAt(nodePos);
+        for (EnumFacing face : EnumFacing.VALUES) {
+
+            // removes the pipe's own leaking faces
+            var facingPos = new FacingPos(nodePos, face);
+            if (leakingRates.containsKey(facingPos)) {
+                totalLeakingRate -= leakingRates.remove(facingPos);
+            }
+
+            // adds the leaking faces of the neighboring pipes
+            var offsetPos = nodePos.offset(face);
+            if (containsNode(offsetPos)) {
+                Node<PressurePipeProperties> secondNode = getNodeAt(offsetPos);
+                if (canNodesConnect(selfNode, face, secondNode, this)) {
+                    leakingRates.put(new FacingPos(offsetPos, face.getOpposite()), 10d); // TODO calculate the leaking rate
+                    totalLeakingRate += 10d;
+                }
+            }
+        }
         double oldPressure = getPressure();
         int deltaVolume = getNodeAt(nodePos).data.getVolume();
         popGas(deltaVolume * oldPressure, false);
         this.volume -= deltaVolume;
         super.removeNode(nodePos);
     }
-
 
     @Override
     public GasMap getGasMap() {
@@ -122,7 +182,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
         if (getGasAmount() < amount) return false;
         getGasMap().popGas(amount);
-        if (!getAllNodes().isEmpty()) {
+        if (!getAllNodes().isEmpty() && !isPressureSafe()) {
             PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
         }
         return isPressureSafe();
@@ -133,7 +193,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
         if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
         if (getGasAmount(fluid) < amount) return false;
         getGasMap().popGas(fluid, amount);
-        if (!getAllNodes().isEmpty()) {
+        if (!getAllNodes().isEmpty() && !isPressureSafe()) {
             PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
         }
         return isPressureSafe();
@@ -143,7 +203,7 @@ public class PressurePipeNet extends PipeNet<PressurePipeProperties> implements 
     public boolean pushGas(Fluid fluid, double amount, boolean simulate) {
         if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() + amount));
         getGasMap().pushGas(fluid, amount);
-        if (!getAllNodes().isEmpty()) {
+        if (!getAllNodes().isEmpty() && !isPressureSafe()) {
             PressureNetWalker.checkPressure(getWorldData(), getAllNodes().keySet().iterator().next(), getPressure());
         }
         return isPressureSafe();
