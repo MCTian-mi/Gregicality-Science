@@ -152,6 +152,7 @@ public interface IPressureContainer extends INBTSerializable<NBTTagCompound> {
         return isPressureSafe();
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     default boolean popGas(Fluid fluid, double amount, boolean simulate) {
         if (simulate) return isPressureSafe(getPressureForGasAmount(getGasAmount() - amount));
         if (getGasAmount(fluid) < amount) return false;
@@ -180,7 +181,6 @@ public interface IPressureContainer extends INBTSerializable<NBTTagCompound> {
      * @return true if the pressure is safe for the container, else false
      */
     default boolean isPressureSafe() {
-//        cleanUp(); // TODO: move this elsewhere
         return isPressureSafe(getPressure());
     }
 
